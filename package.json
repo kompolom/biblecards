@@ -5,6 +5,8 @@
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material/react-button": "^0.15.0",
+    "@material/react-material-icon": "^0.15.0",
+    "@material/react-top-app-bar": "^0.15.0",
     "@material/top-app-bar": "^7.0.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",

@@ -1466,6 +1466,14 @@
     "@material/react-ripple" "^0.15.0"
     classnames "^2.2.6"
 
+"@material/react-material-icon@^0.15.0":
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/@material/react-material-icon/-/react-material-icon-0.15.0.tgz#7720e67626892dd3d6e2de96a90e2d92e8049293"
+  integrity sha512-KDiMtMEtBZvqlma7wTS0ObY9BSFVtbCVkZiTnde/CxsYEQG9N6QwHClpbS4u/H8mWyXLdlSAQhK7rYSq1XGV0w==
+  dependencies:
+    "@material/react-ripple" "^0.15.0"
+    classnames "^2.2.6"
+
 "@material/react-ripple@^0.15.0":
   version "0.15.0"
   resolved "https://registry.yarnpkg.com/@material/react-ripple/-/react-ripple-0.15.0.tgz#70adfec74942b4b5dab130e71cc5d0734f2257bb"
@@ -1475,6 +1483,15 @@
     "@material/ripple" "^1.0.0"
     classnames "^2.2.6"
     utility-types "^3.2.1"
+
+"@material/react-top-app-bar@^0.15.0":
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/@material/react-top-app-bar/-/react-top-app-bar-0.15.0.tgz#4cad79c771a18f56d1f3c07f0b4494cda6d4e62f"
+  integrity sha512-3V1orfrj4dMQEwKP4of29qs6RCOVWHYejrCRrP3a/wK+wmnxqN7rp2Q+n/UzfxmcYqoY5kKmpn+iuAUbZd+Ykg==
+  dependencies:
+    "@material/react-ripple" "^0.15.0"
+    "@material/top-app-bar" "^1.1.0"
+    classnames "^2.2.6"
 
 "@material/ripple@^1.0.0", "@material/ripple@^1.1.0":
   version "1.1.0"
@@ -1541,6 +1558,21 @@
   integrity sha512-tuwsTG5b1SdkQHnGOCsr/2Vl/smeIWuKtr9YdeHjqiLphEAzamd9tDCzSEXaO18wLvc7xour/cbWdD6LW+q2cw==
   dependencies:
     "@material/feature-targeting" "^7.0.0"
+
+"@material/top-app-bar@^1.1.0":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@material/top-app-bar/-/top-app-bar-1.1.1.tgz#a7a339fbb49fcd11a6362ca9b301fac4e28398c4"
+  integrity sha512-UZ2aHB+lzI+ddy/Hcy61hvNbSZBLArgWwVtA1r4UvQAlvht0Zl85jCj1vs+GM+qxbMFfXFet2q0n5p4ykk9v7g==
+  dependencies:
+    "@material/animation" "^1.0.0"
+    "@material/base" "^1.0.0"
+    "@material/elevation" "^1.1.0"
+    "@material/ripple" "^1.1.0"
+    "@material/rtl" "^0.42.0"
+    "@material/shape" "^1.1.1"
+    "@material/theme" "^1.1.0"
+    "@material/typography" "^1.0.0"
+    tslib "^1.9.3"
 
 "@material/top-app-bar@^7.0.0":
   version "7.0.0"
