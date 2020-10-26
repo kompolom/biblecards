@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import '@material/react-top-app-bar/dist/top-app-bar.css';
 import '@material/react-material-icon/dist/material-icon.css';
@@ -43,6 +42,7 @@ function MyComponent() {
 function App() {
   return (
     <div className="App">
+      <MyComponent />
       <header className="App-header">
         <p className="text-p">
         Эфесянам 5:33
