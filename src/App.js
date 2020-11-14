@@ -12,20 +12,13 @@ import {
 
 import Page from './componets/Page';
 import { Card } from './componets/Card';
-
-class Verse {
-  constructor(source, content) {
-    this.source = source;
-    this.text = content;
-  }
-}
+import { Verse } from './models/Verse'
 
 const verses = [
   new Verse('Эфесянам 5:33', 'Но и каждый из вас пусть так любит свою жену, как самого себя, а жене следует глубоко уважать мужа.'),
   new Verse('Быт 1:1', 'В начале Бог...')
   
 ];
-console.log(verses);
 
 function App() {
   return (
