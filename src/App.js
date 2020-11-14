@@ -2,53 +2,57 @@ import React from 'react';
 import './App.css';
 import '@material/react-top-app-bar/dist/top-app-bar.css';
 import '@material/react-material-icon/dist/material-icon.css';
-import TopAppBar, {
-  TopAppBarFixedAdjust, 
-  TopAppBarIcon,
-  TopAppBarRow,
-  TopAppBarSection,
-  TopAppBarTitle,
-} from '@material/react-top-app-bar';
-import MaterialIcon from '@material/react-material-icon';
 
-function MyComponent() {
-  return (
-    <div>
-      <TopAppBar>
-        <TopAppBarRow>
-          <TopAppBarSection align='start'>
-            <TopAppBarIcon navIcon tabIndex={0}>
-              <MaterialIcon hasRipple icon='menu' onClick={() => console.log('click')} />
-            </TopAppBarIcon>
-            <TopAppBarTitle>Процитируй стих</TopAppBarTitle>
-          </TopAppBarSection>
-          <TopAppBarSection align='end' role='toolbar'>
-            <TopAppBarIcon actionItem tabIndex={0}>
-              <MaterialIcon
-                aria-label="print page"
-                hasRipple
-                icon='print'
-                onClick={() => console.log('print')} />
-            </TopAppBarIcon>
-          </TopAppBarSection>
-        </TopAppBarRow>
-      </TopAppBar>
-      <TopAppBarFixedAdjust>
-        My exciting content!
-      </TopAppBarFixedAdjust>
-    </div>
-  );
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
+import Page from './componets/Page';
+import { Card } from './componets/Card';
+
+class Verse {
+  constructor(source, content) {
+    this.source = source;
+    this.text = content;
+  }
 }
+
+const verses = [
+  new Verse('Эфесянам 5:33', 'Контент стиха'),
+  new Verse('Быт 1:1', 'В начале Бог...')
+];
+console.log(verses);
+
 function App() {
   return (
     <div className="App">
-      <MyComponent />
-      <header className="App-header">
-        <p className="text-p">
-        Эфесянам 5:33
-        </p>
-      </header>
-
+    <Router>
+    <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/add">Add</Link>
+            </li>
+          </ul>
+        </nav>
+      <Switch>
+        <Route path="/add">
+          <Page>
+            Добавление стиха
+          </Page>
+        </Route>
+        <Route>
+          <Page path="/">
+            <Card verse={verses[1]} />
+          </Page>
+        </Route>
+      </Switch>
+    </Router>
     </div>
   );
 }
