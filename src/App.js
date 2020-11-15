@@ -12,35 +12,38 @@ import {
 
 import Page from './componets/Page';
 import { Card } from './componets/Card';
-import { Verse } from './models/Verse'
+import { Verse } from './models/Verse';
+import sampleVerses from './data/sampleVerses.json'
+import books from './data/books.json'
 
-const verses = [
-  new Verse('Эфесянам 5:33', 'Но и каждый из вас пусть так любит свою жену, как самого себя, а жене следует глубоко уважать мужа.'),
-  new Verse('Быт 1:1', 'В начале Бог...')
-  
-];
+const verses = sampleVerses.map(verseData => {
+  return new Verse(verseData[0], verseData[1]) ;
+});
 
 function App() {
   return (
     <div className="App">
+    <select>
+      {books.map(selectBook => {
+        return (<option key={selectBook} value={selectBook}> {selectBook} </option>)
+      })}
+    </select>  
     <Router>
     <nav>
           <ul>
-            <li>
-              <Link to="/">Процитируй стих</Link>
-            </li>
-            <li>
-              <Link to="/add">Добавить стих</Link>
-            </li>
-            <li>
-              <Link to="/list">Список стихов</Link>
-            </li>
+            {[ ['/', 'Процитируй текст'],['/add', 'Добавить стих'],['/list', 'Список стихов'] ].map(navItem => {
+              return (<li key={navItem[0]}><Link to={navItem[0]}>{navItem[1]}</Link></li>)
+            })}
           </ul>
         </nav>
       <Switch>
       <Route>
           <Page path="/">
-            <Card verse={verses[1]} />
+            {
+              verses.map(verse => {
+                return (<li key={verse.source}><Card verse={verse} /></li>);
+              })
+            }
           </Page>
         </Route>
         <Route path="/list">
