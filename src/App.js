@@ -21,8 +21,9 @@ class Verse {
 }
 
 const verses = [
-  new Verse('Эфесянам 5:33', 'Контент стиха'),
+  new Verse('Эфесянам 5:33', 'Но и каждый из вас пусть так любит свою жену, как самого себя, а жене следует глубоко уважать мужа.'),
   new Verse('Быт 1:1', 'В начале Бог...')
+  
 ];
 console.log(verses);
 
@@ -33,22 +34,30 @@ function App() {
     <nav>
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/">Процитируй стих</Link>
             </li>
             <li>
-              <Link to="/add">Add</Link>
+              <Link to="/src">А где это написано?</Link>
+            </li>
+            <li>
+              <Link to="/add">Добавить карточку</Link>
             </li>
           </ul>
         </nav>
       <Switch>
-        <Route path="/add">
-          <Page>
-            Добавление стиха
+      <Route>
+          <Page path="/">
+            <Card verse={verses[1]} />
           </Page>
         </Route>
         <Route>
-          <Page path="/">
-            <Card verse={verses[1]} />
+          <Page path="/src">
+            <Card verse={verses[0]} />
+          </Page>
+        </Route>
+        <Route path="/add">
+          <Page>
+            Добавление стиха
           </Page>
         </Route>
       </Switch>
