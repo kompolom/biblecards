@@ -30,10 +30,10 @@ function App() {
               <Link to="/">Процитируй стих</Link>
             </li>
             <li>
-              <Link to="/src">А где это написано?</Link>
+              <Link to="/add">Добавить стих</Link>
             </li>
             <li>
-              <Link to="/add">Добавить карточку</Link>
+              <Link to="/list">Список стихов</Link>
             </li>
           </ul>
         </nav>
@@ -42,6 +42,9 @@ function App() {
           <Page path="/">
             <Card verse={verses[1]} />
           </Page>
+        </Route>
+        <Route path="/list">
+          <Page></Page>
         </Route>
         <Route>
           <Page path="/src">
