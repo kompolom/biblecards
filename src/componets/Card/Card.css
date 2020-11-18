@@ -1,0 +1,18 @@
+.Card {
+    display: flex;
+    background-color: #EFF2F7;
+    border-radius: 3px;
+    text-align: center;
+    align-items: center;
+    margin: 10px;
+    padding: 5%;
+    height: 60vh;
+}
+
+.Card_view_text .Card__vs {
+    display: none;
+}
+
+.Card_view_source .Card__vc {
+    display: none;
+}

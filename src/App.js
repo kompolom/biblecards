@@ -14,7 +14,6 @@ import Page from './componets/Page';
 import { Card } from './componets/Card';
 import { Verse } from './models/Verse';
 import sampleVerses from './data/sampleVerses.json'
-import books from './data/books.json'
 
 const verses = sampleVerses.map(verseData => {
   return new Verse(verseData[0], verseData[1]) ;
@@ -23,11 +22,6 @@ const verses = sampleVerses.map(verseData => {
 function App() {
   return (
     <div className="App">
-    <select>
-      {books.map(selectBook => {
-        return (<option key={selectBook} value={selectBook}> {selectBook} </option>)
-      })}
-    </select>  
     <Router>
     <nav>
           <ul>
@@ -37,8 +31,8 @@ function App() {
           </ul>
         </nav>
       <Switch>
-      <Route>
-          <Page path="/">
+        <Route path="/list">
+          <Page>
             {
               verses.map(verse => {
                 return (<li key={verse.source}><Card verse={verse} /></li>);
@@ -46,17 +40,14 @@ function App() {
             }
           </Page>
         </Route>
-        <Route path="/list">
-          <Page></Page>
-        </Route>
-        <Route>
-          <Page path="/src">
-            <Card verse={verses[0]} />
-          </Page>
-        </Route>
         <Route path="/add">
           <Page>
             Добавление стиха
+          </Page>
+        </Route>
+        <Route path="/">
+          <Page>
+            <Card verse={verses[0]} />
           </Page>
         </Route>
       </Switch>
