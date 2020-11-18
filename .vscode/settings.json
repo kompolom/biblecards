@@ -1,5 +1,5 @@
 {
-    "editor.fontFamily": "Hack, 'Courier New', monospace",
+    "editor.fontFamily": "Hack, Consolas, 'Courier New', 'Courier New', monospace",
     "terminal.explorerKind": "external",
-    "editor.fontLigatures": null
+    "editor.fontLigatures": true
 }
