@@ -35,7 +35,7 @@ function App() {
           <Page>
             {
               verses.map(verse => {
-                return (<li key={verse.source}><Card verse={verse} /></li>);
+                return (<li key={verse.source}><Card view="list" verse={verse} /></li>);
               })
             }
           </Page>
@@ -47,7 +47,7 @@ function App() {
         </Route>
         <Route path="/">
           <Page>
-            <Card verse={verses[0]} />
+            <Card view="single" verse={verses[0]} />
           </Page>
         </Route>
       </Switch>
