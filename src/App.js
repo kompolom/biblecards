@@ -9,6 +9,8 @@ import {
 import {
   Button,
 } from '@material-ui/core';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 
 import Page from './componets/Page';
 import { Card } from './componets/Card';
@@ -31,11 +33,16 @@ function App() {
       <Switch>
         <Route path="/list">
           <Page>
-            {
-              verses.map(verse => {
-                return (<li key={verse.source}><Card view="list" verse={verse} /></li>);
-              })
-            }
+            <List>
+                {
+                  verses.map(verse => {
+                    return (
+                      <ListItem key={verse.source}> 
+                        <Card view="list" verse={verse} /> 
+                      </ListItem>);
+                  })
+                }
+            </List>
           </Page>
         </Route>
         <Route path="/add">
