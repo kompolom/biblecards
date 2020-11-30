@@ -28,6 +28,10 @@
     width: 100%;
 }
 
+.Card_view_single .Card__vs {
+    text-align: center;
+}
+
 .Card__vs::before {
     content: "("
 }
