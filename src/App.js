@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 import {
@@ -12,9 +12,13 @@ import {
   AppBar,
   Toolbar,
   IconButton,
-  Typography
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+  SwipeableDrawer
 } from '@material-ui/core';
-import { MenuIcon } from '@material-ui/icons';
+import { Menu as MenuIcon } from '@material-ui/icons';
 
 import Page from './componets/Page';
 import { Card } from './componets/Card';
@@ -26,26 +30,41 @@ const CardToggleable = withToggle(Card);
 const verses = sampleVerses.map(verseData => {
   return new Verse(verseData[0], verseData[1]) ;
 });
+const routes = [
+  ['/', 'Процитируй текст'],
+  ['/add', 'Добавить стих'],
+  ['/list', 'Список стихов']
+];
 
 function App() {
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const toggleDrawer = (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setDrawerOpen(!isDrawerOpen);
+  }
+
   return (
     <div className="App">
-    <Router>
       <AppBar position="sticky">
         <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="menu">
-          <MenuIcon />
+          <IconButton onClick={toggleDrawer} edge="start" color="inherit" aria-label="menu">
+            <MenuIcon />
+          </IconButton>
           <Typography variant="h6">News</Typography>
-        </IconButton>
         </Toolbar>
       </AppBar>
-    <nav>
-          <ul>
-            {[ ['/', 'Процитируй текст'],['/add', 'Добавить стих'],['/list', 'Список стихов'] ].map(navItem => {
-              return (<li key={navItem[0]}><Link to={navItem[0]}>{navItem[1]}</Link></li>)
-            })}
-          </ul>
-        </nav>
+    <Router>
+      <React.Fragment>
+        <SwipeableDrawer open={isDrawerOpen} anchor="left" onClose={toggleDrawer} onOpen={toggleDrawer}>
+          <div onClick={toggleDrawer} onKeyDown={toggleDrawer}>
+            <List>
+              {routes.map(route => (<ListItem key={route[0]}><ListItemText><Link to={route[0]}>{route[1]}</Link></ListItemText></ListItem>))}
+            </List>
+          </div>
+        </SwipeableDrawer>
+      </React.Fragment>
       <Switch>
         <Route path="/list">
           <Page>
