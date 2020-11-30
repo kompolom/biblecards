@@ -1,7 +1,5 @@
 import React from 'react';
 import './App.css';
-import '@material/react-top-app-bar/dist/top-app-bar.css';
-import '@material/react-material-icon/dist/material-icon.css';
 
 import {
   BrowserRouter as Router,
@@ -9,6 +7,14 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import {
+  Button,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography
+} from '@material-ui/core';
+import { MenuIcon } from '@material-ui/icons';
 
 import Page from './componets/Page';
 import { Card } from './componets/Card';
@@ -25,6 +31,14 @@ function App() {
   return (
     <div className="App">
     <Router>
+      <AppBar position="sticky">
+        <Toolbar>
+          <IconButton edge="start" color="inherit" aria-label="menu">
+          <MenuIcon />
+          <Typography variant="h6">News</Typography>
+        </IconButton>
+        </Toolbar>
+      </AppBar>
     <nav>
           <ul>
             {[ ['/', 'Процитируй текст'],['/add', 'Добавить стих'],['/list', 'Список стихов'] ].map(navItem => {
@@ -49,7 +63,13 @@ function App() {
         </Route>
         <Route path="/">
           <Page>
-            <CardToggleable view="single" verse={verses[0]} />
+            <div className='container'>
+              <CardToggleable view="single" verse={verses[0]} />
+             </div>
+            <div className='container container_align_justify'>
+              <Button variant="outlined">Неправильно</Button>
+              <Button variant="outlined">Правильно</Button>
+            </div>
           </Page>
         </Route>
       </Switch>
