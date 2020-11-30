@@ -5,7 +5,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link as RouterLink
 } from "react-router-dom";
 import {
   Button,
@@ -13,6 +13,7 @@ import {
   Toolbar,
   IconButton,
   Typography,
+  Link,
   List,
   ListItem,
   ListItemText,
@@ -60,7 +61,12 @@ function App() {
         <SwipeableDrawer open={isDrawerOpen} anchor="left" onClose={toggleDrawer} onOpen={toggleDrawer}>
           <div onClick={toggleDrawer} onKeyDown={toggleDrawer}>
             <List>
-              {routes.map(route => (<ListItem key={route[0]}><ListItemText><Link to={route[0]}>{route[1]}</Link></ListItemText></ListItem>))}
+              {routes.map(route => (
+              <ListItem key={route[0]}>
+                <ListItemText>
+                  <Link component={RouterLink} to={route[0]}>{route[1]}</Link>
+                </ListItemText>
+              </ListItem>))}
             </List>
           </div>
         </SwipeableDrawer>
