@@ -12,9 +12,11 @@ import {
 
 import Page from './componets/Page';
 import { Card } from './componets/Card';
+import { withToggle } from './componets/Card/withToggle';
 import { Verse } from './models/Verse';
 import sampleVerses from './data/sampleVerses.json'
 
+const CardToggleable = withToggle(Card);
 const verses = sampleVerses.map(verseData => {
   return new Verse(verseData[0], verseData[1]) ;
 });
@@ -47,7 +49,7 @@ function App() {
         </Route>
         <Route path="/">
           <Page>
-            <Card view="single" verse={verses[0]} />
+            <CardToggleable view="single" verse={verses[0]} />
           </Page>
         </Route>
       </Switch>
