@@ -12,12 +12,13 @@ import {
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 
-import Page from './componets/Page';
-import { Card } from './componets/Card';
-import { withToggle } from './componets/Card/withToggle';
+import Page from './components/Page';
+import { Card } from './components/Card';
+import { withToggle } from './components/Card/withToggle';
 import { Verse } from './models/Verse';
-import { AppHeader } from './componets/AppHeader'
-import sampleVerses from './data/sampleVerses.json'
+import { VerseForm } from './components/VerseForm';
+import { AppHeader } from './components/AppHeader/';
+import sampleVerses from './data/sampleVerses.json';
 
 const CardToggleable = withToggle(Card);
 const verses = sampleVerses.map(verseData => {
@@ -47,7 +48,7 @@ function App() {
         </Route>
         <Route path="/add">
           <Page>
-            Добавление стиха
+            <VerseForm />
           </Page>
         </Route>
         <Route path="/">
