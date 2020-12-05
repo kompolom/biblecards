@@ -6,9 +6,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import {
-  Button,
-} from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 
@@ -24,6 +22,14 @@ const CardToggleable = withToggle(Card);
 const verses = sampleVerses.map(verseData => {
   return new Verse(verseData[0], verseData[1]) ;
 });
+
+function getRandomElement(arr) {
+  let randIndex = Math.floor(Math.random() * arr.length);
+  return arr[randIndex];
+}
+
+const verseRandom = getRandomElement(verses)
+console.log(verseRandom)
 
 function App() {
 
@@ -54,7 +60,7 @@ function App() {
         <Route path="/">
           <Page>
             <div className='container'>
-              <CardToggleable view="single" verse={verses[0]} />
+              <CardToggleable view="single" verse={verseRandom} />
              </div>
             <div className='container container_align_justify'>
               <Button variant="outlined">Неправильно</Button>
