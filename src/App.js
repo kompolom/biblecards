@@ -29,7 +29,6 @@ function getRandomElement(arr) {
 }
 
 const verseRandom = getRandomElement(verses)
-console.log(verseRandom)
 
 
 function App() {
