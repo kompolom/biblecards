@@ -1,5 +1,4 @@
 import React from 'react';
-import Select from '@material-ui/core/Select';
 import { Button } from '@material-ui/core';
 import { Formik, Field, Form } from 'formik';
 import './style.css';
@@ -9,6 +8,7 @@ export const VerseForm = (props) => {
     return (
         <Formik
             initialValues={{
+                listBooks: '',
                 chapter: '',
                 verse: '',
                 text: '',
@@ -20,9 +20,9 @@ export const VerseForm = (props) => {
         >
             <Form className="container" >
                 <div className="VerseForm-row">
-                    <Select inputProps={{ name: "book" }} fullWidth native defaultValue={books[0]}>
+                    <Field as="select" name="listBooks">
                         { books.map(book => { return ( <option key={book}> {book} </option> ) } ) }
-                    </Select>
+                    </Field>
                     <Field id="chaperForm" name="chapter" type="number" min="1" max="150" placeholder="Глава"/>
                     <Field id="verseForm" name="verse" type="number" min="1" placeholder="Стих" required />
                     <Field id="textForm" name="text" placeholder="Текст" required />
