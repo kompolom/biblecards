@@ -14,28 +14,27 @@ import ListItem from '@material-ui/core/ListItem';
 import Page from './components/Page';
 import { Card } from './components/Card';
 import { withToggle } from './components/Card/withToggle';
-import { Verse } from './models/Verse';
 import { VerseForm } from './components/VerseForm';
 import { AppHeader } from './components/AppHeader/';
 // import sampleVerses from './data/sampleVerses.json'
 
 const CardToggleable = withToggle(Card);
 
-const verses = this.props.stateApp.map(verseData => {
-  return new Verse(verseData[0], verseData[1]) ;
-});
-
-function getRandomElement(arr) {
-  let randIndex = Math.floor(Math.random() * arr.length);
-  return arr[randIndex];
-}
-const verseRandom = getRandomElement(verses)
 
 
-function App() {
+class App extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.verseRandom = this.getRandomElement(props.stateApp);
+  }
 
+  getRandomElement(arr) {
+    let randIndex = Math.floor(Math.random() * arr.length);
+    return arr[randIndex];
+  }
 
+  render() {
   return (
     <div className="App">
     <Router>
@@ -45,7 +44,7 @@ function App() {
           <Page>
             <List>
                 {
-                  verses.map(verse => {
+                  this.props.stateApp.map(verse => {
                     return (
                       <ListItem key={verse.source}> 
                         <Card view="list" verse={verse} /> 
@@ -63,7 +62,7 @@ function App() {
         <Route path="/">
           <Page>
             <div className='container'>
-              <CardToggleable view="single" verse={verseRandom} />
+              <CardToggleable view="single" verse={this.verseRandom} />
              </div>
             <div className='container container_align_justify'>
               <Button variant="outlined"> Неправильно </Button>
@@ -75,11 +74,12 @@ function App() {
     </Router>
     </div>
   );
+  }
 }
 
 export default connect(
   state => ({
     stateApp: state
   }),
-  despatch => ({})
+  dispatch => ({})
 ) (App);
