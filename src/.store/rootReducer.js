@@ -1,13 +1,14 @@
 import { initState } from './initState';
-import { Verse } from '../models/Verse';
+import { CORRECT } from './types';
 
-const verses = initState.map(verseData => {
-  return new Verse(verseData[0], verseData[1]) ;
-});
-export function rootReducer(state = verses, action) {
+// const verses = this.props.stateApp.map(verseData => {
+//    return new Verse(verseData[0], verseData[1]) ;
+//  });
+
+export function rootReducer(state = initState, action) {
    switch(action.type) {
-      case 'TYPE':
-         return state;
+      case CORRECT:
+         return state.stateVerse.correct + 1;
    
       default: return state
    }

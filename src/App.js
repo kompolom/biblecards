@@ -16,17 +16,16 @@ import { Card } from './components/Card';
 import { withToggle } from './components/Card/withToggle';
 import { VerseForm } from './components/VerseForm';
 import { AppHeader } from './components/AppHeader/';
-// import sampleVerses from './data/sampleVerses.json'
 
-const CardToggleable = withToggle(Card);
-
-
+const mapStateToProps = state => ({
+  stateApp: state
+});
 
 class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.verseRandom = this.getRandomElement(props.stateApp);
+    this.verseRandom = this.getRandomElement(this.props.stateApp.stateVerse);
   }
 
   getRandomElement(arr) {
@@ -35,6 +34,10 @@ class App extends React.Component {
   }
 
   render() {
+  console.log(this.props.stateApp);
+
+  const CardToggleable = withToggle(Card);
+  
   return (
     <div className="App">
     <Router>
@@ -44,7 +47,7 @@ class App extends React.Component {
           <Page>
             <List>
                 {
-                  this.props.stateApp.map(verse => {
+                  this.props.stateApp.stateVerse.map(verse => {
                     return (
                       <ListItem key={verse.source}> 
                         <Card view="list" verse={verse} /> 
@@ -77,9 +80,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(
-  state => ({
-    stateApp: state
-  }),
-  dispatch => ({})
-) (App);
+export default connect(mapStateToProps) (App);
