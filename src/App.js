@@ -17,10 +17,6 @@ import { withToggle } from './components/Card/withToggle';
 import { VerseForm } from './components/VerseForm';
 import { AppHeader } from './components/AppHeader/';
 
-const mapStateToProps = state => ({
-  stateApp: state
-});
-
 class App extends React.Component {
 
   constructor(props) {
@@ -78,6 +74,10 @@ class App extends React.Component {
     </div>
   );
   }
-}
+};
+
+const mapStateToProps = state => ({
+  stateApp: state
+});
 
 export default connect(mapStateToProps) (App);

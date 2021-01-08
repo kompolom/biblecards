@@ -8,7 +8,7 @@ import { CORRECT } from './types';
 export function rootReducer(state = initState, action) {
    switch(action.type) {
       case CORRECT:
-         return state.stateVerse.correct + 1;
+         return 
    
       default: return state
    }

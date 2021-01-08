@@ -1,4 +1,4 @@
-import { CORRECT, INCORRECT } from "./types";
+import { CORRECT, INCORRECT, RAND_VERSE } from "./types";
 
 export function correct() {
    return {
@@ -9,5 +9,12 @@ export function correct() {
 export function incorrect() {
    return {
       type: INCORRECT
+   }
+}
+
+export function randVerse() {
+   return {
+      type: RAND_VERSE
+      
    }
 }
