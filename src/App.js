@@ -16,22 +16,25 @@ import { Card } from './components/Card';
 import { withToggle } from './components/Card/withToggle';
 import { VerseForm } from './components/VerseForm';
 import { AppHeader } from './components/AppHeader/';
+import { randVerse } from './.store/actions';
 
 class App extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.verseRandom = this.getRandomElement(this.props.stateApp.stateVerse);
-  }
+  // constructor(props) {
+  //   super(props);
+  //   // this.verseRandom = this.getRandomElement(this.props.stateApp.stateVerse);
+  // }
 
-  getRandomElement(arr) {
-    let randIndex = Math.floor(Math.random() * arr.length);
-    return arr[randIndex];
-  }
+  // getRandomElement(arr) {
+  //   let randIndex = Math.floor(Math.random() * arr.length);
+  //   return arr[randIndex];
+  // }
 
   render() {
   console.log(this.props.stateApp);
-
+  console.log(this.props.stateApp.randomVerse);
+  console.log(this.props.stateApp.stateVerse);
+    
   const CardToggleable = withToggle(Card);
   
   return (
@@ -61,11 +64,11 @@ class App extends React.Component {
         <Route path="/">
           <Page>
             <div className='container'>
-              <CardToggleable view="single" verse={this.verseRandom} />
+              <CardToggleable view="single" verse={this.props.stateApp.randomVerse} />
              </div>
             <div className='container container_align_justify'>
-              <Button variant="outlined"> Неправильно </Button>
-              <Button variant="outlined"> Правильно </Button>
+              <Button variant="outlined" onClick={this.props.randomVerse} > Неправильно </Button>
+              <Button variant="outlined" onClick={this.props.randomVerse} > Правильно </Button>
             </div>
           </Page>
         </Route>
@@ -79,5 +82,10 @@ class App extends React.Component {
 const mapStateToProps = state => ({
   stateApp: state
 });
+const mapDispatchToProps = dispatch => ({
+  randomVerse: () => {
+    dispatch(randVerse())
+  }
+})
 
-export default connect(mapStateToProps) (App);
+export default connect(mapStateToProps, mapDispatchToProps) (App);

@@ -15,6 +15,5 @@ export function incorrect() {
 export function randVerse() {
    return {
       type: RAND_VERSE
-      
    }
 }
