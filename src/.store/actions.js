@@ -1,8 +1,9 @@
 import { CORRECT, INCORRECT, RAND_VERSE } from "./types";
 
-export function correct() {
+export function correct(id) {
    return {
-      type: CORRECT
+      type: CORRECT,
+      payload: id
    }
 }
 

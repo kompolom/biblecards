@@ -1,7 +1,7 @@
 
 export const initState = {
     static: {
-       
+
     },
 
     stateVerse: [ 
@@ -48,8 +48,6 @@ export const initState = {
     ],
 
     randomVerse: {
-        id: 0,
-        source: "Бытие 1:27",
-        text: "В исполнении твоей воли, о мой Бог, я нахожу радость, И твой закон у меня во внутренностях",
+        
     }
 }
