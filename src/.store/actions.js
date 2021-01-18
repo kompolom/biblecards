@@ -1,20 +1,28 @@
-import { CORRECT, INCORRECT, RAND_VERSE } from "./types";
+import { ADD_VERSE, CORRECT, INCORRECT, RANDOM_VERSE } from "./types";
 
 export function correct(id) {
    return {
       type: CORRECT,
       payload: id
-   }
-}
+   };
+};
 
-export function incorrect() {
+export function incorrect(id) {
    return {
-      type: INCORRECT
-   }
-}
+      type: INCORRECT,
+      payload: id
+   };
+};
 
-export function randVerse() {
+export function randomVerse() {
    return {
-      type: RAND_VERSE
-   }
-}
+      type: RANDOM_VERSE,
+   };
+};
+
+// export function addVerse(value) {
+//    return {
+//       type: ADD_VERSE,
+//       payload: value
+//    };
+// };

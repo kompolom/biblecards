@@ -16,7 +16,7 @@ import { Card } from './components/Card';
 import { withToggle } from './components/Card/withToggle';
 import { VerseForm } from './components/VerseForm';
 import { AppHeader } from './components/AppHeader/';
-import { correct, randVerse } from './.store/actions';
+import { correct, incorrect, randomVerse } from './.store/actions';
 
 class App extends React.Component {
 
@@ -62,13 +62,19 @@ class App extends React.Component {
         <Route path="/">
           <Page>
             <div className='container'>
-              <CardToggleable view="single" verse={this.props.stateApp.stateVerse} />
+              <CardToggleable view="single" verse={this.props.stateApp.randomVerse} />
              </div>
             <div className='container container_align_justify'>
-              <Button variant="outlined" > Неправильно </Button>
+              <Button 
+                variant="outlined"
+                onClick={ () => this.props.incorrect(this.props.stateApp.randomVerse.id) } > 
+                Неправильно 
+              </Button>
               <Button 
                 variant="outlined" 
-                onClick={ () => this.props.correct(this.props.stateApp.randomVerse.id)} > Правильно </Button>
+                onClick={ () => this.props.correct(this.props.stateApp.randomVerse.id)} > 
+                  Правильно 
+              </Button>
             </div>
           </Page>
         </Route>
@@ -85,11 +91,14 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   randomVerse: () => {
-    dispatch(randVerse())
+    dispatch(randomVerse())
   },
   correct: (id) => {
     dispatch(correct(id))
+  },
+  incorrect: (id) => {
+    dispatch(incorrect(id))
   }
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps) (App);
