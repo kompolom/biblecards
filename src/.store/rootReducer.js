@@ -7,6 +7,11 @@ import { ADD_VERSE, CORRECT, INCORRECT, RANDOM_VERSE } from './types';
 
 function versesReducer(state = [], action) {
    switch(action.type) {
+      case ADD_VERSE:
+         return state.concat([{
+            ...action.payload,
+            id: Date.now(),
+         }]);
       default: return state;
    };
 };

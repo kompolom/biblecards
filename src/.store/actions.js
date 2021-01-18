@@ -20,9 +20,9 @@ export function randomVerse() {
    };
 };
 
-// export function addVerse(value) {
-//    return {
-//       type: ADD_VERSE,
-//       payload: value
-//    };
-// };
+export function addVerse(verse) {
+   return {
+      type: ADD_VERSE,
+      payload: verse
+   };
+};
