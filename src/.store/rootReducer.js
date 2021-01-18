@@ -5,23 +5,23 @@ import { ADD_VERSE, CORRECT, INCORRECT, RANDOM_VERSE } from './types';
 //    return new Verse(verseData[0], verseData[1]) ;
 //  });
 
-function stateVerse(state = [], action) {
+function versesReducer(state = [], action) {
    switch(action.type) {
       default: return state;
    };
 };
 
-function Static(state = {}, action) {
+function statsReducer(state = {}, action) {
    switch(action.type) {
       case CORRECT:
-         return {...state, [action.payload]: itemStatic(state[action.payload], action)};
+         return {...state, [action.payload]: itemStaticReducer(state[action.payload], action)};
       case INCORRECT:
-         return {...state, [action.payload]: itemStatic(state[action.payload], action)};
+         return {...state, [action.payload]: itemStaticReducer(state[action.payload], action)};
       default: return state;
       };
 };
    
-function itemStatic(state = [0,0], action) {
+function itemStaticReducer(state = [0,0], action) {
    switch(action.type) {
       case CORRECT:
          state[0] = state[0] + 1;
@@ -37,7 +37,7 @@ function getRandomElement(arr) {
    return arr[randIndex];
 };
 
-function randomVerse(state = {}, action) {
+function randomVerseReducer(state = {}, action) {
    switch(action.type) {
       case RANDOM_VERSE:
          return getRandomElement();
@@ -54,8 +54,7 @@ function addVerse(state = {}, action) {
 };
 
 export const rootReducer = combineReducers({
-   static: Static,
-   randomVerse,
-   stateVerse,
-   addVerse
+   stats: statsReducer,
+   randomVerse: randomVerseReducer,
+   verses: versesReducer
 });

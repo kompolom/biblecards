@@ -44,7 +44,7 @@ class App extends React.Component {
           <Page>
             <List>
                 {
-                  this.props.stateApp.stateVerse.map(verse => {
+                  this.props.stateApp.verses.map(verse => {
                     return (
                       <ListItem key={verse.source}> 
                         <Card view="list" verse={verse} /> 
