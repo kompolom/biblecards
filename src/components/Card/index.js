@@ -13,3 +13,5 @@ export const Card = (props) => {
     </div>
     )
 }
+
+export * from './withToggle';

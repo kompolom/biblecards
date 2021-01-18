@@ -7,34 +7,34 @@ import {
 } from "react-router-dom";
 import './App.css';
 
-import { Button } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 
 import Page from './components/Page';
 import { Card } from './components/Card';
-import { withToggle } from './components/Card/withToggle';
 import { VerseForm } from './components/VerseForm';
 import { AppHeader } from './components/AppHeader/';
-import { correct, incorrect, randomVerse } from './.store/actions';
+import { correct, incorrect } from './.store/actions';
+import { FlashCard } from './components/FlashCard';
 
 class App extends React.Component {
 
-  // constructor(props) {
-  //   super(props);
-  //   // this.verseRandom = this.getRandomElement(this.props.stateApp.stateVerse);
-  // }
+  constructor(props) {
+    super(props);
+    this.updateRandom = this.updateRandom.bind(this);
+    this.updateRandom();
+  }
 
-  // getRandomElement(arr) {
-  //   let randIndex = Math.floor(Math.random() * arr.length);
-  //   return arr[randIndex];
-  // }
+  getRandomElement(arr) {
+    let randIndex = Math.floor(Math.random() * arr.length);
+    return arr[randIndex];
+  }
+
+  updateRandom() {
+    this.verseRandom = this.getRandomElement(this.props.stateApp.verses);
+  }
 
   render() {
-  console.log(this.props.stateApp);
-    
-  const CardToggleable = withToggle(Card);
-  
   return (
     <div className="App">
     <Router>
@@ -61,21 +61,7 @@ class App extends React.Component {
         </Route>
         <Route path="/">
           <Page>
-            <div className='container'>
-              <CardToggleable view="single" verse={this.props.stateApp.randomVerse} />
-             </div>
-            <div className='container container_align_justify'>
-              <Button 
-                variant="outlined"
-                onClick={ () => this.props.incorrect(this.props.stateApp.randomVerse.id) } > 
-                Неправильно 
-              </Button>
-              <Button 
-                variant="outlined" 
-                onClick={ () => this.props.correct(this.props.stateApp.randomVerse.id)} > 
-                  Правильно 
-              </Button>
-            </div>
+            <FlashCard verse={this.verseRandom} nextTrigger={this.updateRandom} />
           </Page>
         </Route>
       </Switch>
@@ -90,9 +76,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  randomVerse: () => {
-    dispatch(randomVerse())
-  },
   correct: (id) => {
     dispatch(correct(id))
   },

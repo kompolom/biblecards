@@ -1,10 +1,6 @@
 import { combineReducers } from 'redux';
 import { ADD_VERSE, CORRECT, INCORRECT, RANDOM_VERSE } from './types';
 
-// const verses = this.props.stateApp.map(verseData => {
-//    return new Verse(verseData[0], verseData[1]) ;
-//  });
-
 function versesReducer(state = [], action) {
    switch(action.type) {
       case ADD_VERSE:
@@ -37,29 +33,7 @@ function itemStaticReducer(state = [0,0], action) {
       };
 };
 
-function getRandomElement(arr) {
-   let randIndex = Math.floor(Math.random() * arr.length);
-   return arr[randIndex];
-};
-
-function randomVerseReducer(state = {}, action) {
-   switch(action.type) {
-      case RANDOM_VERSE:
-         return getRandomElement();
-      default: return state;
-   };
-};
-
-function addVerse(state = {}, action) {
-   switch(action.type) {
-      case ADD_VERSE:
-         return {...state, addVerse: action.payload};
-      default: return state;
-   };
-};
-
 export const rootReducer = combineReducers({
    stats: statsReducer,
-   randomVerse: randomVerseReducer,
    verses: versesReducer
 });
