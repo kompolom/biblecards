@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from '@material-ui/core';
 import { Card, withToggle } from '../Card';
-import { correct, incorrect } from '../../.store/actions';
+import { correct, incorrect, viewedVerse } from '../../.store/actions';
 const CardToggleable = withToggle(Card);
 
 /**
@@ -11,13 +11,14 @@ const CardToggleable = withToggle(Card);
  * @param {Object} props.verse
  */
 export const FlashCard = connect(null, (dispatch) => ({
+    view: (id) => dispatch(viewedVerse(id)),
     onCorrect: (id) => dispatch(correct(id)),
     onIncorrect: (id) => dispatch(incorrect(id))
-}))(({ verse, onCorrect, onIncorrect, nextTrigger }) => {
+}))(({ verse, onCorrect, onIncorrect, nextTrigger, view, mode = 'text' }) => {
     return (
         <>
         <div className='container'>
-            <CardToggleable view="single" verse={verse} key={verse.id} />
+            <CardToggleable view="single" show={mode} verse={verse} key={verse.id} />
         </div>
         <div className='container container_align_justify'>
             <Button 

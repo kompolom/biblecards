@@ -1,4 +1,4 @@
-import { ADD_VERSE, CORRECT, INCORRECT, RANDOM_VERSE } from "./types";
+import { ADD_VERSE, CORRECT, INCORRECT, VERSE_VIEW } from "./types";
 
 export function correct(id) {
    return {
@@ -19,6 +19,13 @@ export function randomVerse() {
       type: RANDOM_VERSE,
    };
 };
+
+export function viewedVerse(id) {
+   return {
+      type: VERSE_VIEW,
+      payload: id
+   }
+}
 
 export function addVerse(verse) {
    return {

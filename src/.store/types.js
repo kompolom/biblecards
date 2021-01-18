@@ -1,4 +1,4 @@
 export const CORRECT = "CORRECT"
 export const INCORRECT = "INCORRECT"
-export const RANDOM_VERSE = "RANDOM_VERSE"
+export const VERSE_VIEW = "VERSE_VIEW"
 export const ADD_VERSE = "ADD_VERSE"
