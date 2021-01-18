@@ -1,59 +1,74 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from '@material-ui/core';
-import { Formik, Field, Form } from 'formik';
+import { useFormik } from 'formik';
 import './style.css';
 import books from '../../data/books.json';
 import { Verse } from "../../models/Verse";
 import { addVerse } from "../../.store/actions";
+import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
 
 const VerseForm1 = (props) => {
-   
+        const formik = useFormik({
+            initialValues: {
+                listBooks: '',
+                chapter: '',
+                verse: '',
+                text: '',
+            },
+            onSubmit: props.addTodo
+        });
         return (
-            <Formik
-                initialValues={{
-                    listBooks: 'Бытие',
-                    chapter: '',
-                    verse: '',
-                    text: '',
-                }}
-                onSubmit={props.addTodo} >
-                    <Form className="container" >
-                        <div className="VerseForm-body VerseForm-row">
-                            <Field 
-                                className="VerseForm-row" 
-                                as="select" 
-                                name="listBooks">
-                                    { books.map(book => { return ( <option key={book}> {book} </option> ) } ) }
-                            </Field>
-                            <Field 
-                                className="VerseForm-row" 
-                                id="chaperForm" 
-                                name="chapter" 
-                                type="number" 
-                                min="1" max="150" 
-                                placeholder="Глава"/>
-                            <Field 
-                                className="VerseForm-row"
-                                id="verseForm" 
-                                name="verse" 
-                                type="number" 
-                                min="1" 
-                                placeholder="Стих" required />
-                            <Field 
-                                className="VerseForm-row"
-                                id="textForm" 
-                                name="text" 
-                                autocomlete="new-password"
-                                placeholder="Текст" required />
-                        </div>
-                        <div className="VerseForm-row VerseForm-SubmitSection">
-                            <Button type="submit" variant="contained" color="primary">
-                                Добавить
-                            </Button>
-                        </div>
-                    </Form>
-            </Formik>
+            <form className="container" onSubmit={formik.handleSubmit} >
+                <div className="VerseForm-body VerseForm-row">
+                    <Select
+                        required
+                        native
+                        className="VerseForm-row" 
+                        name="listBooks"
+                        defaultValue={formik.values.listBooks}
+                        onChange={formik.handleChange}
+                    >
+                        { books.map(book => { return ( <option key={book} value={book}> {book} </option> ) } ) }
+                    </Select>
+                    <TextField 
+                        className="VerseForm-row" 
+                        id="chaperForm" 
+                        name="chapter" 
+                        type="number" 
+                        min="1" max="150" 
+                        label="Глава"
+                        value={formik.values.chapter}
+                        onChange={formik.handleChange}
+                    />
+                    <TextField 
+                        className="VerseForm-row"
+                        id="verseForm" 
+                        name="verse" 
+                        type="number" 
+                        min="1" 
+                        label="Стих" 
+                        required
+                        value={formik.values.verse}
+                        onChange={formik.handleChange}
+                    />
+                    <TextField
+                        label="Текст стиха"
+                        name="text" 
+                        multiline 
+                        required
+                        rows={4}
+                        value={formik.values.text}
+                        onChange={formik.handleChange}
+                    />
+                </div>
+                <div className="VerseForm-row VerseForm-SubmitSection">
+                    <Button type="submit" variant="contained" color="primary">
+                        Добавить
+                    </Button>
+                </div>
+            </form>
         );
 };
 
