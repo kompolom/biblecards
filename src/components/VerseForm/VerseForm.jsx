@@ -1,10 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Button } from '@material-ui/core';
 import { Formik, Field, Form } from 'formik';
 import './style.css';
 import books from '../../data/books.json';
+import { Verse } from "../../models/Verse";
+import { addVerse } from "../../.store/actions";
 
-export const VerseForm = (props) => {
+const VerseForm1 = (props) => {
    
         return (
             <Formik
@@ -14,7 +17,7 @@ export const VerseForm = (props) => {
                     verse: '',
                     text: '',
                 }}
-                onSubmit={ (values) => console.log(JSON.stringify(values, null, 2))} >
+                onSubmit={props.addTodo} >
                     <Form className="container" >
                         <div className="VerseForm-body VerseForm-row">
                             <Field 
@@ -53,3 +56,14 @@ export const VerseForm = (props) => {
             </Formik>
         );
 };
+
+const mapDispatchToProps = dispatch => ({
+    addTodo: (values) => {
+        console.log(JSON.stringify(values, null, 2))
+        const source = `${values.listBooks} ${values.chapter}:${values.verse}`;
+        const verse = new Verse(source, values.text);
+        dispatch(addVerse(verse)); // FIXME: dispatch
+    }
+})
+
+export const VerseForm = connect(null, mapDispatchToProps)(VerseForm1)
