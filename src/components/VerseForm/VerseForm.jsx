@@ -12,12 +12,20 @@ import Select from '@material-ui/core/Select';
 const VerseForm1 = (props) => {
         const formik = useFormik({
             initialValues: {
-                listBooks: '',
+                listBooks: 'Бытие',
                 chapter: '',
                 verse: '',
                 text: '',
             },
-            onSubmit: props.addTodo
+            onSubmit: (values) => {
+                console.log(JSON.stringify(values, null, 2))
+                const source = `${values.listBooks} ${values.chapter}:${values.verse}`;
+                const verse = new Verse(source, values.text);
+                props.addTodo(verse);
+                formik.resetForm()
+            }, 
+
+        
         });
         return (
             <form className="container" onSubmit={formik.handleSubmit} >
@@ -64,7 +72,7 @@ const VerseForm1 = (props) => {
                     />
                 </div>
                 <div className="VerseForm-row VerseForm-SubmitSection">
-                    <Button type="submit" variant="contained" color="primary">
+                    <Button type="submit" variant="contained" color="primary" >
                         Добавить
                     </Button>
                 </div>
@@ -73,10 +81,7 @@ const VerseForm1 = (props) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    addTodo: (values) => {
-        console.log(JSON.stringify(values, null, 2))
-        const source = `${values.listBooks} ${values.chapter}:${values.verse}`;
-        const verse = new Verse(source, values.text);
+    addTodo: (verse) => {
         dispatch(addVerse(verse)); // FIXME: dispatch
     }
 })
