@@ -35,7 +35,7 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.props.stateApp.stats);
+    console.log(this.props.verseStatistics);
   return (
     <div className="App">
     <Router>
@@ -47,7 +47,7 @@ class App extends React.Component {
                 {
                   this.props.stateApp.verses.map(verse => {
                     return (
-                      <div key={verse.source} className="list-item">
+                      <div key={verse.source} className="ListItem">
                           <Card view="list" verse={verse} />
                           <VerseStatistics />
                       </div>
@@ -76,7 +76,7 @@ class App extends React.Component {
 
 const mapStateToProps = state => ({
   stateApp: state,
-
+  verseStatistics: state.stats
 });
 
 const mapDispatchToProps = dispatch => ({
