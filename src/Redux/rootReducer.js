@@ -5,8 +5,8 @@ function versesReducer(state = [], action) {
    switch(action.type) {
       case ADD_VERSE:
          return state.concat([{
-            ...action.payload,
             id: Date.now(),
+            ...action.payload
          }]);
       default: return state;
    };
@@ -16,15 +16,13 @@ function statsReducer(state = {}, action) {
    switch(action.type) {
       case CORRECT:
       case INCORRECT:
-         return {...state, [action.payload]: itemStaticReducer(state[action.payload], action)};
+         return {...state, [action.payload]: itemStatsReducer(state[action.payload], action)};
       default: return state;
       };
 };
    
-/**
- * [view, corrects, incorrects] 
- */
-function itemStaticReducer(state = [0,0,0], action) {
+                  /** state =  [view, corrects, incorrects] */
+function itemStatsReducer(state = [0,0,0], action) {
    switch(action.type) {
       case CORRECT:
          state[0] = state[0] + 1;
