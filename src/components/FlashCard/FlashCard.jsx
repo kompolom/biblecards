@@ -14,7 +14,7 @@ export const FlashCard = connect(null, (dispatch) => ({
     view: (id) => dispatch(viewedVerse(id)),
     onCorrect: (id) => dispatch(correct(id)),
     onIncorrect: (id) => dispatch(incorrect(id))
-}))(({ verse, onCorrect, onIncorrect, nextTrigger, view, mode = 'text' }) => {
+}))(({ verse, onCorrect, onIncorrect, nextTrigger, mode = 'text' }) => {
     return (
         <>
         <div className='container'>
@@ -23,12 +23,12 @@ export const FlashCard = connect(null, (dispatch) => ({
         <div className='container container_align_justify'>
             <Button 
                 variant="outlined"
-                onClick={ () => { nextTrigger(); onIncorrect(verse.id) } } > 
+                onClick={ () => { onIncorrect(verse.id); nextTrigger() } } > 
                 Неправильно 
             </Button>
             <Button 
                 variant="outlined" 
-                onClick={ () => { nextTrigger(); onCorrect(verse.id) }} > 
+                onClick={ () => { onCorrect(verse.id); nextTrigger() }} > 
                 Правильно 
             </Button>
         </div>

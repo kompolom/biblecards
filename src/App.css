@@ -11,3 +11,12 @@
   display: flex;
   justify-content: space-between;
 }
+
+.list-item {
+  padding: 8px 16px;
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+  text-align: left;
+  text-decoration: none;
+}

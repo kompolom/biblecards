@@ -8,7 +8,6 @@ import {
 import './App.css';
 
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 
 import Page from './components/Page';
 import { Card } from './components/Card';
@@ -16,6 +15,7 @@ import { VerseForm } from './components/VerseForm';
 import { AppHeader } from './components/AppHeader/';
 import { correct, incorrect } from './Redux/actions';
 import { FlashCard } from './components/FlashCard';
+import { VerseStatistics } from './components/VerseStatistics';
 
 class App extends React.Component {
 
@@ -35,6 +35,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.props.stateApp.stats);
   return (
     <div className="App">
     <Router>
@@ -46,9 +47,11 @@ class App extends React.Component {
                 {
                   this.props.stateApp.verses.map(verse => {
                     return (
-                      <ListItem key={verse.source}> 
-                        <Card view="list" verse={verse} /> 
-                      </ListItem>);
+                      <div key={verse.source} className="list-item">
+                          <Card view="list" verse={verse} />
+                          <VerseStatistics />
+                      </div>
+                    );
                   })
                 }
             </List>
@@ -72,7 +75,8 @@ class App extends React.Component {
 };
 
 const mapStateToProps = state => ({
-  stateApp: state
+  stateApp: state,
+
 });
 
 const mapDispatchToProps = dispatch => ({
