@@ -1,4 +1,4 @@
-import { ADD_VERSE, CORRECT, INCORRECT, VERSE_VIEW } from "./types";
+import { ADD_VERSE, CORRECT, HIDE_ALERT, INCORRECT, SHOW_ALERT, VERSE_VIEW } from "./types";
 
 export function correct(id) {
    return {
@@ -11,12 +11,6 @@ export function incorrect(id) {
    return {
       type: INCORRECT,
       payload: id
-   };
-};
-
-export function randomVerse() {
-   return {
-      type: RANDOM_VERSE,
    };
 };
 
@@ -33,3 +27,22 @@ export function addVerse(verse) {
       payload: verse
    };
 };
+
+export function showAlert(text) {
+   return dispatch => {
+     dispatch({
+       type: SHOW_ALERT,
+       payload: text
+     })
+ 
+     setTimeout(() => {
+       dispatch(hideAlert())
+     }, 3000)
+   }
+ }
+ 
+ export function hideAlert() {
+   return {
+     type: HIDE_ALERT
+   }
+ }

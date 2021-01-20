@@ -1,0 +1,8 @@
+.alert-success {
+   margin: 10px 0;
+   padding: 10px;
+   border-radius: 3px 3px 3px 3px;
+   text-align: center;
+   color: #270;
+   background-color: #dff2bf;
+}

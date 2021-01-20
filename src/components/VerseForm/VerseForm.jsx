@@ -5,9 +5,10 @@ import { useFormik } from 'formik';
 import './style.css';
 import books from '../../data/books.json';
 import { Verse } from "../../models/Verse";
-import { addVerse } from "../../.store/actions";
+import { addVerse, showAlert } from "../../Redux/actions";
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
+import { Alert } from '../Alert/Alert';
 
 const VerseForm1 = (props) => {
         const formik = useFormik({
@@ -18,14 +19,12 @@ const VerseForm1 = (props) => {
                 text: '',
             },
             onSubmit: (values) => {
-                console.log(JSON.stringify(values, null, 2))
                 const source = `${values.listBooks} ${values.chapter}:${values.verse}`;
                 const verse = new Verse(source, values.text);
                 props.addTodo(verse);
                 formik.resetForm()
-            }, 
-
-        
+                props.showAlert('Стих добавлен')
+            }
         });
         return (
             <form className="container" onSubmit={formik.handleSubmit} >
@@ -76,6 +75,9 @@ const VerseForm1 = (props) => {
                         Добавить
                     </Button>
                 </div>
+
+                {props.alert && <Alert text={props.alert} />}
+
             </form>
         );
 };
@@ -83,7 +85,14 @@ const VerseForm1 = (props) => {
 const mapDispatchToProps = dispatch => ({
     addTodo: (verse) => {
         dispatch(addVerse(verse)); // FIXME: dispatch
+    },
+    showAlert: (text) => {
+        dispatch(showAlert(text))
     }
+});
+
+const mapStateToProps = state => ({
+    alert: state.alert
 })
 
-export const VerseForm = connect(null, mapDispatchToProps)(VerseForm1)
+export const VerseForm = connect(mapStateToProps, mapDispatchToProps)(VerseForm1)

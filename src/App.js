@@ -14,7 +14,7 @@ import Page from './components/Page';
 import { Card } from './components/Card';
 import { VerseForm } from './components/VerseForm';
 import { AppHeader } from './components/AppHeader/';
-import { correct, incorrect } from './.store/actions';
+import { correct, incorrect } from './Redux/actions';
 import { FlashCard } from './components/FlashCard';
 
 class App extends React.Component {
