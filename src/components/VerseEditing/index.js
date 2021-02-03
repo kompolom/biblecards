@@ -1,14 +1,22 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { deleteVerse } from '../../Redux/actions';
-import './style.css'
+import './style.css';
+import IconEdit from '../../img/edit.png';
+import IconDelete from '../../img/delete.png';
 
 const EventEditing = (props) => {
-   const click = () => { props.deleteVerse(props.id) }
+   const deleteVerse = () => { props.deleteVerse(props.id) }
+   const editVerse = () => ( console.log( "Я всё исправлю!" ))
    return (
       <div className="VerseEditing"> 
-        <button className='Edit' type='button' >Редактировать</button> 
-        <button className='Delete' type='button' onClick={click}>Удалить</button>
+         <div className="Edit" onClick={editVerse}> 
+            <img src={IconEdit} width="35px" height="35px" alt="Изменить" /> 
+         </div>
+         <div className="Delete" onClick={deleteVerse}> 
+            <img src={IconDelete} width="35px" height="35px" alt="Удалить" />
+         </div>
+         
       </div>
    );
 };

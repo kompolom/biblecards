@@ -9,16 +9,6 @@
     align-items: center;
     padding: 5%;
 }
-@media (min-width: 38rem) {
-    .Card {
-      font-size: 20px;
-    }
-  }
-  @media (min-width: 67.5rem) {
-    .Card {
-        font-size: 30px;
-    }
-  }
 
 .Card_view_single {
     height: 70vh;

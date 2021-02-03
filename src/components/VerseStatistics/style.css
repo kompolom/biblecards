@@ -1,9 +1,13 @@
-span {
+.span {
+   font-size: 10px;
+   color: grey;
+   display: block;
    padding: 0 15px;
 }
 
 .VerseStatistics {
+   width: 100%;
    padding: 5px;
-   text-align: center;
+   text-align: left;
    background-color: #EFF2F7;
 }

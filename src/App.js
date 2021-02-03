@@ -48,8 +48,8 @@ class App extends React.Component {
                     const stats = this.props.stateApp.stats[verse.id]
                     return (
                       <li key={verse.source} className="ListItem">
-                        <VerseEditing id={verse.id} />
                         <Card stats={stats} view="list" verse={verse} />
+                        <VerseEditing id={verse.id} />
                       </li>
                     );
                   })
