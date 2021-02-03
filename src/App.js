@@ -15,6 +15,7 @@ import { VerseForm } from './components/VerseForm';
 import { AppHeader } from './components/AppHeader/';
 import { correct, incorrect } from './Redux/actions';
 import { FlashCard } from './components/FlashCard';
+import { VerseEditing } from './components/VerseEditing';
 
 class App extends React.Component {
 
@@ -34,7 +35,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.props.verseStatistics);
   return (
     <div className="App">
     <Router>
@@ -48,7 +48,8 @@ class App extends React.Component {
                     const stats = this.props.stateApp.stats[verse.id]
                     return (
                       <li key={verse.source} className="ListItem">
-                          <Card stats={stats} view="list" verse={verse} />
+                        <VerseEditing id={verse.id} />
+                        <Card stats={stats} view="list" verse={verse} />
                       </li>
                     );
                   })
