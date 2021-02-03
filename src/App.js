@@ -15,7 +15,6 @@ import { VerseForm } from './components/VerseForm';
 import { AppHeader } from './components/AppHeader/';
 import { correct, incorrect } from './Redux/actions';
 import { FlashCard } from './components/FlashCard';
-import { VerseStatistics } from './components/VerseStatistics';
 
 class App extends React.Component {
 
@@ -46,11 +45,11 @@ class App extends React.Component {
             <List>
                 {
                   this.props.stateApp.verses.map(verse => {
+                    const stats = this.props.stateApp.stats[verse.id]
                     return (
-                      <div key={verse.source} className="ListItem">
-                          <Card view="list" verse={verse} />
-                          <VerseStatistics />
-                      </div>
+                      <li key={verse.source} className="ListItem">
+                          <Card stats={stats} view="list" verse={verse} />
+                      </li>
                     );
                   })
                 }
