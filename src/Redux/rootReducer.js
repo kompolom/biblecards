@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { ADD_VERSE, CORRECT, HIDE_ALERT, INCORRECT, SHOW_ALERT } from './types';
+import { ADD_VERSE, DELETE_VERSE, CORRECT, HIDE_ALERT, INCORRECT, SHOW_ALERT } from './types';
 
 function versesReducer(state = [], action) {
    switch(action.type) {
@@ -8,6 +8,8 @@ function versesReducer(state = [], action) {
             id: Date.now(),
             ...action.payload
          }]);
+      case DELETE_VERSE:
+         return state.filter( (value)=> value.id !== action.payload)
       default: return state;
    };
 };
@@ -17,6 +19,9 @@ function statsReducer(state = {}, action) {
       case CORRECT:
       case INCORRECT:
          return {...state, [action.payload]: itemStatsReducer(state[action.payload], action)};
+      case DELETE_VERSE:
+         delete state[action.payload];
+         return {...state};
       default: return state;
       };
 };
