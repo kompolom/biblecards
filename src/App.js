@@ -16,6 +16,7 @@ import { AppHeader } from './components/AppHeader/';
 import { correct, incorrect } from './Redux/actions';
 import { FlashCard } from './components/FlashCard';
 import { VerseEditing } from './components/VerseEditing';
+import { VerseEditForm } from './components/VerseEditForm';
 
 class App extends React.Component {
 
@@ -60,6 +61,11 @@ class App extends React.Component {
         <Route path="/add">
           <Page>
             <VerseForm />
+          </Page>
+        </Route>
+        <Route path="/edit">
+          <Page>
+            <VerseEditForm />
           </Page>
         </Route>
         <Route path="/">

@@ -10,7 +10,9 @@ import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import { Alert } from '../Alert';
 
-const VerseForm1 = (props) => {
+const FormEditing = (props) => {
+        console.log(props.verse);
+
         const formik = useFormik({
             initialValues: {
                 listBooks: 'Бытие',
@@ -92,7 +94,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
+    verse: state.verses,
     alert: state.alert
 })
 
-export const VerseForm = connect(mapStateToProps, mapDispatchToProps)(VerseForm1)
+export const VerseEditForm = connect(mapStateToProps, mapDispatchToProps)(FormEditing)
