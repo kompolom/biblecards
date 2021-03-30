@@ -4,15 +4,17 @@ import { deleteVerse } from '../../Redux/actions';
 import './style.css';
 import IconEdit from '../../img/edit.png';
 import IconDelete from '../../img/delete.png';
+import { Link } from 'react-router-dom';
 
 const EventEditing = (props) => {
    const deleteVerse = () => { props.deleteVerse(props.id) }
-   const editVerse = () => ( console.log( "Я всё исправлю!" ))
+   const editVerse = () => ( 
+      console.log( "Я всё исправлю!" ))
    return (
       <div className="VerseEditing"> 
-         <div className="Edit" onClick={editVerse}> 
+         <Link to="/add" className="Edit" onClick={editVerse}> 
             <img src={IconEdit} width="35px" height="35px" alt="Изменить" /> 
-         </div>
+         </Link>
          <div className="Delete" onClick={deleteVerse}> 
             <img src={IconDelete} width="35px" height="35px" alt="Удалить" />
          </div>
