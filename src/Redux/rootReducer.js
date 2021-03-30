@@ -25,7 +25,7 @@ function statsReducer(state = {}, action) {
       default: return state;
       };
 };
-   
+
                   /** state =  [view, corrects, incorrects] */
 function itemStatsReducer(state = [0,0,0], action) {
    switch(action.type) {
@@ -41,17 +41,16 @@ function itemStatsReducer(state = [0,0,0], action) {
    };
 };
 
-
 function alertReducer (state = null, action) {
    switch (action.type) {
-     case SHOW_ALERT:
-       return state = action.payload
-     case HIDE_ALERT:
-       return state = null
-     default: return state;
+      case SHOW_ALERT:
+         return state = action.payload
+      case HIDE_ALERT:
+         return state = null
+      default: return state;
    };
- }
-;
+};
+
 export const rootReducer = combineReducers({
    stats: statsReducer,
    verses: versesReducer,

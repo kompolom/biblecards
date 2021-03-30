@@ -37,19 +37,19 @@ export function deleteVerse(id) {
 
 export function showAlert(text) {
    return dispatch => {
-     dispatch({
-       type: SHOW_ALERT,
-       payload: text
-     })
- 
-     setTimeout(() => {
-       dispatch(hideAlert())
-     }, 3000)
+      dispatch({
+         type: SHOW_ALERT,
+         payload: text
+      })
+
+      setTimeout(() => {
+         dispatch(hideAlert())
+      }, 3000)
    }
- }
- 
- export function hideAlert() {
+}
+
+export function hideAlert() {
    return {
-     type: HIDE_ALERT
+      type: HIDE_ALERT
    }
- }
+}
