@@ -1,4 +1,4 @@
-import { ADD_VERSE, CORRECT, DELETE_VERSE, HIDE_ALERT, INCORRECT, SHOW_ALERT, VERSE_VIEW } from "./types";
+import { ADD_VERSE, CORRECT, DELETE_VERSE, EDIT_VERSE, HIDE_ALERT, INCORRECT, SHOW_ALERT, VERSE_VIEW } from "./types";
 
 export function correct(id) {
    return {
@@ -40,16 +40,23 @@ export function showAlert(text) {
       dispatch({
          type: SHOW_ALERT,
          payload: text
-      })
+      });
 
       setTimeout(() => {
-         dispatch(hideAlert())
-      }, 3000)
-   }
-}
+         dispatch(hideAlert());
+      }, 3000);
+   };
+};
 
 export function hideAlert() {
    return {
       type: HIDE_ALERT
-   }
-}
+   };
+};
+
+export function editVerse(id) {
+   return {
+      type: EDIT_VERSE,
+      payload: id
+   };
+};

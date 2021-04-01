@@ -11,24 +11,28 @@ import Select from '@material-ui/core/Select';
 import { Alert } from '../Alert';
 
 const VerseFormTemplate = (props) => {
-    
-    // const verseToEdit = props.verses.find(verse => verse.id === props.id);
-    // const verseSource = verseToEdit.source;
-    // const verseTemplate = {
-    //     listBooks: '',
-    //     chapter: '',
-    //     verse: '',
-    //     text: verseToEdit.text,
-    // };
-    // console.log(verseSource);
-    // console.log(verseTemplate);
+
+    let verseToEdit;
+    props.idToEditVerse ? verseToEdit = props.verses.find(verse => verse.id === props.idToEditVerse) : verseToEdit = { source: '', text: ''};
+
+    let verseTemplate = {
+            listBooks: '',
+            chapter: '',
+            verse: '',
+            text: verseToEdit.text || '',
+        };
+    const verseListbook = verseToEdit.source.split(' ');
+    verseListbook.length === 2 ? verseTemplate.listBooks=verseListbook[0] : verseTemplate.listBooks=(verseListbook[0]+' '+verseListbook[1]);
+    console.log(verseListbook);
+
+
 
     const formik = useFormik({
         initialValues: {
-            listBooks:  books[0] ,
-            chapter: '',
-            verse: '',
-            text: '',
+            listBooks: verseTemplate.listBooks || books[0] ,
+            chapter: verseTemplate.chapter || '',
+            verse: verseTemplate.verse || '',
+            text: verseTemplate.text || '',
         },
         onSubmit: (values) => {
             const source = `${values.listBooks} ${values.chapter}:${values.verse}`;
@@ -36,8 +40,9 @@ const VerseFormTemplate = (props) => {
             props.addTodo(verse);
             formik.resetForm()
             props.showAlert('Стих добавлен')
-        }
+        },
     });
+    console.log(formik.values);
     return (
         <form className="container" onSubmit={formik.handleSubmit} >
             <div className="VerseForm-body VerseForm-row">
@@ -105,7 +110,8 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
     verses: state.verses,
-    alert: state.alert
+    alert: state.alert,
+    idToEditVerse: state.idToEditVerse,
 })
 
 export const VerseForm = connect(mapStateToProps, mapDispatchToProps)(VerseFormTemplate)

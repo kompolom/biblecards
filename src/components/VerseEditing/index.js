@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import { deleteVerse } from '../../Redux/actions';
+import { deleteVerse, editVerse } from '../../Redux/actions';
 import './style.css';
 import IconEdit from '../../img/edit.png';
 import IconDelete from '../../img/delete.png';
@@ -8,8 +8,7 @@ import { Link } from 'react-router-dom';
 
 const EventEditing = (props) => {
    const deleteVerse = () => { props.deleteVerse(props.id) }
-   const editVerse = () => ( 
-      console.log( "Я всё исправлю!" ))
+   const editVerse = () => ( props.editVerse(props.id) )
    return (
       <div className="VerseEditing"> 
          <Link to="/add" className="Edit" onClick={editVerse}> 
@@ -26,7 +25,10 @@ const EventEditing = (props) => {
 const mapDispatchToProps = dispatch => ({
    deleteVerse: (id) => {
       dispatch(deleteVerse(id))
-   }
+   },
+   editVerse: (id) => {
+      dispatch(editVerse(id))
+   },
 });
 
 export const VerseEditing = connect(null, mapDispatchToProps)(EventEditing);
