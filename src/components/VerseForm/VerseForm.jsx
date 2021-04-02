@@ -14,18 +14,29 @@ const VerseFormTemplate = (props) => {
 
     let verseToEdit;
     props.idToEditVerse ? verseToEdit = props.verses.find(verse => verse.id === props.idToEditVerse) : verseToEdit = { source: '', text: ''};
-
+    const verseSourse = verseToEdit.source.split(' ');
     let verseTemplate = {
             listBooks: '',
             chapter: '',
             verse: '',
             text: verseToEdit.text || '',
         };
-    const verseListbook = verseToEdit.source.split(' ');
-    verseListbook.length === 2 ? verseTemplate.listBooks=verseListbook[0] : verseTemplate.listBooks=(verseListbook[0]+' '+verseListbook[1]);
-    console.log(verseListbook);
+    if (verseSourse.length === 1) {
+        verseTemplate.listBooks='';
+    } else if (verseSourse.length === 2) {
+        verseTemplate.listBooks=verseSourse[0];
+        const e = verseSourse[1].split(':');
+        verseTemplate.chapter = e[0];
+        verseTemplate.verse = e[1];
+    } else {
+        verseTemplate.listBooks=(verseSourse[0]+' '+verseSourse[1]);
+        const e = verseSourse[2].split(':');
+        verseTemplate.chapter = e[0];
+        verseTemplate.verse = e[1];
+    };
 
-
+    console.log(verseSourse);
+    console.log(verseToEdit);
 
     const formik = useFormik({
         initialValues: {
