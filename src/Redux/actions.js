@@ -1,4 +1,4 @@
-import { ADD_VERSE, CORRECT, DELETE_VERSE, EDIT_VERSE, HIDE_ALERT, INCORRECT, SHOW_ALERT, VERSE_VIEW } from "./types";
+import { ADD_VERSE, CLEAR_EDIT_VERSE, CORRECT, DELETE_VERSE, EDIT_VERSE, HIDE_ALERT, INCORRECT, SAVE_VERSE, SHOW_ALERT, VERSE_VIEW } from "./types";
 
 export function correct(id) {
    return {
@@ -54,9 +54,21 @@ export function hideAlert() {
    };
 };
 
-export function editVerse(id) {
+export function editVerse(obj) {
+   return dispatch => {
+      dispatch({
+         type: EDIT_VERSE,
+         payload: obj
+      });
+
+      setTimeout(() => {
+         dispatch(clearEditVerse());
+      }, 3000);
+   };
+};
+
+export function clearEditVerse() {
    return {
-      type: EDIT_VERSE,
-      payload: id
+      type: CLEAR_EDIT_VERSE,
    };
 };

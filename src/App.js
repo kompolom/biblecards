@@ -49,7 +49,7 @@ class App extends React.Component {
                     return (
                       <li key={verse.source} className="ListItem">
                         <Card stats={stats} view="list" verse={verse} />
-                        <VerseEditing id={verse.id} />
+                        <VerseEditing id={verse.id} stats={stats}/>
                       </li>
                     );
                   })

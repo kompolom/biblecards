@@ -7,8 +7,12 @@ import IconDelete from '../../img/delete.png';
 import { Link } from 'react-router-dom';
 
 const EventEditing = (props) => {
+   const dataVerseEdit = {
+      id: props.id,
+      stats: props.stats,
+   };
    const deleteVerse = () => { props.deleteVerse(props.id) }
-   const editVerse = () => ( props.editVerse(props.id) )
+   const editVerse = () => ( props.editVerse(dataVerseEdit) )
    return (
       <div className="VerseEditing"> 
          <Link to="/add" className="Edit" onClick={editVerse}> 
@@ -26,8 +30,8 @@ const mapDispatchToProps = dispatch => ({
    deleteVerse: (id) => {
       dispatch(deleteVerse(id))
    },
-   editVerse: (id) => {
-      dispatch(editVerse(id))
+   editVerse: (obj) => {
+      dispatch(editVerse(obj))
    },
 });
 

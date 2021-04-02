@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { ADD_VERSE, DELETE_VERSE, CORRECT, HIDE_ALERT, INCORRECT, SHOW_ALERT, EDIT_VERSE } from './types';
+import { ADD_VERSE, DELETE_VERSE, CORRECT, HIDE_ALERT, INCORRECT, SHOW_ALERT, EDIT_VERSE, CLEAR_EDIT_VERSE } from './types';
 
 function versesReducer(state = [], action) {
    switch(action.type) {
@@ -51,10 +51,12 @@ function alertReducer (state = null, action) {
    };
 };
 
-function idToEditVerseReducer (state = null, action) {
+function editVerseReducer (state = null, action) {
    switch (action.type) {
       case EDIT_VERSE:
-         return state = action.payload
+         return state = {...action.payload};
+      case CLEAR_EDIT_VERSE:
+         return state = null;
       default: return state;
    };
 };
@@ -63,5 +65,5 @@ export const rootReducer = combineReducers({
    stats: statsReducer,
    verses: versesReducer,
    alert: alertReducer,
-   idToEditVerse: idToEditVerseReducer,
+   editVerse: editVerseReducer,
 });

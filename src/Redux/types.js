@@ -6,3 +6,5 @@ export const SHOW_ALERT = "SHOW_ALERT";
 export const HIDE_ALERT = "HIDE_ALERT";
 export const DELETE_VERSE = "DELETE_VERSE";
 export const EDIT_VERSE = "EDIT_VERSE";
+export const SAVE_VERSE = "SAVE_VERSE";
+export const CLEAR_EDIT_VERSE = "CLEAR_EDIT_VERSE";

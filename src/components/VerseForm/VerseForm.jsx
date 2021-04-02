@@ -1,42 +1,56 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { connect } from 'react-redux';
 import { Button } from '@material-ui/core';
 import { useFormik } from 'formik';
 import './style.css';
 import books from '../../data/books.json';
 import { Verse } from "../../models/Verse";
-import { addVerse, showAlert } from "../../Redux/actions";
+import { addVerse, clearEditVerse, deleteVerse, editVerse, showAlert } from "../../Redux/actions";
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import { Alert } from '../Alert';
 
 const VerseFormTemplate = (props) => {
-
-    let verseToEdit;
-    props.idToEditVerse ? verseToEdit = props.verses.find(verse => verse.id === props.idToEditVerse) : verseToEdit = { source: '', text: ''};
-    const verseSourse = verseToEdit.source.split(' ');
     let verseTemplate = {
+            id: '',
             listBooks: '',
             chapter: '',
             verse: '',
-            text: verseToEdit.text || '',
+            text: '',
         };
-    if (verseSourse.length === 1) {
-        verseTemplate.listBooks='';
-    } else if (verseSourse.length === 2) {
-        verseTemplate.listBooks=verseSourse[0];
-        const e = verseSourse[1].split(':');
+    
+    console.log(props.editVerse);
+    if (props.editVerse) {
+        const verseToEdit = props.verses.find(verse => verse.id === props.editVerse.id);
+        const verseSourse = verseToEdit.source.split(' ');
+        verseSourse.length === 2 
+            ? verseTemplate.listBooks=verseSourse[0] 
+            : verseTemplate.listBooks=(verseSourse[0]+' '+verseSourse[1]);
+        let e
+        verseSourse.length === 2 ? e = verseSourse[1].split(':') : e = verseSourse[2].split(':');
+        verseTemplate.id = props.editVerse.id;
         verseTemplate.chapter = e[0];
         verseTemplate.verse = e[1];
-    } else {
-        verseTemplate.listBooks=(verseSourse[0]+' '+verseSourse[1]);
-        const e = verseSourse[2].split(':');
-        verseTemplate.chapter = e[0];
-        verseTemplate.verse = e[1];
-    };
+        verseTemplate.text = verseToEdit.text;
+    } 
+    // const verseToEdit = props.editVerse ? props.verses.find(verse => verse.id === props.editVerse.id) : { source: '', text: ''};
+    // const idVerseToEdit = props.editVerse ? props.editVerse.id : '';
+    // const verseSourse = verseToEdit.source.split(' ');
+    // console.log(verseSourse);
+    // if (verseSourse.length === 1) {
+    //     verseTemplate.listBooks='';
+    // } else if (verseSourse.length === 2) {
+    //     verseTemplate.listBooks=verseSourse[0];
+    //     const e = verseSourse[1].split(':');
+    //     verseTemplate.chapter = e[0];
+    //     verseTemplate.verse = e[1];
+    // } else {
+    //     verseTemplate.listBooks=(verseSourse[0]+' '+verseSourse[1]);
+    //     const e = verseSourse[2].split(':');
+    //     verseTemplate.chapter = e[0];
+    //     verseTemplate.verse = e[1];
+    // };
 
-    console.log(verseSourse);
-    console.log(verseToEdit);
 
     const formik = useFormik({
         initialValues: {
@@ -48,12 +62,13 @@ const VerseFormTemplate = (props) => {
         onSubmit: (values) => {
             const source = `${values.listBooks} ${values.chapter}:${values.verse}`;
             const verse = new Verse(source, values.text);
+            props.editVerse && props.deleteVerse(props.editVerse.id);
+            props.clearDataEditVerse();
             props.addTodo(verse);
             formik.resetForm()
             props.showAlert('Стих добавлен')
         },
     });
-    console.log(formik.values);
     return (
         <form className="container" onSubmit={formik.handleSubmit} >
             <div className="VerseForm-body VerseForm-row">
@@ -100,7 +115,7 @@ const VerseFormTemplate = (props) => {
             </div>
             <div className="VerseForm-row VerseForm-SubmitSection">
                 <Button type="submit" variant="contained" color="primary" >
-                    Добавить
+                    {props.editVerse ? "Сохранить" : "Добавить"}
                 </Button>
             </div>
 
@@ -116,13 +131,22 @@ const mapDispatchToProps = dispatch => ({
     },
     showAlert: (text) => {
         dispatch(showAlert(text))
-    }
+    },
+    deleteVerse: (id) => {
+        dispatch(deleteVerse(id))
+    },
+    editingVerse: (obj) => {
+        dispatch(editVerse(obj))
+    },
+    clearDataEditVerse: () => {
+        dispatch(clearEditVerse())
+    },
 });
 
 const mapStateToProps = state => ({
     verses: state.verses,
     alert: state.alert,
-    idToEditVerse: state.idToEditVerse,
-})
+    editVerse: state.editVerse,
+});
 
 export const VerseForm = connect(mapStateToProps, mapDispatchToProps)(VerseFormTemplate)
