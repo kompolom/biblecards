@@ -14,7 +14,7 @@ export const AppHeader = () => {
   }
   const pathname = useLocation().pathname;
   const currentRoute = routes.find(route => route[0] === pathname);
-  const pageTitle = currentRoute? currentRoute[1]: '';
+  const pageTitle = currentRoute? currentRoute[1]: 'Редактировать';
 
     return (<React.Fragment>
       <AppBar position="sticky">

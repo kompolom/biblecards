@@ -54,17 +54,11 @@ export function hideAlert() {
    };
 };
 
-export function editVerse(obj) {
-   return dispatch => {
-      dispatch({
-         type: EDIT_VERSE,
-         payload: obj
-      });
-
-      setTimeout(() => {
-         dispatch(clearEditVerse());
-      }, 3000);
-   };
+export function saveVerse(verse) {
+   return {
+      type: EDIT_VERSE,
+      payload: verse,
+      };
 };
 
 export function clearEditVerse() {

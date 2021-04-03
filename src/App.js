@@ -62,10 +62,17 @@ class App extends React.Component {
             <VerseForm />
           </Page>
         </Route>
-        <Route path="/edit/:id">
-          <Page>
-            <VerseForm />
-          </Page>
+        <Route path="/edit/:id"
+          render={({match}) => {
+            const id = match.params.id;
+            const verse = this.props.stateApp.verses.find(verse => verse.id == id);
+            return (
+              <Page>
+                <VerseForm key={verse.id} verse={verse} />
+              </Page>
+            );
+          }}
+        >
         </Route>
         <Route path="/">
           <Page>

@@ -1,70 +1,29 @@
-import React, { useRef } from 'react';
+import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 import { Button } from '@material-ui/core';
 import { useFormik } from 'formik';
 import './style.css';
 import books from '../../data/books.json';
 import { Verse } from "../../models/Verse";
-import { addVerse, clearEditVerse, deleteVerse, editVerse, showAlert } from "../../Redux/actions";
+import { addVerse, deleteVerse, showAlert } from "../../Redux/actions";
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import { Alert } from '../Alert';
 
 const VerseFormTemplate = (props) => {
-    let verseTemplate = {
-            id: '',
-            listBooks: '',
-            chapter: '',
-            verse: '',
-            text: '',
-        };
-    
-    console.log(props.editVerse);
-    if (props.editVerse) {
-        const verseToEdit = props.verses.find(verse => verse.id === props.editVerse.id);
-        const verseSourse = verseToEdit.source.split(' ');
-        verseSourse.length === 2 
-            ? verseTemplate.listBooks=verseSourse[0] 
-            : verseTemplate.listBooks=(verseSourse[0]+' '+verseSourse[1]);
-        let e
-        verseSourse.length === 2 ? e = verseSourse[1].split(':') : e = verseSourse[2].split(':');
-        verseTemplate.id = props.editVerse.id;
-        verseTemplate.chapter = e[0];
-        verseTemplate.verse = e[1];
-        verseTemplate.text = verseToEdit.text;
-    } 
-    // const verseToEdit = props.editVerse ? props.verses.find(verse => verse.id === props.editVerse.id) : { source: '', text: ''};
-    // const idVerseToEdit = props.editVerse ? props.editVerse.id : '';
-    // const verseSourse = verseToEdit.source.split(' ');
-    // console.log(verseSourse);
-    // if (verseSourse.length === 1) {
-    //     verseTemplate.listBooks='';
-    // } else if (verseSourse.length === 2) {
-    //     verseTemplate.listBooks=verseSourse[0];
-    //     const e = verseSourse[1].split(':');
-    //     verseTemplate.chapter = e[0];
-    //     verseTemplate.verse = e[1];
-    // } else {
-    //     verseTemplate.listBooks=(verseSourse[0]+' '+verseSourse[1]);
-    //     const e = verseSourse[2].split(':');
-    //     verseTemplate.chapter = e[0];
-    //     verseTemplate.verse = e[1];
-    // };
-
-
+    const verseData = props.verse || {};
+    const verse = useMemo(() => new Verse(verseData.source, verseData.text, verseData.id), [props.verse]);
     const formik = useFormik({
         initialValues: {
-            listBooks: verseTemplate.listBooks || books[0] ,
-            chapter: verseTemplate.chapter || '',
-            verse: verseTemplate.verse || '',
-            text: verseTemplate.text || '',
+            listBooks: verse.book || books[0] ,
+            chapter: verse.chapter,
+            verse: verse.verse,
+            text: verse.text,
         },
         onSubmit: (values) => {
-            const source = `${values.listBooks} ${values.chapter}:${values.verse}`;
-            const verse = new Verse(source, values.text);
-            props.editVerse && props.deleteVerse(props.editVerse.id);
-            props.clearDataEditVerse();
-            props.addTodo(verse);
+            const source = `${values.listBooks} ${values.chapter}${values.chapter? ":": ''}${values.verse}`;
+            const verse = new Verse(source, values.text nd);
+            props.addVerse(verse);
             formik.resetForm()
             props.showAlert('Стих добавлен')
         },
@@ -115,7 +74,7 @@ const VerseFormTemplate = (props) => {
             </div>
             <div className="VerseForm-row VerseForm-SubmitSection">
                 <Button type="submit" variant="contained" color="primary" >
-                    {props.editVerse ? "Сохранить" : "Добавить"}
+                    {props.verse ? "Сохранить" : "Добавить"}
                 </Button>
             </div>
 
@@ -126,7 +85,7 @@ const VerseFormTemplate = (props) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    addTodo: (verse) => {
+    addVerse: (verse) => {
         dispatch(addVerse(verse)); // FIXME: dispatch
     },
     showAlert: (text) => {
@@ -134,12 +93,6 @@ const mapDispatchToProps = dispatch => ({
     },
     deleteVerse: (id) => {
         dispatch(deleteVerse(id))
-    },
-    editingVerse: (obj) => {
-        dispatch(editVerse(obj))
-    },
-    clearDataEditVerse: () => {
-        dispatch(clearEditVerse())
     },
 });
 
