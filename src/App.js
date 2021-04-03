@@ -62,6 +62,11 @@ class App extends React.Component {
             <VerseForm />
           </Page>
         </Route>
+        <Route path="/edit/:id">
+          <Page>
+            <VerseForm />
+          </Page>
+        </Route>
         <Route path="/">
           <Page>
             <FlashCard verse={this.verseRandom} nextTrigger={this.updateRandom} />

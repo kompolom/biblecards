@@ -14,6 +14,7 @@ export const AppHeader = () => {
   }
   const pathname = useLocation().pathname;
   const currentRoute = routes.find(route => route[0] === pathname);
+  const pageTitle = currentRoute? currentRoute[1]: '';
 
     return (<React.Fragment>
       <AppBar position="sticky">
@@ -21,7 +22,7 @@ export const AppHeader = () => {
           <IconButton onClick={toggleDrawer} edge="start" color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6">{currentRoute[1]}</Typography>
+          <Typography variant="h6">{pageTitle}</Typography>
         </Toolbar>
       </AppBar>
       <SwipeableDrawer open={isDrawerOpen} anchor="left" onClose={toggleDrawer} onOpen={toggleDrawer}>

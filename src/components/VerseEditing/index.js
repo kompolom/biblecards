@@ -1,21 +1,16 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import { deleteVerse, editVerse } from '../../Redux/actions';
+import { deleteVerse } from '../../Redux/actions';
 import './style.css';
 import IconEdit from '../../img/edit.png';
 import IconDelete from '../../img/delete.png';
 import { Link } from 'react-router-dom';
 
 const EventEditing = (props) => {
-   const dataVerseEdit = {
-      id: props.id,
-      stats: props.stats,
-   };
    const deleteVerse = () => { props.deleteVerse(props.id) }
-   const editVerse = () => ( props.editVerse(dataVerseEdit) )
    return (
       <div className="VerseEditing"> 
-         <Link to="/add" className="Edit" onClick={editVerse}> 
+         <Link to={`/edit/${props.id}`} className="Edit"> 
             <img src={IconEdit} width="35px" height="35px" alt="Изменить" /> 
          </Link>
          <div className="Delete" onClick={deleteVerse}> 
@@ -29,10 +24,7 @@ const EventEditing = (props) => {
 const mapDispatchToProps = dispatch => ({
    deleteVerse: (id) => {
       dispatch(deleteVerse(id))
-   },
-   editVerse: (obj) => {
-      dispatch(editVerse(obj))
-   },
+   }
 });
 
 export const VerseEditing = connect(null, mapDispatchToProps)(EventEditing);
