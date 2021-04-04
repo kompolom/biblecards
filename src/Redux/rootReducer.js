@@ -4,13 +4,9 @@ import { ADD_VERSE, DELETE_VERSE, CORRECT, HIDE_ALERT, INCORRECT, SHOW_ALERT, SA
 function versesReducer(state = [], action) {
    switch(action.type) {
       case ADD_VERSE:
-         return state.concat([{
-            id: Date.now(),
-            ...action.payload
-         }]);
+         return state.concat([{...action.payload }]);
       case SAVE_VERSE:
          return state.map( (verse) => {
-            debugger;
             if (verse.id === action.payload.id) {
                return verse = action.payload
             } else {

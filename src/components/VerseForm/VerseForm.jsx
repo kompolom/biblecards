@@ -12,9 +12,10 @@ import { Alert } from '../Alert';
 
 const VerseFormTemplate = (props) => {
     const verseData = props.verse || {};
-    const verse = useMemo(() => new Verse(verseData.id, verseData.source, verseData.text ), [props.verse]);
+    const verse = useMemo(() => new Verse(verseData.id, verseData.source, verseData.text ), [verseData]);
     const formik = useFormik({
         initialValues: {
+            id: verse.id || Date.now(),
             listBooks: verse.book || books[0] ,
             chapter: verse.chapter,
             verse: verse.verse,
@@ -22,10 +23,10 @@ const VerseFormTemplate = (props) => {
         },
         onSubmit: (values) => {
             const source = `${values.listBooks} ${values.chapter}${values.chapter? ":": ''}${values.verse}`;
-            const verse = new Verse(props.verse.id, source, values.text);
-            props.verse.id ? props.saveVerse(verse) : props.addVerse(verse);
+            const verse = new Verse( values.id, source, values.text);
+            props.verse ? props.saveVerse(verse) : props.addVerse(verse);
             formik.resetForm()
-            props.showAlert('Стих добавлен')
+            props.verse ? props.showAlert('Стих сохранен') : props.showAlert('Стих добавлен')
         },
     });
     return (

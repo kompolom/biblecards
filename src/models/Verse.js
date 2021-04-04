@@ -1,7 +1,7 @@
 export class Verse {
   static re = /^([1-3]?\s?[^\w]*)(\d+):?(\d+)?/
   constructor(id, source, content) {
-    id && (this.id = id);
+    this.id = id;
     this.source = source || '';
     this.text = content || '';
   }
