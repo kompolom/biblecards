@@ -8,7 +8,15 @@ function versesReducer(state = [], action) {
             id: Date.now(),
             ...action.payload
          }]);
-      // case SAVE_VERSE:
+      case SAVE_VERSE:
+         return state.map( (verse) => {
+            debugger;
+            if (verse.id === action.payload.id) {
+               return verse = action.payload
+            } else {
+               return verse;
+            };
+         });
          // для кажого элемена в state
          // проверить
          // если id совпадает с action, то вернуть то что в payload

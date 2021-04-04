@@ -5,14 +5,14 @@ import { useFormik } from 'formik';
 import './style.css';
 import books from '../../data/books.json';
 import { Verse } from "../../models/Verse";
-import { addVerse, deleteVerse, showAlert } from "../../Redux/actions";
+import { addVerse, deleteVerse, saveVerse, showAlert } from "../../Redux/actions";
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import { Alert } from '../Alert';
 
 const VerseFormTemplate = (props) => {
     const verseData = props.verse || {};
-    const verse = useMemo(() => new Verse(verseData.source, verseData.text, verseData.id), [props.verse]);
+    const verse = useMemo(() => new Verse(verseData.id, verseData.source, verseData.text ), [props.verse]);
     const formik = useFormik({
         initialValues: {
             listBooks: verse.book || books[0] ,
@@ -22,8 +22,8 @@ const VerseFormTemplate = (props) => {
         },
         onSubmit: (values) => {
             const source = `${values.listBooks} ${values.chapter}${values.chapter? ":": ''}${values.verse}`;
-            const verse = new Verse(source, values.text nd);
-            props.addVerse(verse);
+            const verse = new Verse(props.verse.id, source, values.text);
+            props.verse.id ? props.saveVerse(verse) : props.addVerse(verse);
             formik.resetForm()
             props.showAlert('Стих добавлен')
         },
@@ -87,6 +87,9 @@ const VerseFormTemplate = (props) => {
 const mapDispatchToProps = dispatch => ({
     addVerse: (verse) => {
         dispatch(addVerse(verse)); // FIXME: dispatch
+    },
+    saveVerse: (verse) => {
+        dispatch(saveVerse(verse));
     },
     showAlert: (text) => {
         dispatch(showAlert(text))

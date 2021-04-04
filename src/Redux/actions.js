@@ -1,4 +1,4 @@
-import { ADD_VERSE, CLEAR_EDIT_VERSE, CORRECT, DELETE_VERSE, EDIT_VERSE, HIDE_ALERT, INCORRECT, SAVE_VERSE, SHOW_ALERT, VERSE_VIEW } from "./types";
+import { ADD_VERSE, CORRECT, DELETE_VERSE, HIDE_ALERT, INCORRECT, SAVE_VERSE, SHOW_ALERT, VERSE_VIEW } from "./types";
 
 export function correct(id) {
    return {
@@ -56,13 +56,7 @@ export function hideAlert() {
 
 export function saveVerse(verse) {
    return {
-      type: EDIT_VERSE,
+      type: SAVE_VERSE,
       payload: verse,
       };
-};
-
-export function clearEditVerse() {
-   return {
-      type: CLEAR_EDIT_VERSE,
-   };
 };
