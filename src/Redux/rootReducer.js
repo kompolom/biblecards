@@ -13,10 +13,6 @@ function versesReducer(state = [], action) {
                return verse;
             };
          });
-         // для кажого элемена в state
-         // проверить
-         // если id совпадает с action, то вернуть то что в payload
-         // иначе вернуть исходный элемент
       case DELETE_VERSE:
          return state.filter( (value)=> value.id !== action.payload)
       default: return state;

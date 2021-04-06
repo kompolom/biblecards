@@ -7,15 +7,11 @@ import {
 } from "react-router-dom";
 import './App.css';
 
-import List from '@material-ui/core/List';
-
 import Page from './components/Page';
-import { Card } from './components/Card';
 import { VerseForm } from './components/VerseForm';
 import { AppHeader } from './components/AppHeader/';
 import { correct, incorrect } from './Redux/actions';
 import { FlashCard } from './components/FlashCard';
-import { VerseEditing } from './components/VerseEditing';
 import { VersesList } from './components/VersesList';
 
 class App extends React.Component {
