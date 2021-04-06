@@ -49,8 +49,8 @@ class App extends React.Component {
         </Route>
         <Route path="/edit/:id"
           render={({match}) => {
-            const id = match.params.id;
-            const verse = this.props.verses.find(verse => verse.id == id);
+            const id = Number(match.params.id);
+            const verse = this.props.verses.find(verse => verse.id === id);
             return (
               <Page>
                 <VerseForm key={verse.id} verse={verse} />
