@@ -8,7 +8,7 @@ function versesReducer(state = [], action) {
       case SAVE_VERSE:
          return state.map( (verse) => {
             if (verse.id === action.payload.id) {
-               return verse = action.payload
+               return action.payload
             } else {
                return verse;
             };

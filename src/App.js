@@ -16,6 +16,7 @@ import { AppHeader } from './components/AppHeader/';
 import { correct, incorrect } from './Redux/actions';
 import { FlashCard } from './components/FlashCard';
 import { VerseEditing } from './components/VerseEditing';
+import { VersesList } from './components/VersesList';
 
 class App extends React.Component {
 
@@ -31,9 +32,9 @@ class App extends React.Component {
   }
 
   updateRandom() {
-    this.verseRandom = this.getRandomElement(this.props.stateApp.verses);
+    this.verseRandom = this.getRandomElement(this.props.verses);
   }
-
+  
   render() {
   return (
     <div className="App">
@@ -42,19 +43,7 @@ class App extends React.Component {
       <Switch>
         <Route path="/list">
           <Page>
-            <List>
-                {
-                  this.props.stateApp.verses.map(verse => {
-                    const stats = this.props.stateApp.stats[verse.id]
-                    return (
-                      <li key={verse.source} className="ListItem">
-                        <Card stats={stats} view="list" verse={verse} />
-                        <VerseEditing id={verse.id} stats={stats}/>
-                      </li>
-                    );
-                  })
-                }
-            </List>
+              <VersesList verses={this.props.verses} stats={this.props.verseStatistics} />
           </Page>
         </Route>
         <Route path="/add">
@@ -65,7 +54,7 @@ class App extends React.Component {
         <Route path="/edit/:id"
           render={({match}) => {
             const id = match.params.id;
-            const verse = this.props.stateApp.verses.find(verse => verse.id == id);
+            const verse = this.props.verses.find(verse => verse.id == id);
             return (
               <Page>
                 <VerseForm key={verse.id} verse={verse} />
@@ -88,6 +77,7 @@ class App extends React.Component {
 
 const mapStateToProps = state => ({
   stateApp: state,
+  verses: state.verses,
   verseStatistics: state.stats
 });
 
