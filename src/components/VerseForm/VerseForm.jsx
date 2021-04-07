@@ -1,14 +1,16 @@
 import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
-import { Button } from '@material-ui/core';
 import { useFormik } from 'formik';
+
+import { Button } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
+import { Select } from '@material-ui/core';
+
 import './style.css';
 import books from '../../data/books.json';
 import { Verse } from "../../models/Verse";
-import { addVerse, deleteVerse, saveVerse, showAlert } from "../../Redux/actions";
-import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
 import { Alert } from '../Alert';
+import { addVerse, deleteVerse, saveVerse, showAlert } from "../../Redux/actions";
 
 const VerseFormTemplate = (props) => {
     const verseData = props.verse || {};
