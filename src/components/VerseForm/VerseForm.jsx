@@ -13,8 +13,8 @@ import { Alert } from '../Alert';
 import { addVerse, deleteVerse, saveVerse, showAlert } from "../../Redux/actions";
 
 const VerseFormTemplate = (props) => {
-    const verseData = props.verse || {};
-    const verse = useMemo(() => new Verse(verseData.id, verseData.source, verseData.text ), [verseData]);
+    let verseData = props.verse || {};
+    const verse = useMemo( () => new Verse(verseData.id, verseData.source, verseData.text ), [verseData]);
     const formik = useFormik({
         initialValues: {
             id: verse.id || Date.now(),
@@ -27,10 +27,12 @@ const VerseFormTemplate = (props) => {
             const source = `${values.listBooks} ${values.chapter}${values.chapter? ":": ''}${values.verse}`;
             const verse = new Verse( values.id, source, values.text);
             props.verse ? props.saveVerse(verse) : props.addVerse(verse);
-            formik.resetForm()
+            props.verse ? verseData={} : formik.resetForm();
             props.verse ? props.showAlert('Стих сохранен') : props.showAlert('Стих добавлен')
         },
     });
+    console.log('verseData', verseData);
+    console.log('verse', verse);
     return (
         <form className="container" onSubmit={formik.handleSubmit} >
             <div className="VerseForm-body VerseForm-row">
