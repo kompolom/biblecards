@@ -31,8 +31,6 @@ const VerseFormTemplate = (props) => {
             props.verse ? props.showAlert('Стих сохранен') : props.showAlert('Стих добавлен')
         },
     });
-    console.log('verseData', verseData);
-    console.log('verse', verse);
     return (
         <form className="container" onSubmit={formik.handleSubmit} >
             <div className="VerseForm-body VerseForm-row">
