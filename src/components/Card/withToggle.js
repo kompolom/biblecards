@@ -8,5 +8,5 @@ export const withToggle = (Card) => (props) => {
         setShow(direction);
         props.onToggle && props.onToggle(direction);
     };
-    return (<Card onToggle={toggleShow} show={show} verse={props.verse} view={props.view} />);
+    return (<Card className="Card_toggleable" onToggle={toggleShow} show={show} verse={props.verse} view={props.view} />);
 }
