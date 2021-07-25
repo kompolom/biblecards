@@ -1,5 +1,12 @@
 import { combineReducers } from 'redux';
-import { ADD_VERSE, DELETE_VERSE, CORRECT, HIDE_ALERT, INCORRECT, SHOW_ALERT, SAVE_VERSE } from './types';
+import {
+   ADD_VERSE,
+   DELETE_VERSE,
+   CORRECT,
+   INCORRECT,
+   SAVE_VERSE
+} from './types';
+import { alertsReducer } from './reducers/alerts';
 
 function versesReducer(state = [], action) {
    switch(action.type) {
@@ -31,7 +38,7 @@ function statsReducer(state = {}, action) {
       };
 };
 
-                  /** state =  [view, corrects, incorrects] */
+/** state =  [view, corrects, incorrects] */
 function itemStatsReducer(state = [0,0,0], action) {
    switch(action.type) {
       case CORRECT:
@@ -46,18 +53,8 @@ function itemStatsReducer(state = [0,0,0], action) {
    };
 };
 
-function alertReducer (state = null, action) {
-   switch (action.type) {
-      case SHOW_ALERT:
-         return state = action.payload
-      case HIDE_ALERT:
-         return state = null
-      default: return state;
-   };
-};
-
 export const rootReducer = combineReducers({
    stats: statsReducer,
    verses: versesReducer,
-   alert: alertReducer
+   alerts: alertsReducer
 });

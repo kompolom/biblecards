@@ -9,8 +9,7 @@ import { Select } from '@material-ui/core';
 import './style.css';
 import books from '../../data/books.json';
 import { Verse } from "../../models/Verse";
-import { Alert } from '../Alert';
-import { addVerse, deleteVerse, saveVerse, showAlert } from "../../Redux/actions";
+import { addVerse, deleteVerse, saveVerse } from "../../Redux/actions";
 
 const VerseFormTemplate = (props) => {
     let verseData = props.verse || {};
@@ -28,7 +27,6 @@ const VerseFormTemplate = (props) => {
             const verse = new Verse( values.id, source, values.text);
             props.verse ? props.saveVerse(verse) : props.addVerse(verse);
             props.verse ? verseData={} : formik.resetForm();
-            props.verse ? props.showAlert('Стих сохранен') : props.showAlert('Стих добавлен')
         },
     });
     return (
@@ -80,9 +78,6 @@ const VerseFormTemplate = (props) => {
                     {props.verse ? "Сохранить" : "Добавить"}
                 </Button>
             </div>
-
-            {props.alert && <Alert text={props.alert} />}
-
         </form>
     );
 };
@@ -93,9 +88,6 @@ const mapDispatchToProps = dispatch => ({
     },
     saveVerse: (verse) => {
         dispatch(saveVerse(verse));
-    },
-    showAlert: (text) => {
-        dispatch(showAlert(text))
     },
     deleteVerse: (id) => {
         dispatch(deleteVerse(id))

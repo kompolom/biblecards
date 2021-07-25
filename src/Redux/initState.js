@@ -1,5 +1,8 @@
-
 export const initState = {
+    stats: {},
+    verses: []
+};
+export const dummyState = {
     stats: {
         1: [
             5,

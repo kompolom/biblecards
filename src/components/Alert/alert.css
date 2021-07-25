@@ -1,0 +1,23 @@
+.Alert {
+   margin-bottom: var(--gutter);
+}
+
+.Alert--container {
+   --alert-text-color: var(--color-text);
+   padding: 10px;
+   color: var(--alert-text-color);
+   background-color: var(--alert-bg-color);
+}
+
+.Alert_status_success {
+   --alert-text-color: var(--color-success-fg);
+   --alert-bg-color: var(--color-success-bg);
+}
+
+.Alert_status_warning {
+   --alert-bg-color: var(--color-warning-bg);
+}
+
+.Alert_status_error {
+   --alert-bg-color: var(--color-error-bg);
+}

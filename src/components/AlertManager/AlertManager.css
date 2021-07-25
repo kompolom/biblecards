@@ -1,0 +1,7 @@
+.AlertManager {
+    position: fixed;
+    width: calc(100% - (var(--gutter) * 2));
+    margin-left: var(--gutter);
+    margin-right: var(--gutter);
+    bottom: 0;
+}

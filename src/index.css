@@ -1,10 +1,21 @@
-body {
-  margin:0 auto;
-  max-width: 540px;
-  max-height: 810px;
-  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; */
+:root {
+  /* color scheme */
+  --color-theme: #3f51b5;
+  --color-text: #34495e;
+  --color-text-inverse: #fff;
+  --color-success-bg: #dff2bf;
+  --color-success-fg: #270;
+  --color-warning-bg: #ffda60;
+  --color-warning-fg: #000;
+  --color-error-bg: #ff3b00;
+  --color-error-fg: var(--color-text-inverse);
+
+  /* Отступ между элементами */
+  --gutter: 16px;
+}
+
+html, body, #⚛️, .App {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
