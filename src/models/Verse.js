@@ -1,9 +1,15 @@
 export class Verse {
   static re = /^([1-3]?\s?[^\w]*)(\d+):?(\d+)?/
-  constructor(id, source, content) {
+
+  static create({ id, book, chapter, verse, text }) {
+    const source = `${book} ${chapter}${chapter? ":": ''}${verse}`;
+    return new Verse(id, source, text)
+  }
+
+  constructor(id, source, text) {
     this.id = id;
     this.source = source || '';
-    this.text = content || '';
+    this.text = text || '';
   }
 
   getMatches() {
@@ -26,8 +32,7 @@ export class Verse {
   get chapter(){
     const matches = this.getMatches();
     if(!matches) return '';
-    const chapter = matches.length === 4? matches[2] : '';
-    return chapter;
+    return matches.length === 4? matches[2] : '';
   }
 
   get verse(){
@@ -36,4 +41,16 @@ export class Verse {
 
     return matches[matches.length - 1];
   }
+
+  export() {
+    const exportable = {
+      book: this.book,
+      chapter: this.chapter? Number(this.chapter) : null,
+      verse: Number(this.verse),
+      text: this.text
+    };
+    this.id && (exportable.id = this.id)
+    return exportable;
+  }
+
 }

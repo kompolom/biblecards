@@ -16,15 +16,14 @@ const VerseFormTemplate = (props) => {
     const verse = useMemo( () => new Verse(verseData.id, verseData.source, verseData.text ), [verseData]);
     const formik = useFormik({
         initialValues: {
-            id: verse.id || Date.now(),
-            listBooks: verse.book || books[0] ,
+            id: verse.id,
+            book: verse.book || books[0] ,
             chapter: verse.chapter,
             verse: verse.verse,
             text: verse.text,
         },
         onSubmit: (values) => {
-            const source = `${values.listBooks} ${values.chapter}${values.chapter? ":": ''}${values.verse}`;
-            const verse = new Verse( values.id, source, values.text);
+            const verse = Verse.create(values);
             props.verse ? props.saveVerse(verse) : props.addVerse(verse);
             props.verse ? verseData={} : formik.resetForm();
         },
@@ -36,8 +35,8 @@ const VerseFormTemplate = (props) => {
                     required
                     native
                     className="VerseForm-row" 
-                    name="listBooks"
-                    defaultValue={formik.values.listBooks}
+                    name="book"
+                    defaultValue={formik.values.book}
                     onChange={formik.handleChange}
                 >
                     { books.map(book => { return ( <option key={book} value={book}> {book} </option> ) } ) }
@@ -84,7 +83,7 @@ const VerseFormTemplate = (props) => {
 
 const mapDispatchToProps = dispatch => ({
     addVerse: (verse) => {
-        dispatch(addVerse(verse)); // FIXME: dispatch
+        dispatch(addVerse(verse));
     },
     saveVerse: (verse) => {
         dispatch(saveVerse(verse));
