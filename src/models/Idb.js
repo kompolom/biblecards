@@ -68,9 +68,12 @@ export class Idb {
         return new Promise((resolve, reject) => {
             const transaction = this._getTransaction(storeName, 'readwrite');
             const store = transaction.objectStore(storeName);
-            transaction.oncomplete = resolve;
+            let created;
+            transaction.oncomplete = (e) => resolve(created)
             transaction.onerror = reject;
-            store.add(data);
+            store.add(data)
+                .onsuccess = (e) => store.get(e.target.result)
+                .onsuccess = (e) => created = e.target.result
         });
     }
 

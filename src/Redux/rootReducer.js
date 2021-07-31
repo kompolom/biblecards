@@ -4,12 +4,14 @@ import {
    DELETE_VERSE,
    CORRECT,
    INCORRECT,
-   SAVE_VERSE
+   SAVE_VERSE, ADD_VERSE_BATCH
 } from './types';
 import { alertsReducer } from './reducers/alerts';
 
 function versesReducer(state = [], action) {
    switch(action.type) {
+      case ADD_VERSE_BATCH:
+         return state.concat(action.payload);
       case ADD_VERSE:
          return state.concat([{...action.payload }]);
       case SAVE_VERSE:
@@ -18,13 +20,13 @@ function versesReducer(state = [], action) {
                return action.payload
             } else {
                return verse;
-            };
+            }
          });
       case DELETE_VERSE:
          return state.filter( (value)=> value.id !== action.payload)
       default: return state;
-   };
-};
+   }
+}
 
 function statsReducer(state = {}, action) {
    switch(action.type) {

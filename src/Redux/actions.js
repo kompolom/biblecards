@@ -1,6 +1,15 @@
-import { ADD_VERSE, CORRECT, DELETE_VERSE, INCORRECT, SAVE_VERSE, VERSE_VIEW } from "./types";
+import {
+   ADD_VERSE,
+   ADD_VERSE_BATCH,
+   CORRECT,
+   DELETE_VERSE,
+   INCORRECT,
+   SAVE_VERSE,
+   VERSE_VIEW
+} from "./types";
 import { actionNames } from "./reducers/alerts";
 import { v4 } from 'uuid';
+import { getDb } from "../getDb";
 
 export function correct(id) {
    return {
@@ -23,19 +32,75 @@ export function viewedVerse(id) {
    }
 }
 
-export function addVerse(verse) {
+/**
+ * Добавляет пачку стихов в store
+ * @param {Verse[]} batch
+ */
+export function loadVerses(batch) {
+    return {
+       type: ADD_VERSE_BATCH,
+       payload: batch
+    }
+}
+
+export function addVerse(verseData) {
+   return async dispatch => {
+      const db = await getDb();
+      try {
+         const verse = await db.createVerse(verseData)
+         dispatch(pushVerse(verse));
+         dispatch(showAlert('Стих сохранен', { status: 'success' }))
+      } catch (e) {
+         console.log(e);
+         dispatch(showAlert('Не удалось сохранить стих', { status: 'error' }))
+      }
+   }
+}
+
+/**
+ * Сохраняет существующий стих
+ * @param {Verse} verse
+ */
+export function saveVerse(verse) {
+   return async dispatch => {
+      const db = await getDb();
+      try {
+         await db.updateVerse(verse)
+         dispatch({
+            type: SAVE_VERSE,
+            payload: verse,
+         });
+         dispatch(showAlert('Стих сохранен', { status: 'success' }))
+      } catch (e) {
+         console.log(e);
+         dispatch(showAlert('Не удалось сохранить стих', { status: 'error' }))
+      }
+   }
+}
+
+export function pushVerse(payload) {
    return {
       type: ADD_VERSE,
-      payload: verse
-   };
-};
+      payload
+   }
+}
 
 export function deleteVerse(id) {
-   return {
-      type: DELETE_VERSE,
-      payload: id
-   };
-};
+    return async dispatch => {
+        const db = await getDb();
+        try {
+           await db.deleteVerse(id)
+           dispatch({
+              type: DELETE_VERSE,
+              payload: id
+           })
+           dispatch(showAlert('Стих удален', { status: 'success' }))
+        } catch (e) {
+           console.error(e);
+           dispatch(showAlert('Не удалось удалить стих', { status: 'error' }));
+        }
+    }
+}
 
 /**
  * Добавляет уведомление
@@ -62,11 +127,4 @@ export function hideAlert(id) {
       type: actionNames.DEL_ALERT,
       id
    };
-};
-
-export function saveVerse(verse) {
-   return {
-      type: SAVE_VERSE,
-      payload: verse,
-      };
 };
