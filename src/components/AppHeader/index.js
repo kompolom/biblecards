@@ -7,7 +7,7 @@ import routes from '../../routes';
 export const AppHeader = () => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const toggleDrawer = (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+    if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
     setDrawerOpen(!isDrawerOpen);
