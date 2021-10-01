@@ -96,13 +96,34 @@ export class Idb {
         });
     }
 
+    async readOne(storeName, query) {
+        return new Promise((resolve, reject) => {
+            const transaction = this.#db.transaction(storeName),
+                store = transaction.objectStore(storeName);
+            transaction.onerror = reject;
+            store.get(query).onsuccess = (e) => resolve(e.target.result)
+        })
+    }
+
+    async count(storeName, query) {
+        return new Promise((resolve, reject) => {
+            const store = this.#db.transaction(storeName).objectStore(storeName)
+            const req = store.count(query)
+            req.onerror = reject
+            req.onsuccess = (e) => resolve(e.target.result)
+        })
+    }
+
     async update(storeName, data){
         return new Promise((resolve, reject) => {
             const transaction = this.#db.transaction(storeName, 'readwrite');
             const store = transaction.objectStore(storeName);
-            transaction.oncomplete = resolve;
+            let result;
+            transaction.oncomplete = (e) => resolve(result);
             transaction.onerror = reject;
-            store.put(data);
+            store.put(data)
+                .onsuccess = (e) => store.get(e.target.result)
+                .onsuccess = e => result = e.target.result;
         });
     }
 

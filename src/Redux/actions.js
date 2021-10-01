@@ -11,18 +11,36 @@ import { actionNames } from "./reducers/alerts";
 import { v4 } from 'uuid';
 import { getDb } from "../getDb";
 
+/**
+ * Правильный ответ на стих
+ * @param {number} id id стиха
+ */
 export function correct(id) {
-   return {
-      type: CORRECT,
-      payload: id
-   };
+   return async (dispatch, getState) => {
+      const currentStats = getState().stats[id];
+      const db = await getDb();
+      currentStats?
+          await db.updateVerseStat(id, currentStats[0]++, currentStats[1]++, currentStats[2]):
+          await db.updateVerseStat(id, 1, 1, 0)
+      dispatch({
+         type: CORRECT,
+         payload: id
+      })
+   }
 };
 
 export function incorrect(id) {
-   return {
-      type: INCORRECT,
-      payload: id
-   };
+   return async (dispatch, getState) => {
+      const currentStats = getState().stats[id];
+      const db = await getDb();
+      currentStats?
+          await db.updateVerseStat(id, currentStats[0]++, currentStats[1], currentStats[2]++):
+          await db.updateVerseStat(id, 1, 0, 1)
+      dispatch({
+         type: INCORRECT,
+         payload: id
+      })
+   }
 };
 
 export function viewedVerse(id) {
