@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
+import Box from '@mui/material/Box';
 
 import './style.css';
 import books from '../../data/books.json';
@@ -29,7 +30,7 @@ const VerseFormTemplate = (props) => {
         },
     });
     return (
-        <form className="container" onSubmit={formik.handleSubmit} >
+        <Box component="form" sx={{m: 1, '& .MuiTextField-root': { mb: 2 }}} onSubmit={formik.handleSubmit} >
             <div className="VerseForm-body VerseForm-row">
                 <Select
                     required
@@ -42,6 +43,7 @@ const VerseFormTemplate = (props) => {
                     { books.map(book => { return ( <option key={book} value={book}> {book} </option> ) } ) }
                 </Select>
                 <TextField 
+                    gutterBottom
                     className="VerseForm-row" 
                     id="chaperForm" 
                     name="chapter" 
@@ -77,7 +79,7 @@ const VerseFormTemplate = (props) => {
                     {props.verse ? "Сохранить" : "Добавить"}
                 </Button>
             </div>
-        </form>
+        </Box>
     );
 };
 
