@@ -7,7 +7,7 @@ const STATS_STORE = 'stats';
 export class BibicardsDB extends Idb {
 
     static async init() {
-        return Idb.init('bibicards', 2, BibicardsDB);
+        return Idb.init('bibicards', 1, BibicardsDB);
     }
 
     _upgrade(db) {
@@ -15,7 +15,6 @@ export class BibicardsDB extends Idb {
             case 1:
                 const verses = db.createObjectStore(VERSES_STORE, { keyPath: 'id', autoIncrement: true });
                 verses.createIndex('book', 'book')
-            case 2:
                 const stats = db.createObjectStore(STATS_STORE, { keyPath: 'id' });
                 stats.createIndex('id', 'id');
         }
