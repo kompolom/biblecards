@@ -2,9 +2,9 @@ import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 import { useFormik } from 'formik';
 
-import { Button } from '@material-ui/core';
-import { TextField } from '@material-ui/core';
-import { Select } from '@material-ui/core';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Select from '@mui/material/Select';
 
 import './style.css';
 import books from '../../data/books.json';

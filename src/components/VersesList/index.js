@@ -1,5 +1,5 @@
 
-import { List } from '@material-ui/core';
+import List from '@mui/material/List';
 import React from 'react';
 import { Card } from '../Card';
 import { VerseEditing } from '../VerseEditing';

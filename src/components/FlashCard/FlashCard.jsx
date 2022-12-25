@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button } from '@material-ui/core';
+import { Button } from '@mui/material';
 import { Card, withToggle } from '../Card';
 import { correct, incorrect, viewedVerse } from '../../Redux/actions';
 const CardToggleable = withToggle(Card);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
-import { AppBar, Toolbar, IconButton, Typography, SwipeableDrawer, List, ListItem, ListItemText, Link} from '@material-ui/core'
-import { Menu as MenuIcon } from '@material-ui/icons';
+import { AppBar, Toolbar, IconButton, Typography, SwipeableDrawer, List, ListItem, ListItemText, Link } from '@mui/material'
+import { Menu as MenuIcon } from '@mui/icons-material';
 import routes from '../../routes';
 
 export const AppHeader = () => {
