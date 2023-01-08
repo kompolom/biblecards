@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
-import { AppBar, Toolbar, IconButton, Typography, SwipeableDrawer, List, ListItem, ListItemText, Link } from '@mui/material'
+import { useHistory, useLocation } from 'react-router-dom';
+import { AppBar, Toolbar, IconButton, Typography, SwipeableDrawer, List, ListItem, ListItemText, ListItemButton } from '@mui/material'
 import { Menu as MenuIcon } from '@mui/icons-material';
 import routes from '../../routes';
 
@@ -12,6 +12,11 @@ export const AppHeader = () => {
     }
     setDrawerOpen(!isDrawerOpen);
   }
+  const history = useHistory();
+  const onRouteClick = React.useCallback((e) => {
+    e.preventDefault();
+    history.push(e.currentTarget.getAttribute('href'))
+  }, [history]);
   const pathname = useLocation().pathname;
   const currentRoute = routes.find(route => route[0] === pathname);
   const pageTitle = currentRoute? currentRoute[1]: 'Редактировать';
@@ -29,10 +34,10 @@ export const AppHeader = () => {
           <div onClick={toggleDrawer} onKeyDown={toggleDrawer}>
             <List>
               {routes.map(route => (
-              <ListItem key={route[0]}>
-                <ListItemText>
-                  <Link component={RouterLink} to={route[0]}>{route[1]}</Link>
-                </ListItemText>
+              <ListItem disablePadding key={route[0]}>
+                <ListItemButton onClick={onRouteClick} href={route[0]}>
+                  <ListItemText primary={route[1]} />
+                </ListItemButton>
               </ListItem>))}
             </List>
           </div>
