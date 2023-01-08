@@ -1,12 +1,12 @@
 import React from 'react';
-import './style.css'
+import { Typography } from '@mui/material';
 
 export const VerseStatistics = (props) => {
    return (
       <div className="VerseStatistics"> 
-         <span className="span" role="img" aria-label="view" > Стих показан {props.view} раз(а) </span>
-         <span className="span" role="img" aria-label="corrects" > Ответили правильно {props.correct} раз(а) </span>
-         <span className="span" role="img" aria-label="incorrects" > Ответили неправильно {props.incorrect} раз(а) </span>
+         <Typography variant="body2"> Стих показан {props.view} раз(а) </Typography>
+         <Typography variant="body2"> Ответили правильно {props.correct} раз(а) </Typography>
+         <Typography variant="body2"> Ответили неправильно {props.incorrect} раз(а) </Typography>
       </div>
    );
 };

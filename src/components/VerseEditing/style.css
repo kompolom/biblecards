@@ -1,19 +1,4 @@
-.Edit,
-.Delete {
-   padding: 5px 25px;
-   display: flex;
-   align-items: center;
-}
-
-.Edit:hover,
-.Delete:hover {
-   opacity: 0.7;
-}
-
 .VerseEditing {
    display: flex;
    justify-content: space-evenly;
-   padding: 5px;
-   text-align: center;
-   background-color: #EFF2F7;
 }

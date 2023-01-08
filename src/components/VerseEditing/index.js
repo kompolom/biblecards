@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './style.css';
 import { EditOutlined, DeleteOutlined } from '@mui/icons-material';
@@ -11,7 +11,10 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { deleteVerse } from '../../Redux/actions';
 
 const EventEditing = (props) => {
+   const history = useHistory();
    const [open, setOpen] = React.useState(false);
+
+   const onEditClick = React.useCallback(() => { history.push(`/edit/${props.id}`)}, [history, props.id])
 
    const handleClickOpen = () => {
       setOpen(true);
@@ -25,11 +28,11 @@ const EventEditing = (props) => {
 
    return (
       <div className="VerseEditing"> 
-         <Link to={`/edit/${props.id}`} className="Edit">
-             <EditOutlined />
-         </Link>
-         <Button className="Delete" aria-label="Удалить" onClick={handleClickOpen}>
-             <DeleteOutlined />
+         <Button startIcon={<EditOutlined />} onClick={onEditClick}>
+             Редактировать
+         </Button>
+         <Button startIcon={<DeleteOutlined />} aria-label="Удалить" onClick={handleClickOpen}>
+            Удалить
          </Button>
          <Dialog
             open={open}
@@ -42,7 +45,7 @@ const EventEditing = (props) => {
             <Button onClick={handleClose} color="primary" autoFocus>
                Нет
             </Button>
-            <Button onClick={deleteVerse} color="primary">
+            <Button onClick={deleteVerse} color="error">
                Да
             </Button>
          </DialogActions>

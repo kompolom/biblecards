@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from '@mui/material';
-import { Card, withToggle } from '../Card';
+import { VerseCard, withToggle } from '../VerseCard';
 import { correct, incorrect, viewedVerse } from '../../Redux/actions';
-const CardToggleable = withToggle(Card);
+const CardToggleable = withToggle(VerseCard);
 
 /**
  * Карточка с вариантами ответов
