@@ -1,0 +1,1 @@
+export { createBible } from './createBible';

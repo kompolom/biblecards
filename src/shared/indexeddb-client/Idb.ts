@@ -64,7 +64,7 @@ export class IndexedDBClient {
      * @param {any} data
      * @return {Promise}
      */
-    async create(storeName: string, data: any) {
+    async create(storeName: string, data: any): Promise<any> {
         return new Promise((resolve, reject) => {
             const transaction = this._getTransaction(storeName, 'readwrite');
             const store = transaction.objectStore(storeName);
