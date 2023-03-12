@@ -1,0 +1,13 @@
+.VerseForm-row {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.VerseForm-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.VerseForm-SubmitSection {
+    display: flex;
+    justify-content: flex-end;
+}
