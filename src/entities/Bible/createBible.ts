@@ -1,6 +1,6 @@
 import { Book } from 'entities/Book';
-import { Bible } from './Bible.model';
-import books_data from './books.json';
+import { Bible } from './model/Bible.model';
+import books_data from './data/books.json';
 
 export function createBible(): Bible {
     const books: Book[] = books_data

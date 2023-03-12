@@ -1,4 +1,4 @@
-import { Bible } from './Bible.model';
+import { Bible } from './model/Bible.model';
 import { createBible } from './createBible';
 
 it('should create instance', () => {
