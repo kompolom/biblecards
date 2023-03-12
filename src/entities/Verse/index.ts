@@ -1,1 +1,1 @@
-export * from './Verse.model';
+export * from './model';
