@@ -7,8 +7,6 @@
         "@emotion/styled": "^11.10.5",
         "@mui/icons-material": "^5.11.0",
         "@mui/material": "^5.11.1",
-        "@testing-library/jest-dom": "^4.2.4",
-        "@testing-library/react": "^9.3.2",
         "@testing-library/user-event": "^7.1.2",
         "@types/jest": "^29.4.0",
         "@types/node": "^18.14.6",
@@ -50,6 +48,8 @@
         ]
     },
     "devDependencies": {
+        "@testing-library/jest-dom": "^5.16.5",
+        "@testing-library/react": "^14.0.0",
         "prettier": "^2.3.2"
     }
 }
