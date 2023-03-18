@@ -3,7 +3,7 @@ import Card, { CardProps } from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 
-import { Side } from './reducer';
+export type Side = 'front' | 'back';
 
 export interface FlashCardProps extends CardProps {
   frontContent: ReactNode;

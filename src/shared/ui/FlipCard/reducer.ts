@@ -1,4 +1,4 @@
-export type Side = 'front' | 'back';
+import type { Side } from '../FlashCard';
 
 export function reduceFlashCard(
   state: Side = 'front',
