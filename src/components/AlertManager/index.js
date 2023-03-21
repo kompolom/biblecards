@@ -20,13 +20,7 @@ export const AlertManagerProvider = connect(
   return (
     <AlertManagerContext.Provider value={props.showAlert}>
       {props.children}
-      <Snackbar open={Boolean(alerts.length)} className="AlertManager">
-        {alerts.map((alert) => {
-          return (
-            <Alert onClose={props.hideAlert} key={alert.id} severity={alert.status} {...alert} />
-          );
-        })}
-      </Snackbar>
+      {alerts.length && <Snackbar open={Boolean(alerts.length)} message={alerts[0].children} autoHideDuration={alerts[0].timeout} className="AlertManager" /> }
     </AlertManagerContext.Provider>
   );
 });
