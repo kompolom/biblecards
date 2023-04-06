@@ -67,10 +67,10 @@ export function addVerse(verseData) {
       try {
          const verse = await db.createVerse(verseData)
          dispatch(pushVerse(verse));
-         dispatch(showAlert('Стих сохранен', { status: 'success' }))
+         dispatch(showAlert('Стих сохранен', 3, { status: 'success' }))
       } catch (e) {
          console.log(e);
-         dispatch(showAlert('Не удалось сохранить стих', { status: 'error' }))
+         dispatch(showAlert('Не удалось сохранить стих', 3, { status: 'error' }))
       }
    }
 }
@@ -88,10 +88,10 @@ export function saveVerse(verse) {
             type: SAVE_VERSE,
             payload: verse,
          });
-         dispatch(showAlert('Стих сохранен', { status: 'success' }))
+         dispatch(showAlert('Стих сохранен', 3, { status: 'success' }))
       } catch (e) {
          console.log(e);
-         dispatch(showAlert('Не удалось сохранить стих', { status: 'error' }))
+         dispatch(showAlert('Не удалось сохранить стих', 3, { status: 'error' }))
       }
    }
 }
@@ -112,10 +112,10 @@ export function deleteVerse(id) {
               type: DELETE_VERSE,
               payload: id
            })
-           dispatch(showAlert('Стих удален', { status: 'success' }))
+           dispatch(showAlert('Стих удален', 3, { status: 'success' }))
         } catch (e) {
            console.error(e);
-           dispatch(showAlert('Не удалось удалить стих', { status: 'error' }));
+           dispatch(showAlert('Не удалось удалить стих', 3, { status: 'error' }));
         }
     }
 }
@@ -128,13 +128,13 @@ export function deleteVerse(id) {
  * @param [success|warning|error] props.status
  * @return {{payload: Object, type: string}}
  */
-export function showAlert(text, props) {
+export function showAlert(text, seconds, props) {
    return {
       type: actionNames.ADD_ALERT,
       payload: {
          children: text,
          id: v4(),
-         timeout: 3000,
+         timeout: seconds*1000,
          ...props
       }
    };
