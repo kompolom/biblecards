@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { SnackbarContent, Stack, Alert } from '@mui/material';
+import { Stack, Alert } from '@mui/material';
 import { connect } from 'react-redux';
 import { hideAlert, showAlert } from '../../../Redux/actions';
 
@@ -20,7 +20,8 @@ type OAlert = {
 type AlertManagerProps = {
   alerts: OAlert[]
   children: React.ReactNode,
-  showAlert: Object
+  showAlert: () => void,
+  hideAlert: (id: string) => void
 }
 
 export const AlertManagerProvider = connect(
@@ -29,13 +30,15 @@ export const AlertManagerProvider = connect(
     showAlert: (t, s, p) => dispatch(showAlert(t, s, p)),
     hideAlert: (id) => dispatch(hideAlert(id)),
   }),
-)(({ alerts, ...props }: AlertManagerProps) => {
+)(({ alerts, showAlert, hideAlert, ...props }: AlertManagerProps) => {
 
   return (
-    <AlertManagerContext.Provider value={props.showAlert}>
+    <AlertManagerContext.Provider value={showAlert}>
       {props.children}
       
-      {alerts.map((alert : OAlert) => <SnackbarContent  ></SnackbarContent>)}
+      <Stack spacing={1} sx={{ position: 'fixed', left: '2vw', bottom: '2vh', minWidth: 288}}>
+        {alerts.map(alert => <Alert onClose={() => hideAlert(alert.id)} severity={alert.status}>{alert.children}</Alert>)}
+      </Stack>
     </AlertManagerContext.Provider>
   );
 });
