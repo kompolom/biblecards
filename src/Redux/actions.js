@@ -67,10 +67,10 @@ export function addVerse(verseData) {
       try {
          const verse = await db.createVerse(verseData)
          dispatch(pushVerse(verse));
-         dispatch(showAlert('Стих сохранен', 3, { status: 'success' }))
+         dispatch(showAlert('Стих сохранен', 5, { status: 'success' }))
       } catch (e) {
          console.log(e);
-         dispatch(showAlert('Не удалось сохранить стих', 3, { status: 'error' }))
+         dispatch(showAlert('Не удалось сохранить стих', 5, { status: 'error' }))
       }
    }
 }

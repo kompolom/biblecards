@@ -25,13 +25,13 @@ type AlertManagerProps = {
 }
 
 export const AlertManagerProvider = connect(
-  ({ alerts, setAlerts }) => ({ alerts, setAlerts }),
+  ({ alerts }) => ({ alerts }),
   (dispatch) => ({
     showAlert: (t, s, p) => dispatch(showAlert(t, s, p)),
     hideAlert: (id) => dispatch(hideAlert(id)),
   }),
 )(({ alerts, showAlert, hideAlert, ...props }: AlertManagerProps) => {
-
+  alerts.map(alert => setTimeout(hideAlert, alert.timeout, alert.id));
   return (
     <AlertManagerContext.Provider value={showAlert}>
       {props.children}
