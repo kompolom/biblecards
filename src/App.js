@@ -12,7 +12,7 @@ import { VerseForm } from './components/VerseForm';
 import { AppHeader } from './components/AppHeader/';
 import { correct, incorrect } from './Redux/actions';
 import { VersesList } from './components/VersesList';
-import { AlertManagerProvider } from './shared/ui'
+import { AlertManagerProvider } from './shared/ui/AlertManager'
 import { CardViewer } from "./components/CardViewer";
 
 const App = (props) => {
