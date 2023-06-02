@@ -1,5 +1,5 @@
-import React, { useReducer, useCallback, useEffect, useRef, RefObject, MutableRefObject } from 'react';
-import { FlashCard, FlashCardProps, Side } from '../FlashCard';
+import React, { useReducer, useCallback, } from 'react';
+import { FlashCard, FlashCardProps } from '../FlashCard';
 import { reduceFlashCard, flip } from './reducer';
 import { keyframes } from '@emotion/react';
 import { styled } from '@mui/material';
@@ -20,20 +20,24 @@ const rotateAnimation = keyframes`
 }
 `
 
-export const FlipCard = styled(({ onFlip = () => {}, ...props }: FlipCardProps) => {
-  const [side, dispatch] = useReducer(reduceFlashCard, props.side);
-  const doFlip = useCallback(() => { 
+export const FlipCard = styled(({ onFlip = () => {}, side = 'front', ...props }: FlipCardProps) => {
+  const [currentSide, dispatch] = useReducer(reduceFlashCard, side);
+  const doFlip = useCallback((e) => { 
+    e.currentTarget.style.animationPlayState = 'running';
     flip(dispatch);
     onFlip();
  }, []);
 
- const cardRef: MutableRefObject<Side> = useRef(side);
-
-  return (<FlashCard sx={{
-    animationPlayState: side === cardRef.current ? 'paused' : 'running'
-  }} onClick={doFlip} {...props} side={side} />);
+  return (<FlashCard onClick={doFlip} {...props} side={currentSide} onAnimationEnd={(e: any) => {
+    e.target.style.animationName = 'reset';
+    setTimeout(() => {
+      e.target.style.animationName = '';
+      e.target.style.animationPlayState = '';
+    }, 0)
+  }} />);
 })(() => ({
+    animationPlayState: 'paused',
     animationName: `${rotateAnimation}`,
-    animationDuration: '1s',
+    animationDuration: '.5s',
     animationTimingFunction: 'ease'
 }));
