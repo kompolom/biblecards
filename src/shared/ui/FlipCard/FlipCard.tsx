@@ -24,8 +24,10 @@ export const FlipCard = styled(({ onFlip = () => {}, side = 'front', ...props }:
   const [currentSide, dispatch] = useReducer(reduceFlashCard, side);
   const doFlip = useCallback((e) => { 
     e.currentTarget.style.animationPlayState = 'running';
-    flip(dispatch);
-    onFlip();
+    setTimeout(() => {
+      flip(dispatch);
+      onFlip();
+    }, 250);
  }, []);
 
   return (<FlashCard onClick={doFlip} {...props} side={currentSide} onAnimationEnd={(e: any) => {
