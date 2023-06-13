@@ -1,9 +1,22 @@
-import React from "react";
+import React from 'react';
 import { FlipCard } from './index';
-import { Typography } from "@mui/material";
+import { Typography, Box } from '@mui/material';
 
 export default {
-    component: FlipCard
-}
+  component: FlipCard,
+};
 
-export const Primary = () => <FlipCard frontContent={<Typography>Front side</Typography>} backContent={<Typography>Back side</Typography>} />
+export const Primary = () => (
+  <FlipCard
+    frontContent={
+      <Box sx={{ background: 'green', width: '100%', height: '100px' }}>
+        <Typography>Front side</Typography>
+      </Box>
+    }
+    backContent={
+      <Box sx={{ background: 'red', width: '100%', height: '100px' }}>
+        <Typography>Back side</Typography>
+      </Box>
+    }
+  />
+);
