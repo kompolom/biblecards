@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route,
 } from "react-router-dom";
 import './App.css';
@@ -21,16 +21,22 @@ const App = (props) => {
       <AlertManagerProvider>
         <Router>
           <AppHeader />
-          <Switch>
-            <Route path="/list">
+          <Routes>
+            <Route path="/" element={
+              <Page>
+                <CardViewer />
+              </Page>
+            } />
+            <Route path="/list" element={
               <Page>
                 <VersesList verses={props.verses} stats={props.verseStatistics} />
               </Page>
-            </Route>
-            <Route path="/add">
+            } />
+            <Route path="/add" element={
               <Page>
                 <VerseForm />
               </Page>
+            }>
             </Route>
             <Route path="/edit/:id"
                render={({match}) => {
@@ -43,12 +49,7 @@ const App = (props) => {
                  );
                }}
             />
-            <Route path="/">
-              <Page>
-                <CardViewer />
-              </Page>
-            </Route>
-          </Switch>
+          </Routes>
         </Router>
       </AlertManagerProvider>
     </div>

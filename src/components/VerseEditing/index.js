@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './style.css';
 import { EditOutlined, DeleteOutlined } from '@mui/icons-material';
@@ -11,10 +11,10 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { deleteVerse } from '../../Redux/actions';
 
 const EventEditing = (props) => {
-   const history = useHistory();
+   const navigate = useNavigate();
    const [open, setOpen] = React.useState(false);
 
-   const onEditClick = React.useCallback(() => { history.push(`/edit/${props.id}`)}, [history, props.id])
+   const onEditClick = React.useCallback(() => { navigate(`/edit/${props.id}`)}, [navigate, props.id])
 
    const handleClickOpen = () => {
       setOpen(true);
