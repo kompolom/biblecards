@@ -11,6 +11,7 @@ import Page from './components/Page';
 import { AppHeader } from './components/AppHeader/';
 import { correct, incorrect } from './Redux/actions';
 import { AlertManagerProvider } from './shared/ui/AlertManager'
+import { Typography } from '@mui/material';
 
 const VerseForm = lazy(() => import('./components/VerseForm').then((module) => {
   return { default: module.VerseForm };
@@ -30,6 +31,9 @@ const App = (props) => {
           <AppHeader />
           <Routes>
             <Route index path="/" element={
+              <Typography>Приветствую тебя дорогой посититель этого сайта, здесь тебе откроется невероятная возможность учить библейские стихи весело и быстро! Так как тут нет базы данных стихов тебе надо их записать самому, и ты можешь даже сам их придумать!</Typography>
+            } />
+            <Route path="/game" element={
               <Suspense fallback={<h1>Loading...</h1>}>
                 <CardViewer />
               </Suspense>
