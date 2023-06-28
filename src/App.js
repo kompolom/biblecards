@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { connect } from 'react-redux'
 import {
   BrowserRouter as Router,
@@ -8,12 +8,19 @@ import {
 import './App.css';
 
 import Page from './components/Page';
-import { VerseForm } from './components/VerseForm';
 import { AppHeader } from './components/AppHeader/';
 import { correct, incorrect } from './Redux/actions';
-import { VersesList } from './components/VersesList';
 import { AlertManagerProvider } from './shared/ui/AlertManager'
-import { CardViewer } from "./components/CardViewer";
+
+const VerseForm = lazy(() => import('./components/VerseForm').then((module) => {
+  return { default: module.VerseForm };
+}));
+const VersesList = lazy(() => import('./components/VersesList').then((module) => {
+  return { default: module.VersesList};
+}));
+const CardViewer = lazy(() => import('./components/CardViewer').then((module) => {
+  return { default: module.CardViewer};
+}));
 
 const App = (props) => {
   return (
@@ -22,30 +29,32 @@ const App = (props) => {
         <Router>
           <AppHeader />
           <Routes>
-            <Route path="/" element={
-              <Page>
+            <Route index path="/" element={
+              <Suspense fallback={<h1>Loading...</h1>}>
                 <CardViewer />
-              </Page>
+              </Suspense>
             } />
             <Route path="/list" element={
-              <Page>
+              <Suspense fallback={<h1>Loading...</h1>}>
                 <VersesList verses={props.verses} stats={props.verseStatistics} />
-              </Page>
+              </Suspense>
             } />
             <Route path="/add" element={
-              <Page>
+              <Suspense fallback={<h1>Loading...</h1>}>
                 <VerseForm />
-              </Page>
+              </Suspense>
             }>
             </Route>
             <Route path="/edit/:id"
-               render={({match}) => {
+               element={({match}) => {
                  const id = Number(match.params.id);
                  const verse = props.verses.find(verse => verse.id === id);
                  return (
-                     <Page>
-                       <VerseForm key={verse.id} verse={verse} />
-                     </Page>
+                  <Page>
+                    <Suspense fallback="Loading...">
+                      <VerseForm key={verse.id} verse={verse} />
+                    </Suspense>
+                  </Page>
                  );
                }}
             />
