@@ -1,19 +1,27 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { connect } from 'react-redux'
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route,
 } from "react-router-dom";
 import './App.css';
 
 import Page from './components/Page';
-import { VerseForm } from './components/VerseForm';
 import { AppHeader } from './components/AppHeader/';
 import { correct, incorrect } from './Redux/actions';
-import { VersesList } from './components/VersesList';
 import { AlertManagerProvider } from './shared/ui/AlertManager'
-import { CardViewer } from "./components/CardViewer";
+import { Typography } from '@mui/material';
+
+const VerseForm = lazy(() => import('./components/VerseForm').then((module) => {
+  return { default: module.VerseForm };
+}));
+const VersesList = lazy(() => import('./components/VersesList').then((module) => {
+  return { default: module.VersesList};
+}));
+const CardViewer = lazy(() => import('./components/CardViewer').then((module) => {
+  return { default: module.CardViewer};
+}));
 
 const App = (props) => {
   return (
@@ -21,34 +29,40 @@ const App = (props) => {
       <AlertManagerProvider>
         <Router>
           <AppHeader />
-          <Switch>
-            <Route path="/list">
-              <Page>
+          <Routes>
+            <Route index path="/" element={
+              <Typography>Приветствую тебя дорогой посититель этого сайта, здесь тебе откроется невероятная возможность учить библейские стихи весело и быстро! Так как тут нет базы данных стихов тебе надо их записать самому, и ты можешь даже сам их придумать!</Typography>
+            } />
+            <Route path="/game" element={
+              <Suspense fallback={<h1>Loading...</h1>}>
+                <CardViewer />
+              </Suspense>
+            } />
+            <Route path="/list" element={
+              <Suspense fallback={<h1>Loading...</h1>}>
                 <VersesList verses={props.verses} stats={props.verseStatistics} />
-              </Page>
-            </Route>
-            <Route path="/add">
-              <Page>
+              </Suspense>
+            } />
+            <Route path="/add" element={
+              <Suspense fallback={<h1>Loading...</h1>}>
                 <VerseForm />
-              </Page>
+              </Suspense>
+            }>
             </Route>
             <Route path="/edit/:id"
-               render={({match}) => {
+               element={({match}) => {
                  const id = Number(match.params.id);
                  const verse = props.verses.find(verse => verse.id === id);
                  return (
-                     <Page>
-                       <VerseForm key={verse.id} verse={verse} />
-                     </Page>
+                  <Page>
+                    <Suspense fallback="Loading...">
+                      <VerseForm key={verse.id} verse={verse} />
+                    </Suspense>
+                  </Page>
                  );
                }}
             />
-            <Route path="/">
-              <Page>
-                <CardViewer />
-              </Page>
-            </Route>
-          </Switch>
+          </Routes>
         </Router>
       </AlertManagerProvider>
     </div>

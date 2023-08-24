@@ -43,7 +43,6 @@ const VerseFormTemplate = (props) => {
                     { books.map(book => { return ( <option key={book} value={book}> {book} </option> ) } ) }
                 </Select>
                 <TextField 
-                    gutterBottom
                     className="VerseForm-row" 
                     id="chaperForm" 
                     name="chapter" 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
   AppBar,
   Toolbar,
@@ -26,13 +26,13 @@ export const AppHeader = () => {
     }
     setDrawerOpen(!isDrawerOpen);
   };
-  const history = useHistory();
+  const navigate = useNavigate();
   const onRouteClick = React.useCallback(
     (e) => {
       e.preventDefault();
-      history.push(e.currentTarget.getAttribute('href'));
+      navigate(e.currentTarget.getAttribute('href'));
     },
-    [history],
+    [navigate],
   );
   const pathname = useLocation().pathname;
   const currentRoute = routes.find((route) => route[0] === pathname);
