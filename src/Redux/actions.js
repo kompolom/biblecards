@@ -10,6 +10,7 @@ import {
 import { actionNames } from "./reducers/alerts";
 import { v4 } from 'uuid';
 import { getDb } from "../getDb";
+import { alertManagerSlice } from 'widgets/AlertManager';
 
 /**
  * Правильный ответ на стих
@@ -129,20 +130,9 @@ export function deleteVerse(id) {
  * @return {{payload: Object, type: string}}
  */
 export function showAlert(text, seconds, props) {
-   return {
-      type: actionNames.ADD_ALERT,
-      payload: {
-         children: text,
-         id: v4(),
-         timeout: seconds*1000,
-         ...props
-      }
-   };
+   return alertManagerSlice.actions.showAlert({ text, timeout: seconds, status: 'success' });
 };
 
 export function hideAlert(id) {
-   return {
-      type: actionNames.DEL_ALERT,
-      id
-   };
+   return alertManagerSlice.actions.hideAlert(id);
 };

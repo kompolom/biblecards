@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux';
 import {
    ADD_VERSE,
    DELETE_VERSE,
@@ -6,9 +5,8 @@ import {
    INCORRECT,
    SAVE_VERSE, ADD_VERSE_BATCH
 } from './types';
-import { alertsReducer } from './reducers/alerts';
 
-function versesReducer(state = [], action) {
+export function versesReducer(state = [], action) {
    switch(action.type) {
       case ADD_VERSE_BATCH:
          return state.concat(action.payload);
@@ -28,7 +26,7 @@ function versesReducer(state = [], action) {
    }
 }
 
-function statsReducer(state = {}, action) {
+export function statsReducer(state = {}, action) {
    switch(action.type) {
       case CORRECT:
       case INCORRECT:
@@ -41,7 +39,7 @@ function statsReducer(state = {}, action) {
 };
 
 /** state =  [view, corrects, incorrects] */
-function itemStatsReducer(state = [0,0,0], action) {
+export function itemStatsReducer(state = [0,0,0], action) {
    switch(action.type) {
       case CORRECT:
          state[0] = state[0] + 1;
@@ -54,9 +52,3 @@ function itemStatsReducer(state = [0,0,0], action) {
       default:return state;
    };
 };
-
-export const rootReducer = combineReducers({
-   stats: statsReducer,
-   verses: versesReducer,
-   alerts: alertsReducer
-});
