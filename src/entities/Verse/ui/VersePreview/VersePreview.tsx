@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Verse } from '../../model';
-import { Box, SxProps } from '@mui/material';
+import { Box, BoxProps } from '@mui/material';
 
-export interface VersePreviewProps {
-    verse: Verse;
-    component?: React.ElementType 
-    sx?: SxProps;
+export interface VersePreviewProps extends BoxProps {
+  verse: Verse;
+  actions?: ReactNode | ReactNode[];
 }
 
-export const VersePreview = ({ verse, component, sx }: VersePreviewProps) => {
-    return (<Box component={component} sx={sx}>{verse.toString()}</Box>);
-}
+export const VersePreview = ({
+  verse,
+  actions,
+  ...props
+}: VersePreviewProps) => {
+  return (
+    <Box {...props}>
+      <Box>{verse.toString()}</Box>
+      {actions ? <Box>{actions}</Box> : null}
+    </Box>
+  );
+};
