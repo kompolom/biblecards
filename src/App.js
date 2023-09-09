@@ -16,8 +16,8 @@ import { Typography } from '@mui/material';
 const VerseForm = lazy(() => import('./components/VerseForm').then((module) => {
   return { default: module.VerseForm };
 }));
-const VersesList = lazy(() => import('./components/VersesList').then((module) => {
-  return { default: module.VersesList};
+const VersesList = lazy(() => import('./widgets/VersesList').then((module) => {
+  return { default: module.VersesListWidget};
 }));
 const CardViewer = lazy(() => import('./components/CardViewer').then((module) => {
   return { default: module.CardViewer};

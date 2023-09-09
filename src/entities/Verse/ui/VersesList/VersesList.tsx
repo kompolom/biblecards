@@ -1,18 +1,14 @@
 import React from 'react';
-import List from '@mui/material/List';
-import { VersePreview } from '../VersePreview';
-import { IVerse } from '../../model';
+import Stack from '@mui/material/Stack';
 
 export interface VerseListProps {
-  verses: IVerse[];
+  children: React.ReactNode[]
 }
 
-export const VersesList = ({ verses = [] }: VerseListProps) => {
+export const VersesList = ({ children }: VerseListProps) => {
   return (
-    <List>
-      {verses.map((verse) => (
-        <VersePreview component="li" key={verse.id} verse={verse} />
-      ))}
-    </List>
+    <Stack component="ul" sx={{ listStyle: 'none', paddingInlineStart: 0, marginBlockStart: 0, marginBlockEnd: 0, p: 1}}>
+      {children}
+    </Stack>
   );
 };
