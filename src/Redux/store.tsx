@@ -1,14 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { initState } from './initState';
 import { alertManagerSlice } from 'widgets/AlertManager';
-import { versesReducer, statsReducer } from './rootReducer';
+import { versesSlice } from 'entities/Verse';
+import { statsReducer } from './rootReducer';
 
 export const store = configureStore({
   reducer: {
     stats: statsReducer,
-    verses: versesReducer,
+    verses: versesSlice.reducer,
     alerts: alertManagerSlice.reducer,
   },
-  preloadedState: initState,
   devTools: true,
 });

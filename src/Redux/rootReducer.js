@@ -1,30 +1,8 @@
 import {
-   ADD_VERSE,
    DELETE_VERSE,
    CORRECT,
    INCORRECT,
-   SAVE_VERSE, ADD_VERSE_BATCH
 } from './types';
-
-export function versesReducer(state = [], action) {
-   switch(action.type) {
-      case ADD_VERSE_BATCH:
-         return state.concat(action.payload);
-      case ADD_VERSE:
-         return state.concat([{...action.payload }]);
-      case SAVE_VERSE:
-         return state.map( (verse) => {
-            if (verse.id === action.payload.id) {
-               return action.payload
-            } else {
-               return verse;
-            }
-         });
-      case DELETE_VERSE:
-         return state.filter( (value)=> value.id !== action.payload)
-      default: return state;
-   }
-}
 
 export function statsReducer(state = {}, action) {
    switch(action.type) {

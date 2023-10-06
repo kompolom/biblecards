@@ -66,7 +66,7 @@ export class BibicardsDB extends Idb {
     }
 
     _db2verse(data) {
-        return Verse.create(data)
+        return { id: data.id, book: { title: data.book }, chapter: data.chapter, number: data.verse, text: data.text };
     }
 
 }

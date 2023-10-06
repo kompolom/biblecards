@@ -7,8 +7,6 @@ import {
    SAVE_VERSE,
    VERSE_VIEW
 } from "./types";
-import { actionNames } from "./reducers/alerts";
-import { v4 } from 'uuid';
 import { getDb } from "../getDb";
 import { alertManagerSlice } from 'widgets/AlertManager';
 
@@ -49,17 +47,6 @@ export function viewedVerse(id) {
       type: VERSE_VIEW,
       payload: id
    }
-}
-
-/**
- * Добавляет пачку стихов в store
- * @param {Verse[]} batch
- */
-export function loadVerses(batch) {
-    return {
-       type: ADD_VERSE_BATCH,
-       payload: batch
-    }
 }
 
 export function addVerse(verseData) {

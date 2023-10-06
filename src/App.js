@@ -12,6 +12,7 @@ import { AppHeader } from './components/AppHeader/';
 import { correct, incorrect } from './Redux/actions';
 import { AlertManagerProvider } from './shared/ui/AlertManager'
 import { Typography } from '@mui/material';
+import { PageVerseEdit } from './pages/verseEdit';
 
 const VerseForm = lazy(() => import('./components/VerseForm').then((module) => {
   return { default: module.VerseForm };
@@ -40,28 +41,15 @@ const App = (props) => {
             } />
             <Route path="/list" element={
               <Suspense fallback={<h1>Loading...</h1>}>
-                <VersesList verses={props.verses} stats={props.verseStatistics} />
+                <VersesList />
               </Suspense>
             } />
             <Route path="/add" element={
               <Suspense fallback={<h1>Loading...</h1>}>
-                <VerseForm />
               </Suspense>
             }>
             </Route>
-            <Route path="/edit/:id"
-               element={({match}) => {
-                 const id = Number(match.params.id);
-                 const verse = props.verses.find(verse => verse.id === id);
-                 return (
-                  <Page>
-                    <Suspense fallback="Loading...">
-                      <VerseForm key={verse.id} verse={verse} />
-                    </Suspense>
-                  </Page>
-                 );
-               }}
-            />
+            <Route path="/edit/:id" element={<PageVerseEdit />} />
           </Routes>
         </Router>
       </AlertManagerProvider>
@@ -84,4 +72,4 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps) (App);
+export default App;

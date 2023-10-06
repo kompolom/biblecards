@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { BookSelect, useBible } from 'entities/Bible';
-import { Verse } from 'entities/Verse';
+import { IVerse } from 'entities/Verse';
 
 import {
   validation_schema,
@@ -15,7 +15,7 @@ import { TextField } from './TextField';
 import './style.css';
 
 export interface VerseFormProps {
-  verse?: Verse;
+  verse?: IVerse;
 }
 
 export const VerseForm = (props: VerseFormProps) => {
