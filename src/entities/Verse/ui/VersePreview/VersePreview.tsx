@@ -13,7 +13,6 @@ export const VersePreview = ({
   actions,
   ...props
 }: VersePreviewProps) => {
-  console.log(verse);
   return (
     <Paper sx={{ p: 2, mb: 1 }} {...props}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

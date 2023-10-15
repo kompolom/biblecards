@@ -1,23 +1,20 @@
 import {
    ADD_VERSE,
-   ADD_VERSE_BATCH,
    CORRECT,
    DELETE_VERSE,
    INCORRECT,
    SAVE_VERSE,
    VERSE_VIEW
 } from "./types";
-import { getDb } from "../getDb";
 import { alertManagerSlice } from 'widgets/AlertManager';
 
 /**
  * Правильный ответ на стих
  * @param {number} id id стиха
  */
-export function correct(id) {
+export function correct(id, db) {
    return async (dispatch, getState) => {
       const currentStats = getState().stats[id];
-      const db = await getDb();
       currentStats?
           await db.updateVerseStat(id, currentStats[0]++, currentStats[1]++, currentStats[2]):
           await db.updateVerseStat(id, 1, 1, 0)
@@ -28,10 +25,9 @@ export function correct(id) {
    }
 };
 
-export function incorrect(id) {
+export function incorrect(id, db) {
    return async (dispatch, getState) => {
       const currentStats = getState().stats[id];
-      const db = await getDb();
       currentStats?
           await db.updateVerseStat(id, currentStats[0]++, currentStats[1], currentStats[2]++):
           await db.updateVerseStat(id, 1, 0, 1)
@@ -49,9 +45,8 @@ export function viewedVerse(id) {
    }
 }
 
-export function addVerse(verseData) {
+export function addVerse(verseData, db) {
    return async dispatch => {
-      const db = await getDb();
       try {
          const verse = await db.createVerse(verseData)
          dispatch(pushVerse(verse));
@@ -67,9 +62,8 @@ export function addVerse(verseData) {
  * Сохраняет существующий стих
  * @param {Verse} verse
  */
-export function saveVerse(verse) {
+export function saveVerse(verse, db) {
    return async dispatch => {
-      const db = await getDb();
       try {
          await db.updateVerse(verse)
          dispatch({
@@ -91,9 +85,8 @@ export function pushVerse(payload) {
    }
 }
 
-export function deleteVerse(id) {
+export function deleteVerse(id, db) {
     return async dispatch => {
-        const db = await getDb();
         try {
            await db.deleteVerse(id)
            dispatch({

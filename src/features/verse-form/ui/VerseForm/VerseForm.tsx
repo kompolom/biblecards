@@ -13,16 +13,19 @@ import {
 } from '../../model';
 import { TextField } from './TextField';
 import './style.css';
+import { useSaveVerse } from 'features/Verse/model/useSaveVerse';
 
 export interface VerseFormProps {
   verse?: IVerse;
 }
 
 export const VerseForm = (props: VerseFormProps) => {
+  const saveVerse = useSaveVerse();
   const bible = useBible();
   const formik = useFormik<VerseFormFields>({
+    enableReinitialize: true,
     initialValues: props.verse
-      ? verseToForm(props.verse)
+      ? verseToForm(props.verse, bible)
       : {
           book: 1,
           chapter: '',
@@ -30,8 +33,10 @@ export const VerseForm = (props: VerseFormProps) => {
           text: '',
         },
     validationSchema: validation_schema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       const verse = formToVerse(values, bible);
+      // TODO: add alerts
+      await saveVerse(verse).unwrap();
       formik.setSubmitting(false);
     },
   });

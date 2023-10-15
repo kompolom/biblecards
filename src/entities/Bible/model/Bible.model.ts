@@ -13,6 +13,10 @@ export class Bible {
         return this._books;
     }
 
+    getBookByTitle(title: string): Book {
+        return this._books.find(book => book.title === title);
+    }
+
     getBookByNumber(number: number): Book {
         if(number < 1) throw new WrongBookError('Book number can not be less 1');
         if(number > 66) throw new WrongBookError(`Book number ${number} is too much`);

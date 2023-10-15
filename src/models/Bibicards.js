@@ -1,5 +1,4 @@
 import { Idb } from './Idb';
-import {Verse} from "./Verse";
 import {VerseStat} from "./VerseStat";
 
 const VERSES_STORE = 'verses';
