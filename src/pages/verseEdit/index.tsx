@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Page } from 'components/Page'
+import { Page } from 'shared/ui/Page';
 import { VerseForm } from 'features/verse-form';
 import { useSelector } from 'react-redux';
 import { IVerse, VersesStateShape, getVerseById } from 'entities/Verse';

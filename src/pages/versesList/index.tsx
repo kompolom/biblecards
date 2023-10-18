@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { Page } from 'components/Page'
+import { Page } from 'shared/ui/Page';
 import { useLoadVerses } from 'features/Verse';
 import { VersesListWidget } from 'widgets/VersesList';
 
