@@ -8,9 +8,11 @@ import { store } from './Redux/store';
 
 const root = createRoot(document.getElementById('⚛️'));
 root.render(
-  <Provider store={store}>
-    <App />
-  </Provider>
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
 );
 
 serviceWorker.unregister();
