@@ -54,7 +54,7 @@ export const App = () => {
                   }
                 />
                 <Route path="/list" element={<VersesListPage />} />
-                <Route path="/add" element={<PageVerseAdd />}></Route>
+                <Route path="/add" element={<PageVerseAdd />} />
                 <Route path="/edit/:id" element={<PageVerseEdit />} />
               </Routes>
             </Router>
