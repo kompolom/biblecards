@@ -5,17 +5,18 @@ import '../App.css';
 import { Header } from 'widgets/Header';
 import { AlertManagerProvider } from 'shared/ui/AlertManager';
 import { Typography } from '@mui/material';
-import { PageVerseEdit } from 'pages/verseEdit';
-import { PageVerseAdd } from 'pages/verseAdd';
 import { VerseStorageContextProvider } from 'features/Verse';
 import { routes, useInitDb } from './model';
 import { RoutesContextProvider } from 'shared/routes';
+import { LoaderSplash } from 'shared/ui/LoaderSplash';
 
 const VersesListPage = lazy(() =>
   import('../pages/versesList').then((module) => {
     return { default: module.default };
   }),
 );
+const PageVerseEdit = lazy(() => import('../pages/verseEdit'));
+const PageVerseAdd = lazy(() => import('../pages/verseAdd'));
 const CardViewer = lazy(() =>
   import('../components/CardViewer').then((module) => {
     return { default: module.CardViewer };
@@ -48,14 +49,35 @@ export const App = () => {
                 <Route
                   path="/game"
                   element={
-                    <Suspense fallback={<h1>Loading...</h1>}>
+                    <Suspense fallback={<LoaderSplash />}>
                       <CardViewer />
                     </Suspense>
                   }
                 />
-                <Route path="/list" element={<VersesListPage />} />
-                <Route path="/add" element={<PageVerseAdd />} />
-                <Route path="/edit/:id" element={<PageVerseEdit />} />
+                <Route
+                  path="/list"
+                  element={
+                    <Suspense fallback={<LoaderSplash />}>
+                      <VersesListPage />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="/add"
+                  element={
+                    <Suspense fallback={<LoaderSplash />}>
+                      <PageVerseAdd />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="/edit/:id"
+                  element={
+                    <Suspense fallback={<LoaderSplash />}>
+                      <PageVerseEdit />
+                    </Suspense>
+                  }
+                />
               </Routes>
             </Router>
           </RoutesContextProvider>
