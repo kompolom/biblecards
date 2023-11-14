@@ -17,11 +17,6 @@ const VersesListPage = lazy(() =>
 );
 const PageVerseEdit = lazy(() => import('../pages/verseEdit'));
 const PageVerseAdd = lazy(() => import('../pages/verseAdd'));
-const CardViewer = lazy(() =>
-  import('../components/CardViewer').then((module) => {
-    return { default: module.CardViewer };
-  }),
-);
 
 export const App = () => {
   const db = useInitDb();
@@ -50,7 +45,7 @@ export const App = () => {
                   path="/game"
                   element={
                     <Suspense fallback={<LoaderSplash />}>
-                      <CardViewer />
+                        <h2>Coming soon</h2>
                     </Suspense>
                   }
                 />
