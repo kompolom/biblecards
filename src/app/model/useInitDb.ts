@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { BibicardsDB } from '../../models/Bibicards';
+import { BiblecardsDB } from '../database/Bibicards';
 
 export function useInitDb() {
-    const [db, setDbInstance] = useState<BibicardsDB>(new BibicardsDB());
+    const [db, setDbInstance] = useState<BiblecardsDB>(null);
     useEffect(() => {
-        BibicardsDB.init().then(setDbInstance);
+        BiblecardsDB.init().then(setDbInstance);
     }, []);
     return db;
 }

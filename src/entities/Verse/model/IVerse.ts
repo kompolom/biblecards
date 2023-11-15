@@ -1,8 +1,9 @@
-import { IBook  } from "entities/Book"
+import { IBook  } from "entities/Book";
+
 export interface IVerse {
     id: number,
     book: IBook,
     chapter: number,
-    number: number | string,
+    number: number,
     text: string
 }

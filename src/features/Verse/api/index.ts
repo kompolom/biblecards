@@ -1,1 +1,1 @@
-export * from './IVerseStorage';
+export * from './IVerseRepository';

@@ -6,9 +6,10 @@ import { Header } from 'widgets/Header';
 import { AlertManagerProvider } from 'shared/ui/AlertManager';
 import { Typography } from '@mui/material';
 import { VerseStorageContextProvider } from 'features/Verse';
-import { routes, useInitDb } from './model';
+import { routes } from './model';
 import { RoutesContextProvider } from 'shared/routes';
 import { LoaderSplash } from 'shared/ui/LoaderSplash';
+import {useVerseRepository} from "./model/useVerseRepository";
 
 const VersesListPage = lazy(() =>
   import('../pages/versesList').then((module) => {
@@ -19,7 +20,7 @@ const PageVerseEdit = lazy(() => import('../pages/verseEdit'));
 const PageVerseAdd = lazy(() => import('../pages/verseAdd'));
 
 export const App = () => {
-  const db = useInitDb();
+  const db = useVerseRepository();
   return (
     <div className="App">
       <VerseStorageContextProvider value={db}>

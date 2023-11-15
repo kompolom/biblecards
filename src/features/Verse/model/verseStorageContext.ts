@@ -1,7 +1,7 @@
 import { createContext, useContext, Context } from "react";
-import { IVerseStorage } from "../api";
+import { IVerseRepository } from "../api";
 
-const VerseStorageContext: Context<IVerseStorage> = createContext(null);
+const VerseStorageContext: Context<IVerseRepository> = createContext(null);
 VerseStorageContext.displayName = 'VerseStorageContext';
 
 export const VerseStorageContextProvider = VerseStorageContext.Provider

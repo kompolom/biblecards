@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Verse, versesSlice } from "entities/Verse";
-import { IVerseStorage } from "../api";
+import { IVerseRepository } from "../api";
 
 type SaveVerseArgs = {
     verse: Verse,
-    db: IVerseStorage
+    db: IVerseRepository
 }
 
 export const saveVerseThunk = createAsyncThunk('verse/save', async ({ verse, db }: SaveVerseArgs, { dispatch }) => {

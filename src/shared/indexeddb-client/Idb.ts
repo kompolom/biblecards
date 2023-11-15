@@ -1,6 +1,6 @@
 export class IndexedDBClient {
     static async init<T extends IndexedDBClient>(name: string, version: number, Cls?: new (a: string, b: number) => T) {
-        const instance = Cls? new Cls(name, version): new IndexedDBClient(name, version);
+        const instance = Cls ? new Cls(name, version) : new IndexedDBClient(name, version);
         return await instance.init();
     }
 
@@ -52,7 +52,7 @@ export class IndexedDBClient {
      * @param {IDBDatabase} db
      * @param {IDBVersionChangeEvent} e
      */
-    protected _upgrade(db: IDBDatabase, e: IDBVersionChangeEvent) {}
+    protected _upgrade(db: IDBDatabase, e: IDBVersionChangeEvent) { }
 
     protected _getTransaction(store: string, mode: IDBTransactionMode) {
         return this.#db.transaction(store, mode);
@@ -64,7 +64,7 @@ export class IndexedDBClient {
      * @param {any} data
      * @return {Promise}
      */
-    async create(storeName: string, data: any): Promise<any> {
+    async create<DataType>(storeName: string, data: DataType): Promise<DataType> {
         return new Promise((resolve, reject) => {
             const transaction = this._getTransaction(storeName, 'readwrite');
             const store = transaction.objectStore(storeName);
@@ -73,11 +73,11 @@ export class IndexedDBClient {
             transaction.onerror = reject;
             store.add(data)
                 .onsuccess = (e: any) => store.get(e.target.result)
-                .onsuccess = (e: any) => created = e.target.result
+                    .onsuccess = (e: any) => created = e.target.result
         });
     }
 
-    async read(storeName: string, count = 0, offset = 0){
+    async read<DataType>(storeName: string, count = 0, offset = 0): Promise<DataType[]> {
         return new Promise((resolve, reject) => {
             const store = this.#db.transaction(storeName).objectStore(storeName);
             const req = store.openCursor();
@@ -86,17 +86,17 @@ export class IndexedDBClient {
             req.onerror = reject;
             req.onsuccess = (e: any) => {
                 const cursor = e.target.result;
-                if(!cursor) return resolve(acc);
-                if(offset && counter === offset) cursor.advance(offset);
+                if (!cursor) return resolve(acc);
+                if (offset && counter === offset) cursor.advance(offset);
                 acc.push(cursor.value);
-                if(counter >= end) return resolve(acc);
+                if (counter >= end) return resolve(acc);
                 counter++;
                 cursor.continue();
             }
         });
     }
 
-    async readOne(storeName: string, query: IDBValidKey| IDBKeyRange) {
+    async readOne<DataType>(storeName: string, query: IDBValidKey | IDBKeyRange): Promise<DataType> {
         return new Promise((resolve, reject) => {
             const transaction = this.#db.transaction(storeName),
                 store = transaction.objectStore(storeName);
@@ -105,7 +105,7 @@ export class IndexedDBClient {
         })
     }
 
-    async count(storeName: string, query: IDBValidKey | IDBKeyRange) {
+    async count(storeName: string, query: IDBValidKey | IDBKeyRange): Promise<number> {
         return new Promise((resolve, reject) => {
             const store = this.#db.transaction(storeName).objectStore(storeName)
             const req = store.count(query)
@@ -114,7 +114,7 @@ export class IndexedDBClient {
         })
     }
 
-    async update(storeName: string, data: any){
+    async update<DataType>(storeName: string, data: DataType): Promise<DataType> {
         return new Promise((resolve, reject) => {
             const transaction = this.#db.transaction(storeName, 'readwrite');
             const store = transaction.objectStore(storeName);
@@ -123,15 +123,15 @@ export class IndexedDBClient {
             transaction.onerror = reject;
             store.put(data)
                 .onsuccess = (e: any) => store.get(e.target.result)
-                .onsuccess = (e: any) => result = e.target.result;
+                    .onsuccess = (e: any) => result = e.target.result;
         });
     }
 
-    async delete(storeName: string, query: IDBValidKey | IDBKeyRange){
+    async delete(storeName: string, query: IDBValidKey | IDBKeyRange): Promise<void> {
         return new Promise((resolve, reject) => {
             const transaction = this.#db.transaction(storeName, 'readwrite');
             const store = transaction.objectStore(storeName);
-            transaction.oncomplete = resolve;
+            transaction.oncomplete = () => resolve();
             transaction.onerror = reject;
             store.delete(query);
         });

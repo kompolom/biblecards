@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { versesSlice } from "entities/Verse";
-import { IVerseStorage } from "../api";
+import { IVerseRepository } from "../api";
 
 export type LoadVersesQuery = {
     skip?: number
@@ -9,7 +9,7 @@ export type LoadVersesQuery = {
 }
 type LoadVersesThunkArgs = {
     query?: LoadVersesQuery,
-    db: IVerseStorage
+    db: IVerseRepository
 }
 
 export const loadVersesThunk = createAsyncThunk('verses/load', async ({ query = {}, db }: LoadVersesThunkArgs, { dispatch }) => {
