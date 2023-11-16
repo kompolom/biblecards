@@ -1,0 +1,16 @@
+.VersesList-Actions {
+    display: flex;
+    flex: 1 1 50%;
+    justify-content: flex-end;
+    container-type: inline-size;
+}
+
+@container (max-width: 310px){
+    .MuiButton-root .MuiButton-startIcon {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .ButtonText {
+        display: none;
+    }
+}

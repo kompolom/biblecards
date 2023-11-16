@@ -16,7 +16,7 @@ export const VersePreview = ({
   return (
     <Paper sx={{ p: 2, mb: 1 }} {...props}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Box>{getVerseSource(verse)}</Box>
+        <Box sx={{ flex: '1 0 150px'}}>{getVerseSource(verse)}</Box>
         {actions ?? <Box>{actions}</Box>}
       </Box>
     </Paper>

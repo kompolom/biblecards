@@ -15,7 +15,7 @@ export const VerseEditButton = ({ verseId }: VerseEditButtonProps) => {
   }, [verseId, navigate]);
   return (
     <Button startIcon={<EditOutlined />} onClick={onEditClick}>
-      Редактировать
+      <span className="ButtonText">Редактировать</span>
     </Button>
   );
 };

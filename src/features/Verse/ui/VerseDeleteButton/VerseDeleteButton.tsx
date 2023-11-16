@@ -30,7 +30,7 @@ export const VerseDeleteButton = ({
         {...props}
         onClick={openDialog}
       >
-        Удалить
+        <span className="ButtonText">Удалить</span>
       </Button>
       <VerseDeleteDialog
         open={dialogOpen}
