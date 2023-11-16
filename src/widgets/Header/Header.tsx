@@ -19,7 +19,7 @@ export const Header = (props: HeaderProps) => {
 
     return <AppHeader title={currentRoute.title}>
           <List>
-            {routes.map((route) => (
+            {routes.filter(route => route.showInMenu).map((route) => (
               <ListItem disablePadding key={route.path}>
                 <ListItemButton onClick={onRouteClick} href={route.path}>
                   <ListItemText primary={route.title} />
