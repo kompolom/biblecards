@@ -1,56 +1,57 @@
-import React, { PointerEventHandler, useCallback, ReactNode } from 'react';
-import { Box, Typography } from '@mui/material';
-import { IVerse, getVerseSource } from 'entities/Verse';
+import React, { useCallback, FormEventHandler, useState } from 'react';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import { TestForm, TestVariantButton } from 'entities/Test';
+import { TextToSourceVariants } from '../../model';
+import { styled } from '@mui/material';
 
-export interface TextToSourceProps {
-  verse: IVerse;
-  variants: IVerse[];
-  onSelect: (id: number) => void;
-  title?: ReactNode;
+const VariantsContainer = styled(Box)(({ theme }) => ({
+    display: 'grid',
+    width: '100%',
+    gap: theme.spacing(1),
+    gridTemplateColumns: '1fr 1fr',
+    marginBlockEnd: theme.spacing(2),
+    marginBlockStart: theme.spacing(2),
+}));
+
+export interface TextToSourceProps<T = TextToSourceVariants> {
+  test: T;
+  // @ts-ignore
+  onCommit: (...args: Parameters<T["commit"]>) => void;
 }
 
+const RESULT_FIELD_NAME = 'answer';
+
 export const TextToSource = ({
-  verse,
-  variants,
-  onSelect,
-  title,
+  test,
+  onCommit,
 }: TextToSourceProps) => {
-  const onClick: PointerEventHandler<HTMLButtonElement> = useCallback(
-    (event) => {
-      const id = event.currentTarget.dataset.variantid;
-      const variant = variants.find((v) => v.id === Number(id));
-      if (!id || !variant) return;
-      onSelect(variant.id);
-    },
-    [onSelect],
-  );
+  const [selectedValue, setSelectedValue] = useState<string|undefined>();
+  const onSubmit: FormEventHandler<HTMLFormElement> = useCallback((e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const answer = formData.get(RESULT_FIELD_NAME).toString();
+    onCommit(answer);
+  }, [onCommit]);
+  console.log(selectedValue)
+  
   return (
-    <Box>
-      <Typography>{title}</Typography>
-      <Typography variant="h6" sx={{ my: 2, fontStyle: 'italic' }}>
-        &laquo;{verse.text}&raquo;
-      </Typography>
-      <Box
-        sx={{
-          display: 'grid',
-          width: '100%',
-          gap: 1,
-          gridTemplateColumns: 'auto',
-          my: 2,
-        }}
-      >
-        {variants.map((variant) => (
-          <Button
-            onClick={onClick}
-            data-variantId={variant.id}
-            variant="outlined"
-            key={variant.id}
-          >
-            {getVerseSource(variant)}
-          </Button>
+    <TestForm
+    onSubmit={onSubmit}
+    onChange={e => { 
+      if('value' in e.target && typeof e.target.value === 'string') {
+        setSelectedValue(e.target.value);
+      }
+    }}
+    testTitle={test.title}
+    question={<>&laquo;{test.question}&raquo;</>}
+    submitButton={<Button size='large' disabled={typeof selectedValue === 'undefined'} variant='contained' type="submit">Проверить</Button>}
+    >
+      <VariantsContainer>
+        {test.options.map((variant) => (
+          <TestVariantButton selected={selectedValue === variant.value} name={RESULT_FIELD_NAME} key={variant.value} {...variant}>{variant.label}</TestVariantButton>
         ))}
-      </Box>
-    </Box>
+      </VariantsContainer>
+    </TestForm>
   );
 };
