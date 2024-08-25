@@ -5,7 +5,7 @@ export const Container = styled(Box)({
     marginRight: 'auto',
     boxSizing: 'content-box',
     containerType: 'inline-size',
-    maxWidth: 'var(--container--width)',
+    maxWidth: 'var(--container--width, 100%)',
     paddingInlineStart: 'var(--container--offset)',
     paddingInlineEnd: 'var(--container--offset)',
 });
