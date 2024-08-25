@@ -9,7 +9,9 @@ import { VerseStorageContextProvider } from 'features/Verse';
 import { routes } from './model';
 import { RoutesContextProvider } from 'shared/routes';
 import { LoaderSplash } from 'shared/ui/LoaderSplash';
-import {useVerseRepository} from "./model/useVerseRepository";
+import { useVerseRepository } from './model/useVerseRepository';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 const VersesListPage = lazy(() =>
   import('../pages/versesList').then((module) => {
@@ -18,68 +20,72 @@ const VersesListPage = lazy(() =>
 );
 const PageVerseEdit = lazy(() => import('../pages/verseEdit'));
 const PageVerseAdd = lazy(() => import('../pages/verseAdd'));
-const GamePage = lazy(() => import('../pages/game').then((module) => ({ default: module.GamePage })));
+const GamePage = lazy(() =>
+  import('../pages/game').then((module) => ({ default: module.GamePage })),
+);
 
 export const App = () => {
   const db = useVerseRepository();
   return (
-    <div className="App">
-      <VerseStorageContextProvider value={db}>
-        <AlertManagerProvider>
-          <RoutesContextProvider value={routes}>
-            <Router>
-              <Header />
-              <Routes>
-                <Route
-                  index
-                  path="/"
-                  element={
-                    <Typography>
-                      Приветствую тебя дорогой посититель этого сайта, здесь
-                      тебе откроется невероятная возможность учить библейские
-                      стихи весело и быстро! Так как тут нет базы данных стихов
-                      тебе надо их записать самому, и ты можешь даже сам их
-                      придумать!
-                    </Typography>
-                  }
-                />
-                <Route
-                  path="/game"
-                  element={
-                    <Suspense fallback={<LoaderSplash />}>
-                      <GamePage />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path="/list"
-                  element={
-                    <Suspense fallback={<LoaderSplash />}>
-                      <VersesListPage />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path="/add"
-                  element={
-                    <Suspense fallback={<LoaderSplash />}>
-                      <PageVerseAdd />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path="/edit/:id"
-                  element={
-                    <Suspense fallback={<LoaderSplash />}>
-                      <PageVerseEdit />
-                    </Suspense>
-                  }
-                />
-              </Routes>
-            </Router>
-          </RoutesContextProvider>
-        </AlertManagerProvider>
-      </VerseStorageContextProvider>
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <VerseStorageContextProvider value={db}>
+          <AlertManagerProvider>
+            <RoutesContextProvider value={routes}>
+              <Router>
+                <Header />
+                <Routes>
+                  <Route
+                    index
+                    path="/"
+                    element={
+                      <Typography>
+                        Приветствую тебя дорогой посититель этого сайта, здесь
+                        тебе откроется невероятная возможность учить библейские
+                        стихи весело и быстро! Так как тут нет базы данных
+                        стихов тебе надо их записать самому, и ты можешь даже
+                        сам их придумать!
+                      </Typography>
+                    }
+                  />
+                  <Route
+                    path="/game"
+                    element={
+                      <Suspense fallback={<LoaderSplash />}>
+                        <GamePage />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="/list"
+                    element={
+                      <Suspense fallback={<LoaderSplash />}>
+                        <VersesListPage />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="/add"
+                    element={
+                      <Suspense fallback={<LoaderSplash />}>
+                        <PageVerseAdd />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="/edit/:id"
+                    element={
+                      <Suspense fallback={<LoaderSplash />}>
+                        <PageVerseEdit />
+                      </Suspense>
+                    }
+                  />
+                </Routes>
+              </Router>
+            </RoutesContextProvider>
+          </AlertManagerProvider>
+        </VerseStorageContextProvider>
+      </div>
+    </Provider>
   );
 };
