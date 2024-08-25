@@ -18,6 +18,7 @@ const VersesListPage = lazy(() =>
 );
 const PageVerseEdit = lazy(() => import('../pages/verseEdit'));
 const PageVerseAdd = lazy(() => import('../pages/verseAdd'));
+const GamePage = lazy(() => import('../pages/game').then((module) => ({ default: module.GamePage })));
 
 export const App = () => {
   const db = useVerseRepository();
@@ -46,7 +47,7 @@ export const App = () => {
                   path="/game"
                   element={
                     <Suspense fallback={<LoaderSplash />}>
-                        <h2>Coming soon</h2>
+                      <GamePage />
                     </Suspense>
                   }
                 />
