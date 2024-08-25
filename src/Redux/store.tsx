@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { alertManagerSlice } from 'widgets/AlertManager';
+import { alertManagerSlice } from 'shared/ui/AlertManager';
 import { versesSlice } from 'entities/Verse';
 
 export const store = configureStore({

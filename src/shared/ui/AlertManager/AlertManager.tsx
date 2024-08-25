@@ -5,7 +5,7 @@ import {
   alertManagerSlice,
   AlertManagerStateShape,
   AlertManagerState,
-} from 'widgets/AlertManager';
+} from './alertManager.slice';
 
 export const AlertManagerContext = createContext({});
 AlertManagerContext.displayName = 'AlertManagerContext';
@@ -30,7 +30,7 @@ export const AlertManagerProvider = ({ ...props }: AlertManagerProps) => {
   ) =>
     dispatch(
       alertManagerSlice.actions.showAlert({ text, timeout, status: p.status }),
-    ); 
+    );
   const hideAlert = (id: string) =>
     dispatch(alertManagerSlice.actions.hideAlert({ id }));
   alerts.map((alert) => setTimeout(hideAlert, alert.timeout, alert.id));
