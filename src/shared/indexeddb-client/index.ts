@@ -1,1 +1,1 @@
-export { IndexedDBClient } from './Idb';
+export * from './Idb';
