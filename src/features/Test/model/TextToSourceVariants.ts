@@ -25,10 +25,11 @@ export class TextToSourceVariants implements ITest {
     get title() { return 'Откуда взят этот стих?' }
     get question() { return this.#verse.text }
 
-    async commit(answer: string) {
-        return {
-            status:String(answer) === String(this.#verse.id)
-        }
+    commit(answer: string): PromiseLike<ITestResult> {
+        return { then(onfulfill) { 
+            onfulfill({ status: String(answer) === String(this.#verse.id) })
+            return this;
+        } };
     }
 
     get options(): IOption[] {
