@@ -1,19 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
+export type AlertStatus = 'success'|'error'|'warning'|'info';
+
 export type OAlert = {
   id: string;
   children: string;
-  status: 'success' | 'error' | 'warning' | 'info';
+  status: AlertStatus;
   timeout: number;
 };
 
 export type AlertManagerState = OAlert[];
 
 type ShowAlertPayload = {
+  id: string;
   text: string;
   timeout: number;
-  status: 'success' | 'warning' | 'error';
+  status: AlertStatus;
 };
 
 export type AlertManagerStateShape = { alerts: AlertManagerState };
@@ -29,8 +32,6 @@ export const alertManagerSlice = createSlice({
         {
           ...action.payload,
           children: action.payload.text,
-          id: crypto.randomUUID(),
-          timeout: action.payload.timeout * 1000,
         },
       ];
     },
