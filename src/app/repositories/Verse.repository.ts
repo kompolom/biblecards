@@ -23,8 +23,13 @@ export class VerseRepository implements IVerseRepository {
         return this.#db.deleteVerse(id);
     }
 
+    async getById(id: number): Promise<IVerse> {
+        const dto = await this.#db.readOne<VerseDTO>(BiblecardsDB.VERSES_STORE, IDBKeyRange.only(id));
+        return this.#mapDtoToVerse(dto, this.#bible);
+    }
+
     async getVerses(_query: { id?: number }): Promise<IVerse[]> {
-        const dto = await this.#db.getVerses();
+        const dto = await this.#db.getVerses({ count: 10 });
         return dto.map(dto => this.#mapDtoToVerse(dto, this.#bible))
     }
 

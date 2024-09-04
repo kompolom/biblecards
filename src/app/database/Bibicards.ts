@@ -1,4 +1,4 @@
-import { IndexedDBClient } from 'shared/indexeddb-client';
+import { IndexedDBClient, ReadRequest } from 'shared/indexeddb-client';
 
 export type VerseDTO = {
     book: number,
@@ -8,7 +8,6 @@ export type VerseDTO = {
     id?: number;
 }
 
-const VERSES_STORE = 'verses';
 export class BiblecardsDB extends IndexedDBClient {
 
     static async init() {
@@ -18,26 +17,28 @@ export class BiblecardsDB extends IndexedDBClient {
     _upgrade(db) {
         switch (db.version) {
             case 1:
-                const verses = db.createObjectStore(VERSES_STORE, { keyPath: 'id', autoIncrement: true });
+                const verses = db.createObjectStore(BiblecardsDB.VERSES_STORE, { keyPath: 'id', autoIncrement: true });
                 verses.createIndex('book', 'book')
         }
 
     }
 
-    async getVerses(): Promise<VerseDTO[]> {
-        return super.read<VerseDTO>(VERSES_STORE, 10)
+    async getVerses(req: ReadRequest): Promise<VerseDTO[]> {
+        return super.read<VerseDTO>(BiblecardsDB.VERSES_STORE, req)
     }
 
     async createVerse(verse: VerseDTO): Promise<VerseDTO> {
-        return super.create(VERSES_STORE, verse);
+        return super.create(BiblecardsDB.VERSES_STORE, verse);
     }
 
     async updateVerse(verse: VerseDTO): Promise<VerseDTO> {
-        return super.update(VERSES_STORE, verse);
+        return super.update(BiblecardsDB.VERSES_STORE, verse);
     }
 
     async deleteVerse(id: Required<VerseDTO["id"]>): Promise<void> {
-        await super.delete(VERSES_STORE, id)
+        await super.delete(BiblecardsDB.VERSES_STORE, id)
     }
+
+    static VERSES_STORE = 'verses';
 
 }

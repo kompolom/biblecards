@@ -16,3 +16,8 @@ export const loadVersesThunk = createAsyncThunk('verses/load', async ({ query = 
     const verses = await db.getVerses(query);
     dispatch(versesSlice.actions.versesLoaded(verses));
 });
+
+export const loadVerseThunk = createAsyncThunk('verses/loadOne', async ({ id, db }: { db: IVerseRepository, id: number }, { dispatch }) => {
+    const verse = await db.getById(id);
+    dispatch(versesSlice.actions.verseAdded(verse));
+});
