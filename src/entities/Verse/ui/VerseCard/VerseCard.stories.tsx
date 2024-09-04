@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import { VerseCard } from './index';
 import verses from '../../examples/verses';
 
@@ -9,4 +9,9 @@ const meta: Meta<typeof VerseCard> = {
 export default meta;
 
 
-export const Primary = () => <VerseCard verse={verses[0]} />
+export const Primary: StoryObj<typeof VerseCard> = {
+    args: {
+        verse: verses[0],
+        showSource: true,
+    }
+}

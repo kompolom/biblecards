@@ -11,12 +11,14 @@ import { IVerse } from '../../model';
 export interface VerseCardProps extends CardProps {
   verse: IVerse;
   actions?: ReactNode | ReactNode[];
+  showSource?: boolean;
 }
 
 export const VerseCard = ({
   verse,
   actions,
   onClick,
+  showSource,
   ...props
 }: VerseCardProps) => {
   return (
@@ -25,11 +27,13 @@ export const VerseCard = ({
         <Typography align="center" variant="h6">
           {verse.text}
         </Typography>
-        <Typography align="right" variant="h6" color="text.secondary">
-          {verse.toString()}
-        </Typography>
+        {showSource && (
+          <Typography align="right" variant="h6" color="text.secondary">
+            {verse.toString()}
+          </Typography>
+        )}
       </CardContent>
-      {actions? (<CardActions>{actions}</CardActions>): null}
+      {actions ? <CardActions>{actions}</CardActions> : null}
     </Card>
   );
 };
