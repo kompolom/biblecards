@@ -33,7 +33,6 @@ export const TextToSource = ({
     const answer = formData.get(RESULT_FIELD_NAME).toString();
     onCommit(answer);
   }, [onCommit]);
-  console.log(selectedValue)
   
   return (
     <TestForm
