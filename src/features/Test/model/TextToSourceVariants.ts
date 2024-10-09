@@ -26,8 +26,9 @@ export class TextToSourceVariants implements ITest {
     get question() { return this.#verse.text }
 
     commit(answer: string): PromiseLike<ITestResult> {
+        const rightAnswer = String(this.#verse.id);
         return { then(onfulfill) { 
-            onfulfill({ status: String(answer) === String(this.#verse.id) })
+            onfulfill({ status: String(answer) === rightAnswer })
             return this;
         } };
     }
