@@ -1,3 +1,9 @@
+/**
+ * @jest-environment node
+ */
+import { TextEncoder, TextDecoder } from 'util';
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;
 import { VerseSource, ExcerptSource } from './source';
 
 describe('VerseSource', () => {
