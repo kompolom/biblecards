@@ -3,6 +3,7 @@ import {
   VersesList,
   VersePreview,
   versesListSelector,
+  ExcerptSource,
 } from 'entities/Verse';
 import { useSelector } from 'react-redux';
 import { VerseDeleteButton, VerseEditButton } from 'features/Verse';
@@ -17,7 +18,7 @@ export const VersesListWidget = () => {
         <Box component="li" key={verse.id} sx={{ containerType: 'normal'}} >
         <VersePreview
           key={verse.id}
-          verse={verse}
+          source={ExcerptSource.parse(verse.id)}
           actions={
             <div className="VersesList-Actions">
               <ButtonGroup>

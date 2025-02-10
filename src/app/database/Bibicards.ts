@@ -1,11 +1,8 @@
 import { IndexedDBClient, ReadRequest } from 'shared/indexeddb-client';
 
 export type VerseDTO = {
-    book: number,
-    chapter: number,
-    number: number,
+    id: string;
     text: string,
-    id?: number;
 }
 
 export class BiblecardsDB extends IndexedDBClient {
@@ -17,8 +14,7 @@ export class BiblecardsDB extends IndexedDBClient {
     _upgrade(db) {
         switch (db.version) {
             case 1:
-                const verses = db.createObjectStore(BiblecardsDB.VERSES_STORE, { keyPath: 'id', autoIncrement: true });
-                verses.createIndex('book', 'book')
+                const verses = db.createObjectStore(BiblecardsDB.VERSES_STORE, { keyPath: 'id' });
         }
 
     }

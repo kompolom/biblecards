@@ -1,23 +1,17 @@
-import { Bible } from 'entities/Bible';
-import { Verse } from 'entities/Verse';
+import { Excerpt, ExcerptSource, VerseSource } from 'entities/Verse';
 import { VerseFormFields  } from './VerseFormFields';
 
-export function verseToForm(verse: Verse, bible: Bible): VerseFormFields {
+export function verseToForm(verse: Excerpt): VerseFormFields {
     return {
         id: verse.id,
-        book: verse.book.number? verse.book.number: bible.getBookByTitle(verse.book.title).number,
-        number: String(verse.number),
+        book: verse.source.start.book,
+        chapter: String(verse.source.start.chapter),
+        number: String(verse.source.start.verse),
         text: verse.text,
-        chapter: String(verse.chapter)
     };
 }
 
-export function formToVerse(form: VerseFormFields, bible: Bible): Verse {
-    return Verse.create({
-        id: form.id || 0,
-        book: bible.getBookByNumber(Number(form.book)),
-        chapter: Number(form.chapter) || 1,
-        number: form.number,
-        text: form.text
-    });
+export function formToVerse(form: VerseFormFields): Excerpt {
+    const src = new ExcerptSource(new VerseSource({ book: Number(form.book), chapter: Number(form.chapter) || 1, verse: Number(form.number) }));
+    return new Excerpt(src, form.text)
 }

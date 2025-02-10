@@ -1,6 +1,7 @@
 import { Source } from './source';
 
 export type BookTranslator = (bookNumber: number) => string;
+export type ExcerptSourceFormatter = (source: Source[]) => string;
 
 export const formatExcerptSource = (
   translate: BookTranslator,

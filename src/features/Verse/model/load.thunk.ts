@@ -5,7 +5,7 @@ import { IVerseRepository } from "../api";
 export type LoadVersesQuery = {
     skip?: number
     limit?: number
-    id?: number
+    id?: string 
 }
 type LoadVersesThunkArgs = {
     query?: LoadVersesQuery,
@@ -17,7 +17,7 @@ export const loadVersesThunk = createAsyncThunk('verses/load', async ({ query = 
     dispatch(versesSlice.actions.versesLoaded(verses));
 });
 
-export const loadVerseThunk = createAsyncThunk('verses/loadOne', async ({ id, db }: { db: IVerseRepository, id: number }, { dispatch }) => {
+export const loadVerseThunk = createAsyncThunk('verses/loadOne', async ({ id, db }: { db: IVerseRepository, id: string }, { dispatch }) => {
     const verse = await db.getById(id);
     dispatch(versesSlice.actions.verseAdded(verse));
 });

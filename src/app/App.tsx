@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useCallback } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import '../App.css';
 
@@ -12,6 +12,8 @@ import { LoaderSplash } from 'shared/ui/LoaderSplash';
 import { useVerseRepository } from './model/useVerseRepository';
 import { Provider } from 'react-redux';
 import { store } from './store';
+import { BookTranslator, BookTranslatorContext } from 'entities/Verse';
+import books_ru from './translations/books.ru.json';
 
 const VersesListPage = lazy(() =>
   import('../pages/versesList').then((module) => {
@@ -26,8 +28,10 @@ const GamePage = lazy(() =>
 
 export const App = () => {
   const db = useVerseRepository();
+  const ru: BookTranslator = useCallback((book: number) => books_ru[book - 1], []);
   return (
     <Provider store={store}>
+      <BookTranslatorContext value={ru}>
       <div className="App">
         <VerseStorageContextProvider value={db}>
           <AlertManagerProvider>
@@ -86,6 +90,7 @@ export const App = () => {
           </AlertManagerProvider>
         </VerseStorageContextProvider>
       </div>
+      </BookTranslatorContext>
     </Provider>
   );
 };

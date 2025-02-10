@@ -1,9 +1,9 @@
-import { IVerse } from "entities/Verse"
+import { Excerpt } from "entities/Verse"
 
 export interface IVerseRepository {
-    getById(id: number): Promise<IVerse>
-    getVerses(query: { id?: number }): Promise<IVerse[]>
-    createVerse(data: IVerse): Promise<IVerse>
-    updateVerse(data: IVerse): Promise<IVerse>
-    deleteVerse(id: number): Promise<void>
+    getById(id: string): Promise<Excerpt>
+    getVerses(query: { id?: string }): Promise<Excerpt[]>
+    createVerse(data: Excerpt): Promise<Excerpt>
+    updateVerse(data: Excerpt): Promise<Excerpt>
+    deleteVerse(id: string): Promise<void>
 }

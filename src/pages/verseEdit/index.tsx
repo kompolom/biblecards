@@ -8,8 +8,8 @@ import { useLoadVerse } from 'features/Verse';
 
 export const PageVerseEdit = () => {
     const { id } = useParams();
-    useLoadVerse(Number.parseInt(id));
-    const verse = useSelector<VersesStateShape, IVerse>((state) => getVerseById(state, Number(id)));
+    useLoadVerse(id);
+    const verse = useSelector<VersesStateShape, IVerse>((state) => getVerseById(state, id));
 
     return (<Page><VerseForm verse={verse} /></Page>);
 }

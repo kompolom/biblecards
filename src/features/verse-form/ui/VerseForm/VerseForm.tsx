@@ -2,8 +2,9 @@ import React from 'react';
 import { useFormik } from 'formik';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { BookSelect, useBible } from 'entities/Bible';
-import { IVerse } from 'entities/Verse';
+import { BookSelect } from 'entities/Verse';
+
+import { Excerpt, ExcerptSource, IVerse, useBookTranlator } from 'entities/Verse';
 
 import {
   validation_schema,
@@ -21,11 +22,11 @@ export interface VerseFormProps {
 
 export const VerseForm = (props: VerseFormProps) => {
   const saveVerse = useSaveVerse();
-  const bible = useBible();
+  const t = useBookTranlator();
   const formik = useFormik<VerseFormFields>({
     enableReinitialize: true,
     initialValues: props.verse
-      ? verseToForm(props.verse, bible)
+      ? verseToForm(new Excerpt(ExcerptSource.parse(props.verse.id), props.verse.text))
       : {
           book: 1,
           chapter: '',
@@ -34,7 +35,7 @@ export const VerseForm = (props: VerseFormProps) => {
         },
     validationSchema: validation_schema,
     onSubmit: async (values) => {
-      const verse = formToVerse(values, bible);
+      const verse = formToVerse(values);
       // TODO: add alerts
       await saveVerse(verse).unwrap();
       formik.setSubmitting(false);
@@ -45,9 +46,8 @@ export const VerseForm = (props: VerseFormProps) => {
     <Box component="form" sx={{ m: 1 }} onSubmit={formik.handleSubmit}>
       <div className="VerseForm-body VerseForm-row">
         <BookSelect
+          bookTranlator={t}
           sx={{ width: '100%', mb: '30px' }}
-          native
-          bible={bible}
           error={Boolean(formik.touched.chapter && formik.errors.chapter)}
           value={formik.values.book}
           onChange={(e) => {

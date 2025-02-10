@@ -1,6 +1,6 @@
 export interface VerseFormFields {
-    id?: number
-    book: number|string,
+    id?: string 
+    book: number,
     chapter: string
     number: string
     text: string

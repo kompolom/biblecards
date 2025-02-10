@@ -1,13 +1,10 @@
-import { Verse } from 'entities/Verse';
-import { createBible } from 'entities/Bible';
+/**
+ * @jest-environment node
+ */
+import { Excerpt } from 'entities/Verse';
 import { formToVerse } from './verse-convert';
 
 describe('formToVerse', () => {
-  let bible: ReturnType<typeof createBible>;
-
-  beforeAll(() => {
-    bible = createBible();
-  });
 
   it('should create verse', () => {
     expect(formToVerse({
@@ -15,18 +12,18 @@ describe('formToVerse', () => {
         chapter: '1',
         number: '1',
         text: 'test'
-    }, bible)).toBeInstanceOf(Verse);
+    })).toBeInstanceOf(Excerpt);
   });
 
   it('should create verse with right book if value is string', () => {
     const values = {
-        book: '3',
+        book: 3,
         chapter: '1',
         number: '1',
         text: 'test'
     }
-    const verse = formToVerse(values, bible);
-    expect(verse.book.number).toBe(3)
+    const verse = formToVerse(values);
+    expect(verse.source.start.book).toBe(3)
   });
 
   it('should create verse with first chapter if chapter not set', () => {
@@ -36,8 +33,8 @@ describe('formToVerse', () => {
         number: '1',
         text: 'test'
     }
-    const verse = formToVerse(values, bible);
-    expect(verse.chapter).toBe(1)
+    const verse = formToVerse(values);
+    expect(verse.source.start.chapter).toBe(1)
   });
 
 });

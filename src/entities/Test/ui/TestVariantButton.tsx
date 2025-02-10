@@ -7,6 +7,7 @@ export interface TestVariantButtonProps extends IOption, Omit<ToggleButtonProps,
 }
 
 export const TestVariantButton = ({ children, value, name, selected, ...props }: TestVariantButtonProps) => {
+    // @ts-expect-error component
     return (<ToggleButton value={value} selected={selected} component="label" variant='outlined' {...props}>
         <input defaultChecked={selected} style={{ display: 'none' }} type='radio' value={value} name={name} />
         {children}

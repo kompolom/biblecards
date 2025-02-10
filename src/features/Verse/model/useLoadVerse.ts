@@ -6,7 +6,7 @@ import { VersesStateShape } from "entities/Verse";
 import { useVerseStorageContext } from "./verseStorageContext";
 import { loadVerseThunk } from './load.thunk';
 
-export function useLoadVerse(id: number) {
+export function useLoadVerse(id: string) {
     const db = useVerseStorageContext();
     const dispatch: ThunkDispatch<VersesStateShape, unknown, AnyAction> = useDispatch();
     useEffect(() => {
