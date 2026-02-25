@@ -17,7 +17,6 @@ const VisuallyHiddenInput = styled('input')({
 export const ImportButton = ({ children, ...props }: ButtonProps) => {
   const importVerses = useImportVerses();
   return (
-    // @ts-expect-error label
     <Button component="label" role={undefined} {...props}>
       {children}
       <VisuallyHiddenInput

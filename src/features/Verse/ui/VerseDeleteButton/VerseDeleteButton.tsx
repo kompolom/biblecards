@@ -2,12 +2,11 @@ import React, { useCallback, useState } from 'react';
 import { DeleteOutlined } from '@mui/icons-material';
 import Button, { ButtonProps } from '@mui/material/Button';
 import { VerseDeleteDialog } from '../VerseDeleteDialog';
-import { EntityId } from '@reduxjs/toolkit';
 import { versesSlice } from 'entities/Verse';
 import { useDispatch } from 'react-redux';
 
 export interface VerseDeleteButtonProps extends ButtonProps {
-  verseId: EntityId;
+  verseId: string;
 }
 
 export const VerseDeleteButton = ({

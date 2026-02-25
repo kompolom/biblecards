@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
     "outDir": "dist",
-    "types": ["vite/client", "jest", "@testing-library/jest-dom"],
-    "target": "ESNext",                            /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
-    "jsx": "react",                                /* Specify what JSX code is generated. */
-    "module": "ESNext",                            /* Specify what module code is generated. */
-    "moduleResolution": "bundler",                    /* Specify how TypeScript looks up a file from a given module specifier. */
-    "baseUrl": "./src",                            /* Specify the base directory to resolve non-relative module names. */
+    "types": ["vite/client", "jest"],
+    "target": "ESNext",
+    "jsx": "react",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "baseUrl": "./src",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "paths": {
       "shared/*": ["shared/*"],
@@ -14,11 +14,11 @@
       "widgets/*": ["widgets/*"],
       "pages/*": ["pages/*"]
     },
-    "isolatedModules": true,                       /* Ensure that each file can be safely transpiled without relying on other imports. */
-    "esModuleInterop": true,                       /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
-    "forceConsistentCasingInFileNames": true,      /* Ensure that casing is correct in imports. */
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "strict": false,                               /* Enable all strict type-checking options. */
-    "skipLibCheck": true                           /* Skip type checking all .d.ts files. */
+    "strict": false,
+    "skipLibCheck": true
   }
 }

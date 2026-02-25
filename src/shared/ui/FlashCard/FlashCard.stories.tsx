@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react-vite';
+import { Meta, StoryFn } from '@storybook/react-vite';
 import { FlashCard } from './index';
 
 import Typography from '@mui/material/Typography';
@@ -9,9 +9,9 @@ export default {
   argTypes: {
     side: { control: { type: 'radio' }, options: ['front', 'back'] },
   },
-} as ComponentMeta<typeof FlashCard>;
+} as Meta<typeof FlashCard>;
 
-export const Playground: ComponentStory<typeof FlashCard> = (args) => (
+export const Playground: StoryFn<typeof FlashCard> = (args) => (
   <FlashCard
     sx={{ maxWidth: '350px' }}
     frontContent={
