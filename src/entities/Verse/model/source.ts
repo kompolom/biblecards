@@ -1,4 +1,3 @@
-
 /**
  * Presents verse source
  */
@@ -9,12 +8,14 @@ export type Source = {
 };
 
 const encodeGroup = (value: number): string => {
-  const group = new Uint8ClampedArray(3).fill(0x30);
+  const SIZE = 3;
+  const group = new Uint8ClampedArray(SIZE).fill(0x30);
   const val = value.toString();
-  for (let i = 0; i < val.length; i++) {
-    group[i] = val.charCodeAt(i);
+  for (let i = 1; i <= SIZE; i++) {
+    if (val.length - i < 0) break;
+    group[SIZE - i] = val.charCodeAt(val.length - i);
   }
-  return new TextDecoder().decode(group.reverse());
+  return new TextDecoder().decode(group);
 };
 
 const decodeVerse = (str: string): Source => {

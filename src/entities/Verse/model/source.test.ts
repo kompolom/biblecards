@@ -23,38 +23,42 @@ describe('VerseSource', () => {
   it('should parse', () => {
     expect(() => VerseSource.parse('v001001001')).not.toThrow();
     expect(VerseSource.parse('v001001001')).toBeInstanceOf(VerseSource);
-    expect(VerseSource.parse('v001001001')).toEqual({ book: 1, chapter: 1, verse: 1 });
+    expect(VerseSource.parse('v001001001')).toEqual({
+      book: 1,
+      chapter: 1,
+      verse: 1,
+    });
   });
 
   it('should stringify', () => {
     expect(VerseSource.parse('v066001001').toString()).toBe('v066001001');
+    expect(VerseSource.parse('v040024003').toString()).toBe('v040024003');
   });
-
 });
 
 describe('ExcerptSource', () => {
-    it('should parse', () => {
-        expect(() => ExcerptSource.parse('v001001001')).not.toThrow();
-        expect(() => ExcerptSource.parse('v001001001-v001001002')).not.toThrow();
-    });
-    it('should create from array', () => {
-        const start =VerseSource.parse('v066001001');
-        const end = VerseSource.parse('v066001002');
-        const es = ExcerptSource.fromArray([start, end]);
-        expect(es.start).toBe(start);
-        expect(es.end).toBe(end);
-        expect(es.single).toBeFalsy();
-    });
-    it('should parse single', () => {
-        const es = ExcerptSource.parse('v066001001');
-        expect(es.single).toBeTruthy();
-    });
-    it('should stringify single', () => {
-        const es = ExcerptSource.parse('v066001001');
-        expect(es.toString()).toBe('v066001001');
-    });
-    it('should stringify many', () => {
-        const es = ExcerptSource.parse('v066001001-v066001002');
-        expect(es.toString()).toBe('v066001001-v066001002');
-    });
+  it('should parse', () => {
+    expect(() => ExcerptSource.parse('v001001001')).not.toThrow();
+    expect(() => ExcerptSource.parse('v001001001-v001001002')).not.toThrow();
+  });
+  it('should create from array', () => {
+    const start = VerseSource.parse('v066001001');
+    const end = VerseSource.parse('v066001002');
+    const es = ExcerptSource.fromArray([start, end]);
+    expect(es.start).toBe(start);
+    expect(es.end).toBe(end);
+    expect(es.single).toBeFalsy();
+  });
+  it('should parse single', () => {
+    const es = ExcerptSource.parse('v066001001');
+    expect(es.single).toBeTruthy();
+  });
+  it('should stringify single', () => {
+    const es = ExcerptSource.parse('v066001001');
+    expect(es.toString()).toBe('v066001001');
+  });
+  it('should stringify many', () => {
+    const es = ExcerptSource.parse('v066001001-v066001002');
+    expect(es.toString()).toBe('v066001001-v066001002');
+  });
 });
