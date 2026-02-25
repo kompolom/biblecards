@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { TestResult, TestResultProps } from './TestResult';
 
 const meta: Meta<TestResultProps> = {

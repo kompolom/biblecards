@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/react';
+import { StoryObj } from '@storybook/react-vite';
 import { ImportButton } from './button';
 const meta = {
     component: ImportButton,

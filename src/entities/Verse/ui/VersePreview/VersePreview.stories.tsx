@@ -1,6 +1,6 @@
 import React from 'react';
 import { VersePreview } from './index';
-import { Meta } from '@storybook/react';
+import { Meta } from '@storybook/react-vite';
 import verses from '../../examples/verses';
 import { bookTranslator } from '../../examples/bookTranslator';
 import Button from '@mui/material/Button';

@@ -1,5 +1,5 @@
 import React, { createElement } from 'react';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { AlertManagerProvider } from './AlertManager';
 import { Stack, Alert } from '@mui/material';
 import { Provider } from 'react-redux';

@@ -1,6 +1,6 @@
 import React from "react";
 import { VersesList  } from "./index";
-import { Meta } from "@storybook/react";
+import { Meta } from "@storybook/react-vite";
 import verses from '../../examples/verses';
 import { VersePreview } from "../VersePreview";
 import { ExcerptSource } from '../../model'
