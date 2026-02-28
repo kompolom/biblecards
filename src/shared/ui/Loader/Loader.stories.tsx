@@ -1,9 +1,9 @@
-import { Loader } from './index';
-import { StoryObj, Meta } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react';
+import { Loader } from './Loader';
 
-const meta: Meta<typeof Loader> = {
-    component: Loader
-}
+const meta: Meta = {
+  component: Loader,
+};
 export default meta;
 
-export const Showcase: StoryObj<typeof Loader> = {}
+export const Showcase: StoryObj = {};
