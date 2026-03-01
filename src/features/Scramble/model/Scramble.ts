@@ -7,6 +7,14 @@ export class Scramble {
   #userOrderedWords: string[];
   readonly #excerpt: Excerpt;
 
+  get result() {
+    return this.#userOrderedWords;
+  }
+
+  get words() {
+    return this.#words;
+  }
+
   constructor(excerpt: Excerpt) {
     this.#excerpt = excerpt;
     this.#words = shuffle(splitVerse(excerpt));
@@ -18,6 +26,10 @@ export class Scramble {
     if (i == -1) return;
     this.#words.splice(i, 1);
     this.#userOrderedWords.push(word);
+  }
+
+  cancel(i: number) {
+    this.#words.push(...this.#userOrderedWords.splice(i, 1));
   }
 
   check() {

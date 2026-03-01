@@ -1,7 +1,6 @@
 /**
  * @jest-environment node
  */
-import { TextEncoder, TextDecoder } from 'util';
 import { Scramble } from './Scramble';
 import { Excerpt, ExcerptSource, VerseSource } from 'entities/Verse';
 
@@ -20,4 +19,15 @@ it('should shuffle words', () => {
     step = session.next(words[0]);
   }
   expect(s.check()).toBeFalsy();
+});
+
+it('should step back', () => {
+  const s = new Scramble(gen11);
+  expect(s.words.length).toBe(10);
+  s.guessWord('the');
+  expect(s.words.length).toBe(9);
+  expect(s.result.length).toBe(1);
+  s.cancel(0);
+  expect(s.words.length).toBe(10);
+  expect(s.result.length).toBe(0);
 });
