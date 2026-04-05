@@ -2,7 +2,7 @@ import { ButtonTokens } from './const';
 
 export const themeLight = new CSSStyleSheet();
 themeLight.insertRule(`
-bc-button {
+:host {
   ${ButtonTokens.Background}: #fff;
   ${ButtonTokens.BorderColor}: rgb(226 232 240);
   ${ButtonTokens.BorderColorDisabled}: rgb(226 232 240);
@@ -13,16 +13,16 @@ bc-button {
 `);
 
 export const success = new CSSStyleSheet();
-success.insertRule(`bc-button {
+success.insertRule(`:host {
   ${ButtonTokens.BorderColor}: #4CAF50;
 }`);
 
 export const warning = new CSSStyleSheet();
-success.insertRule(`bc-button {
+success.insertRule(`:host {
   ${ButtonTokens.BorderColor}: #ff9800;
 }`);
 
 export const error = new CSSStyleSheet();
-success.insertRule(`bc-button {
+success.insertRule(`:host {
   ${ButtonTokens.BorderColor}: #ff9800;
 }`);
