@@ -18,20 +18,15 @@ export const ScrambleSession = (props: ScrambleProps) => {
   return (
     <bc-scramble>
       <Box sx={{ display: 'contents' }} slot="result">
-        {scramble.result.map((word) => (
-          <MuiButton
-            sx={{
-              display: 'inline-flex',
-              border: '2px solid',
-              padding: '4px',
-              borderRadius: '10px',
-              lineHeight: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
+        {scramble.result.map((word, i) => (
+          <Button
+            onClick={() => {
+              console.debug('cancel', word);
+              scramble.cancel(i);
             }}
           >
             {word}
-          </MuiButton>
+          </Button>
         ))}
       </Box>
       <Box slot="words" sx={{ display: 'contents' }}>

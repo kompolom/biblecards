@@ -24,9 +24,11 @@ export class BCButton extends LitElement {
   static properties = {
     disabled: { type: Boolean, reflect: true },
   };
+  declare disabled?: boolean;
+
   connectedCallback() {
     super.connectedCallback();
-    this.renderRoot.adoptedStyleSheets.push(tokens);
+    (this.renderRoot as ShadowRoot).adoptedStyleSheets.push(tokens);
   }
   render() {
     return html`<button ?disabled=${this.disabled}>

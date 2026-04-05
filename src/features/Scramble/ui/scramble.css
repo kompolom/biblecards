@@ -1,3 +1,7 @@
+.scramble {
+  display: grid;
+  gap: 14px;
+}
 .scramble__results {
   border: 2px dashed;
   min-height: 90px;
