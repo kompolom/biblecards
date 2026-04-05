@@ -1,4 +1,11 @@
-import React, { useLayoutEffect, useMemo, useState } from 'react';
+import React, {
+  useLayoutEffect,
+  useMemo,
+  useState,
+  useSyncExternalStore,
+  useCallback,
+} from 'react';
+import { BehaviorSubject } from 'rxjs';
 import { Box, Button as MuiButton } from '@mui/material';
 import { Scramble } from '../model';
 import { Excerpt } from 'entities/Verse';
@@ -13,16 +20,33 @@ export const ScrambleSession = (props: ScrambleProps) => {
   useLayoutEffect(BCScramble.register, []);
   const scramble = useMemo(() => new Scramble(props.excerpt), [props.excerpt]);
   const session = useMemo(() => scramble.start(), [scramble]);
+  const subject = useMemo(() => {
+    return new BehaviorSubject(scramble.result);
+  }, [scramble]);
+  const cancel = useCallback(
+    (index: number) => {
+      scramble.cancel(index);
+      subject.next(Array.from(scramble.result));
+    },
+    [scramble],
+  );
   const [step, setStep] = useState(() => session.next());
+  const result = useSyncExternalStore(
+    (triggerUpdate) => {
+      const subscription = subject.subscribe(triggerUpdate);
+      return () => subscription.unsubscribe();
+    },
+    () => subject.getValue(),
+  );
 
   return (
     <bc-scramble>
       <Box sx={{ display: 'contents' }} slot="result">
-        {scramble.result.map((word, i) => (
+        {result.map((word, i) => (
           <Button
+            key={word + i}
             onClick={() => {
-              console.debug('cancel', word);
-              scramble.cancel(i);
+              cancel(i);
             }}
           >
             {word}
@@ -30,8 +54,10 @@ export const ScrambleSession = (props: ScrambleProps) => {
         ))}
       </Box>
       <Box slot="words" sx={{ display: 'contents' }}>
-        {step.value.map((word) => (
-          <Button onClick={() => setStep(session.next(word))}>{word}</Button>
+        {step.value.map((word, i) => (
+          <Button key={word + i} onClick={() => setStep(session.next(word))}>
+            {word}
+          </Button>
         ))}
       </Box>
       <MuiButton
