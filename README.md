@@ -1,30 +1,59 @@
-# Библейские карточки
+# BibiCards
 
-Проект призван помочь запомнить библейские стихи в игровой форме.
-Для начала, нужно внести стихи, которые пользователь хочет запомнить.
-Планиректся несколько режимов запоминания.
-1. Карточки. В этом режиме, нужно угадать из какой книги, главы, стиха взят процитированный стих. Перевернув карточку, пользователь видит ответ, и может оценить правильно ли он ответил. Затем показывается следующая карточка.
-2. Варианты. В этом режиме к стиху показывается несколько вариантов ответов. Пользователю нужно выбрать правильный.
-3. Сортировка книг. Нужно расставить книги на экране в правильном порядке.
-4. Соответствия. Показываются несколько цитат и несколько источников. Нужно поочередным нажатием выбрать пары стихов.
+A gamified application designed to help users memorize Bible verses and passages effectively.
 
-## Разработка
+## Project Goal
+BibiCards provides an interactive and engaging way to commit scripture to memory using various learning modes and scientific memorization techniques.
 
-Для разработки должны быть установлены:
+## Learning Modes
+The project implements the following training modes for mastering Bible passages:
 
-* `nodejs`
-* `npm`
-* `git`
-* `git-bash` (для Windows) не обязательно, но с ним проще
+### 📚 Memorization Modes
+*   **Gradual Hiding**: Read the verse, then progressively hide words (every third, every second, or all but keywords) until the entire text is hidden.
+*   **First Letters**: Words are replaced by their first letters only. A highly effective mode for short passages where the user reconstructs the verse from memory using minimal cues.
+*   **Memorization by Heart (Typing)**: Type the full verse. The app highlights errors, omissions, or misplacements. A "soft" mode with hints is also available.
+*   **Fill in the Blanks**: Missing words are hidden within the text for the user to fill in. Difficulty can be adjusted by hiding specific parts of speech (nouns, verbs, etc.).
+*   **Scrambled Fragments**: The verse is broken into phrases or keywords that the user must reassemble in the correct order.
+*   **Step-by-Step Cumulative Recall**: Recall the verse line by line. After each successful line, the next one is added until the full passage is completed.
+*   **Blind Reading**: The text is completely hidden. The user reveals one line or word at a time by pressing a key—ideal for final verification.
 
-Установка зависимостей:
+### ⚙️ System Features
+*   **Spaced Repetition**: The app schedules reviews at optimal intervals (1 day, 3 days, 1 week, etc.) to ensure long-term retention.
+*   **Check-up Mode**: A random quick test from your learned verses to maintain overall knowledge.
+*   **Classic Modes**:
+    *   **Cards**: Guess the source (book, chapter, verse) from a quote.
+    *   **Multiple Choice**: Select the correct source from several options.
+    *   **Book Sorting**: Arrange books in their biblical order.
+    *   **Matching**: Match multiple quotes with their corresponding sources.
 
+## Development
+
+### Prerequisites
+To contribute to the project, ensure you have the following installed:
+*   `nodejs`
+*   `npm`
+*   `git`
+
+### Setup
+Install dependencies:
+```bash
+npm install
 ```
-npm i
-```
 
-Запуск dev версии проекта:
-
-```
+### Running the Project
+Start the development server:
+```bash
 npm start
+```
+
+Launch Storybook for component development:
+```bash
+npm run storybook
+```
+
+### Validation
+Before submitting changes, run the following checks:
+```bash
+npm run check:ts
+npm test
 ```
