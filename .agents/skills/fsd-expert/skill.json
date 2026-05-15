@@ -1,0 +1,19 @@
+{
+  "name": "fsd-expert",
+  "version": "1.0.0",
+  "description": "FSD methodology expert. Helps to design frontend.",
+  "entrypoint": "skill.md",
+  "activation": {
+    "manual": true,
+    "fileContexts": ["client.web", "admin.web", "packages/entities"],
+    "keywords": ["FSD", "fsd", "design", "frontend", "feature sliced", "feature", "entity", "widget", "slice", "layer"]
+  },
+  "capabilities": {
+    "knowledge": true,
+    "analysis": true,
+    "architecture": true,
+    "explanations": true
+  },
+  "tools": [],
+  "notes": []
+}
