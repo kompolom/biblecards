@@ -22,11 +22,19 @@ export const ScrambleTest = ({ excerpt, onComplete }: ITestProps) => {
   const cancel = useCallback(
     (index: number) => {
       scramble.cancel(index);
-      subject.next(Array.from(scramble.result));
+      subject.next(scramble.result);
+      setStep({ value: [...scramble.words], done: false });
     },
-    [scramble],
+    [scramble, subject],
   );
   const [step, setStep] = useState(() => session.next());
+  const guess = useCallback(
+    (word: string) => {
+      setStep(session.next(word));
+      subject.next(scramble.result);
+    },
+    [session, subject, scramble],
+  );
   const result = useSyncExternalStore(
     (triggerUpdate) => {
       const subscription = subject.subscribe(triggerUpdate);
@@ -58,7 +66,7 @@ export const ScrambleTest = ({ excerpt, onComplete }: ITestProps) => {
       </Box>
       <Box slot="words" sx={{ display: 'contents' }}>
         {step.value.map((word, i) => (
-          <Button key={word + i} onClick={() => setStep(session.next(word))}>
+          <Button key={word + i} onClick={() => guess(word)}>
             {word}
           </Button>
         ))}

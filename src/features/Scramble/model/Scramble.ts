@@ -29,11 +29,13 @@ export class Scramble {
     const i = this.#words.findIndex((w) => w === word);
     if (i == -1) return;
     this.#words.splice(i, 1);
-    this.#userOrderedWords.push(word);
+    this.#userOrderedWords = [...this.#userOrderedWords, word];
   }
 
   cancel(i: number) {
-    this.#words.push(...this.#userOrderedWords.splice(i, 1));
+    const [word] = this.#userOrderedWords.splice(i, 1);
+    this.#userOrderedWords = [...this.#userOrderedWords];
+    this.#words.push(word);
   }
 
   check(): ITestResult {
@@ -64,9 +66,9 @@ export class Scramble {
   *start() {
     this.#startTime = Date.now();
     while (this.#words.length) {
-      let word: string = yield this.#words;
+      let word: string = yield [...this.#words];
       this.guessWord(word);
     }
-    return this.#words;
+    return [...this.#words];
   }
 }
