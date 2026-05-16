@@ -4,7 +4,7 @@ import { ISessionConfig } from 'entities/LearningSession';
 import { useLearningSession } from 'features/LearningSession';
 import { ScrambleTest } from 'features/Scramble';
 import { TextToSourceTest } from 'features/Test';
-import { ITestResult, TestFeedback } from 'entities/Test';
+import { ITestResult, SimpleTestFeedback } from 'entities/Test';
 import { Loader } from 'shared/ui/Loader';
 import { SessionSummary } from './SessionSummary';
 
@@ -66,7 +66,10 @@ export const LearningSessionWidget = ({
 
       {stepResult ? (
         <Box>
-          <TestFeedback result={stepResult} onContinue={onNext} />
+          <SimpleTestFeedback
+            result={stepResult}
+            correctAnswer={currentExcerpt.text}
+          />
           <Button
             fullWidth
             variant="contained"

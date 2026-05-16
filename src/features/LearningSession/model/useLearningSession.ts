@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import {
   ISessionConfig,
   ISessionState,
-  ISessionResult
+  ISessionResult,
 } from 'entities/LearningSession';
 import { useVerseStorageContext } from 'features/Verse';
 import { useProgressRepository } from 'entities/Progress';
@@ -36,11 +36,17 @@ export function useLearningSession(config: ISessionConfig) {
         progressRepository.getAll(),
       ]);
 
-      const steps = selectExcerpts(excerpts, progress, config.strategy, config.count);
+      const steps = selectExcerpts(
+        excerpts,
+        progress,
+        config.strategy,
+        config.count,
+      );
 
-      setState(prev => ({
+      setState((prev) => ({
         ...prev,
         steps,
+        isCompleted: steps.length === 0,
       }));
       setLoading(false);
     }
@@ -57,29 +63,32 @@ export function useLearningSession(config: ISessionConfig) {
     }
   }, [state.currentIndex, state.steps, verseStorage]);
 
-  const handleStepComplete = useCallback(async (result: ITestResult) => {
-    const currentStep = state.steps[state.currentIndex];
+  const handleStepComplete = useCallback(
+    async (result: ITestResult) => {
+      const currentStep = state.steps[state.currentIndex];
 
-    // Register progress
-    await registerStudyAttempt(currentStep.excerptId, result);
+      // Register progress
+      await registerStudyAttempt(currentStep.excerptId, result);
 
-    const sessionResult: ISessionResult = {
-      excerptId: currentStep.excerptId,
-      result,
-    };
-
-    setState(prev => {
-      const nextIndex = prev.currentIndex + 1;
-      const isCompleted = nextIndex >= prev.steps.length;
-
-      return {
-        ...prev,
-        results: [...prev.results, sessionResult],
-        currentIndex: nextIndex,
-        isCompleted,
+      const sessionResult: ISessionResult = {
+        excerptId: currentStep.excerptId,
+        result,
       };
-    });
-  }, [state.currentIndex, state.steps, registerStudyAttempt]);
+
+      setState((prev) => {
+        const nextIndex = prev.currentIndex + 1;
+        const isCompleted = nextIndex >= prev.steps.length;
+
+        return {
+          ...prev,
+          results: [...prev.results, sessionResult],
+          currentIndex: nextIndex,
+          isCompleted,
+        };
+      });
+    },
+    [state.currentIndex, state.steps, registerStudyAttempt],
+  );
 
   const currentStep = state.steps[state.currentIndex];
 
