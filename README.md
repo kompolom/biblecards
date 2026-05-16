@@ -5,6 +5,13 @@ A gamified application designed to help users memorize Bible verses and passages
 ## Project Goal
 BibiCards provides an interactive and engaging way to commit scripture to memory using various learning modes and scientific memorization techniques.
 
+## Ubiquitous Language
+
+To ensure consistency across the codebase and communication, we use the following terms:
+*   **Excerpt**: A single Bible verse or a passage of multiple verses. This is the primary unit of memorization.
+*   **Test**: A single educational task or challenge (e.g., a "Scramble" exercise or a "Multiple Choice" question) focused on an Excerpt.
+*   **Learning Session**: A sequence of one or more **Tests**. It represents a complete learning unit where a user reviews known Excerpts or learns new ones.
+
 ## Learning Modes
 The project implements the following training modes for mastering Bible passages:
 
