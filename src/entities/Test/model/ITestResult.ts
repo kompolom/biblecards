@@ -10,4 +10,6 @@ export interface ITestResult {
   hintsUsed: number;
   /** Duration of the test session in milliseconds */
   durationMs: number;
+  /** The correct answer that should have been provided */
+  correctAnswer?: string;
 }

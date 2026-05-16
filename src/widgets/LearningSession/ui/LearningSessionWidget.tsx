@@ -68,7 +68,7 @@ export const LearningSessionWidget = ({
         <Box>
           <SimpleTestFeedback
             result={stepResult}
-            correctAnswer={currentExcerpt.text}
+            correctAnswer={stepResult.correctAnswer}
           />
           <Button
             fullWidth

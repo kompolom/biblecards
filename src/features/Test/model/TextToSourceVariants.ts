@@ -62,6 +62,7 @@ export class TextToSourceVariants implements ITest {
           accuracy: isCorrect ? 1 : 0,
           hintsUsed: 0,
           durationMs,
+          correctAnswer: correctLabel,
         });
         return this;
       },

@@ -60,6 +60,7 @@ export class Scramble {
       accuracy,
       hintsUsed: 0,
       durationMs,
+      correctAnswer: correctText,
     };
   }
 
