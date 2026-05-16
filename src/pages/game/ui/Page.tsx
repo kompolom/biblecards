@@ -1,17 +1,22 @@
 import React from 'react';
 import { Container } from 'shared/ui/Container';
-import { SingleTextToVariantsWidget } from 'widgets/SingleTextToVariants';
-import { ScrambleWidget } from 'widgets/Scramble';
-import { getRandomArrayItem } from 'shared/random';
+import { LearningSessionWidget } from 'widgets/LearningSession';
 
 export const Page = () => {
-  const Component = React.useMemo(
-    () => getRandomArrayItem([SingleTextToVariantsWidget, ScrambleWidget]),
-    [],
-  );
+  const handleClose = React.useCallback(() => {
+    // В будущем здесь может быть навигация на главную
+    console.log('Learning session closed');
+  }, []);
+
   return (
     <Container sx={{ my: 2 }}>
-      <Component />
+      <LearningSessionWidget
+        config={{
+          count: 5,
+          strategy: 'weakest',
+        }}
+        onClose={handleClose}
+      />
     </Container>
   );
 };
