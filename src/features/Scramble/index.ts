@@ -1,1 +1,1 @@
-export * from './ui/scramble';
+export * from './ui/ScrambleTest';

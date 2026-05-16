@@ -3,3 +3,4 @@ export * from './TestTitle';
 export * from './TestQuestion';
 export * from './TestForm';
 export * from './TestVariantButton';
+export * from './TestFeedback';

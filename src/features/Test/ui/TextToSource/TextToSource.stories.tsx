@@ -26,6 +26,6 @@ export const Playground: StoryObj<typeof TextToSource> = {
     return <TextToSource test={test} {...props} />;
   },
   args: {
-    onCommit: fn(),
+    onComplete: fn(),
   },
 };

@@ -8,17 +8,13 @@ import React, {
 import { BehaviorSubject } from 'rxjs';
 import { Box, Button as MuiButton } from '@mui/material';
 import { Scramble } from '../model';
-import { Excerpt } from 'entities/Verse';
 import { BCScramble } from './scramble.component';
 import { Button } from 'shared/ui/Button';
+import { ITestProps } from 'entities/Test';
 
-export interface ScrambleProps {
-  excerpt: Excerpt;
-  onComplete: () => void;
-}
-export const ScrambleSession = (props: ScrambleProps) => {
+export const ScrambleTest = ({ excerpt, onComplete }: ITestProps) => {
   useLayoutEffect(BCScramble.register, []);
-  const scramble = useMemo(() => new Scramble(props.excerpt), [props.excerpt]);
+  const scramble = useMemo(() => new Scramble(excerpt), [excerpt]);
   const session = useMemo(() => scramble.start(), [scramble]);
   const subject = useMemo(() => {
     return new BehaviorSubject(scramble.result);
@@ -38,6 +34,13 @@ export const ScrambleSession = (props: ScrambleProps) => {
     },
     () => subject.getValue(),
   );
+
+  const onCheck = useCallback(() => {
+    const testResult = scramble.check();
+    if (testResult.status) {
+      onComplete(testResult);
+    }
+  }, [scramble, onComplete]);
 
   return (
     <bc-scramble>
@@ -63,9 +66,7 @@ export const ScrambleSession = (props: ScrambleProps) => {
       <MuiButton
         size="large"
         sx={{ width: 1 }}
-        onClick={() => {
-          const result = scramble.check();
-        }}
+        onClick={onCheck}
         disabled={!step.done}
         variant="contained"
       >

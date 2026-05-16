@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { ScrambleSession } from './scramble';
+import { ScrambleTest } from './ScrambleTest';
 import { Excerpt, ExcerptSource, VerseSource } from 'entities/Verse';
 
 const gen11 = new Excerpt(
@@ -8,10 +8,10 @@ const gen11 = new Excerpt(
   'In the beginning God created the heaven and the earth.',
 );
 
-const meta: Meta<typeof ScrambleSession> = {
-  component: ScrambleSession,
+const meta: Meta<typeof ScrambleTest> = {
+  component: ScrambleTest,
   args: { excerpt: gen11 },
 };
 export default meta;
 
-export const Showcase: StoryObj<typeof ScrambleSession> = {};
+export const Showcase: StoryObj<typeof ScrambleTest> = {};

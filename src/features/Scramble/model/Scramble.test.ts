@@ -18,7 +18,7 @@ it('should shuffle words', () => {
     words = step.value;
     step = session.next(words[0]);
   }
-  expect(s.check()).toBeFalsy();
+  expect(s.check().status).toBeFalsy();
 });
 
 it('should step back', () => {

@@ -12,6 +12,7 @@ export class TextToSourceVariants implements ITest {
   readonly #verse: Excerpt;
   readonly #options: IOption[];
   readonly #format: ExcerptSourceFormatter;
+  readonly #startTime: number;
 
   constructor(
     verse: Excerpt,
@@ -20,6 +21,7 @@ export class TextToSourceVariants implements ITest {
   ) {
     this.#verse = verse;
     this.#format = formatSource;
+    this.#startTime = Date.now();
 
     if (!variants.find((v) => v.id === verse.id)) {
       throw new InvariantError('Variants should contain right answer');
@@ -42,13 +44,24 @@ export class TextToSourceVariants implements ITest {
   commit(answer: string): PromiseLike<ITestResult> {
     const rightAnswer = String(this.#verse.id);
     const isCorrect = String(answer) === rightAnswer;
+
+    const userLabel =
+      this.#options.find((o) => o.value === answer)?.label || answer;
+    const correctLabel = this.#format(this.#verse.source);
+
+    console.log(`[Source Variants Test]
+      User:    "${userLabel}"
+      Correct: "${correctLabel}"
+      Status:  ${isCorrect ? '✅' : '❌'}`);
+
+    const durationMs = Date.now() - this.#startTime;
     return {
       then(onfulfill) {
         onfulfill({
           status: isCorrect,
           accuracy: isCorrect ? 1 : 0,
           hintsUsed: 0,
-          durationMs: 0, // We don't track duration in this class yet
+          durationMs,
         });
         return this;
       },
