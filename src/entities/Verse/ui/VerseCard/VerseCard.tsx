@@ -5,12 +5,14 @@ import {
   CardContent,
   CardActions,
   Typography,
+  Box,
 } from '@mui/material';
 import { IVerse } from '../../model';
 
 export interface VerseCardProps extends CardProps {
   verse: IVerse;
   actions?: ReactNode | ReactNode[];
+  renderProgress?: () => ReactNode;
   showSource?: boolean;
 }
 
@@ -19,11 +21,17 @@ export const VerseCard = ({
   actions,
   onClick,
   showSource,
+  renderProgress,
   ...props
 }: VerseCardProps) => {
   return (
     <Card {...props}>
-      <CardContent>
+      <CardContent sx={{ position: 'relative' }}>
+        {renderProgress && (
+          <Box sx={{ position: 'absolute', top: 8, right: 8 }}>
+            {renderProgress()}
+          </Box>
+        )}
         <Typography align="center" variant="h6">
           {verse.text}
         </Typography>

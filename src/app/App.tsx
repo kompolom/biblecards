@@ -24,6 +24,12 @@ const VersesListPage = lazy(() =>
 );
 const PageVerseEdit = lazy(() => import('../pages/verseEdit'));
 const PageVerseAdd = lazy(() => import('../pages/verseAdd'));
+const ProgressPage = lazy(() =>
+  import('../pages/progress').then((m) => ({ default: m.ProgressPage })),
+);
+const HomePage = lazy(() =>
+  import('../pages/home').then((m) => ({ default: m.HomePage })),
+);
 const GamePage = lazy(() =>
   import('../pages/game').then((module) => ({ default: module.GamePage })),
 );
@@ -50,13 +56,17 @@ export const App = () => {
                         index
                         path="/"
                         element={
-                          <Typography>
-                            Приветствую тебя дорогой посититель этого сайта,
-                            здесь тебе откроется невероятная возможность учить
-                            библейские стихи весело и быстро! Так как тут нет
-                            базы данных стихов тебе надо их записать самому, и
-                            ты можешь даже сам их придумать!
-                          </Typography>
+                          <Suspense fallback={<LoaderSplash />}>
+                            <HomePage />
+                          </Suspense>
+                        }
+                      />
+                      <Route
+                        path="/progress"
+                        element={
+                          <Suspense fallback={<LoaderSplash />}>
+                            <ProgressPage />
+                          </Suspense>
                         }
                       />
                       <Route

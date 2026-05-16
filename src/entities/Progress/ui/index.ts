@@ -1,0 +1,1 @@
+export { MasteryBadge } from './MasteryBadge';
