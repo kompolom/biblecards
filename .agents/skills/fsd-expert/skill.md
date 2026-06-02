@@ -1,3 +1,8 @@
+---
+name: fsd-expert
+description: "FSD methodology expert. Helps to design frontend."
+---
+
 # Feature Sliced Design (FSD) Expert
 
 Этот skill помогает проектировать фронтенд-архитектуру по методологии **Feature-Sliced Design**.
