@@ -1,0 +1,29 @@
+{
+  "name": "bibicards-dev",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:24",
+  "onCreateCommand": "npm ci && git config --global --add safe.directory ${containerWorkspaceFolder}",
+  "forwardPorts": [3000, 6006],
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "latest"
+    }
+  },
+  "mounts": [
+    "source=${localEnv:HOME}/.gitconfig,target=/home/node/.gitconfig,type=bind,consistency=cached"
+  ],
+  "portsAttributes": {
+    "3000": {
+      "label": "Vite App",
+      "onAutoForward": "notify"
+    },
+    "6006": {
+      "label": "Storybook",
+      "onAutoForward": "notify"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {}
+    }
+  }
+}
