@@ -16,6 +16,12 @@
   --container--dimension--offset: 24px;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html,
 body,
 #⚛️,

@@ -7,6 +7,7 @@ export const ContainerTokens = {
 };
 
 export const Container = styled(Box, { name: 'container' })({
+  width: '100%',
   marginLeft: 'auto',
   marginRight: 'auto',
   boxSizing: 'border-box',
@@ -14,4 +15,5 @@ export const Container = styled(Box, { name: 'container' })({
   maxWidth: ContainerTokens.Width('100%'),
   paddingInlineStart: ContainerTokens.Offset(),
   paddingInlineEnd: ContainerTokens.Offset(),
+  overflowX: 'clip',
 });
