@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Typography, LinearProgress, Button } from '@mui/material';
+import { Box, Typography, LinearProgress, Button, styled } from '@mui/material';
 import { ISessionConfig } from 'entities/LearningSession';
 import { useLearningSession } from 'features/LearningSession';
 import { ScrambleTest } from 'features/Scramble';
@@ -8,6 +8,11 @@ import { TextToSourceTest } from 'features/Test';
 import { ITestResult, SimpleTestFeedback } from 'entities/Test';
 import { Loader } from 'shared/ui/Loader';
 import { SessionSummary } from './SessionSummary';
+
+const name = 'LearningSession';
+const Root = styled(Box, { name })({
+  marginBlock: 'auto',
+});
 
 interface LearningSessionWidgetProps {
   config: ISessionConfig;
@@ -53,7 +58,7 @@ export const LearningSessionWidget = ({
   const progress = (currentIndex / totalSteps) * 100;
 
   return (
-    <Box sx={{ width: '100%', maxWidth: 600, mx: 'auto', p: 2 }}>
+    <Root>
       <Box sx={{ mb: 2 }}>
         <Typography variant="caption" color="text.secondary">
           Шаг {currentIndex + 1} из {totalSteps}
@@ -108,6 +113,6 @@ export const LearningSessionWidget = ({
           )}
         </>
       )}
-    </Box>
+    </Root>
   );
 };
