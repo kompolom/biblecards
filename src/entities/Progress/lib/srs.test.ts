@@ -13,7 +13,11 @@ describe('SRSManager', () => {
 
   describe('calculateNextReview', () => {
     it('should set interval to 1 for first success', () => {
-      const result: IStudyResult = { accuracy: 1.0, isSuccess: true, timestamp };
+      const result: IStudyResult = {
+        accuracy: 1.0,
+        isSuccess: true,
+        timestamp,
+      };
       const next = SRSManager.calculateNextReview(initialSrs, result);
 
       expect(next.srs.interval).toBe(1);
@@ -24,7 +28,11 @@ describe('SRSManager', () => {
 
     it('should set interval to 6 for second success (interval was 1)', () => {
       const srs: ISRSData = { ...initialSrs, interval: 1 };
-      const result: IStudyResult = { accuracy: 1.0, isSuccess: true, timestamp };
+      const result: IStudyResult = {
+        accuracy: 1.0,
+        isSuccess: true,
+        timestamp,
+      };
       const next = SRSManager.calculateNextReview(srs, result);
 
       expect(next.srs.interval).toBe(6);
@@ -32,7 +40,11 @@ describe('SRSManager', () => {
 
     it('should use ease factor for subsequent successes', () => {
       const srs: ISRSData = { ...initialSrs, interval: 6, easeFactor: 2.5 };
-      const result: IStudyResult = { accuracy: 1.0, isSuccess: true, timestamp };
+      const result: IStudyResult = {
+        accuracy: 1.0,
+        isSuccess: true,
+        timestamp,
+      };
       const next = SRSManager.calculateNextReview(srs, result);
 
       expect(next.srs.interval).toBe(15); // 6 * 2.5 = 15
@@ -40,7 +52,11 @@ describe('SRSManager', () => {
 
     it('should reset interval to 1 on failure', () => {
       const srs: ISRSData = { ...initialSrs, interval: 15, easeFactor: 2.5 };
-      const result: IStudyResult = { accuracy: 0.2, isSuccess: false, timestamp };
+      const result: IStudyResult = {
+        accuracy: 0.2,
+        isSuccess: false,
+        timestamp,
+      };
       const next = SRSManager.calculateNextReview(srs, result);
 
       expect(next.srs.interval).toBe(1);
@@ -50,8 +66,16 @@ describe('SRSManager', () => {
 
   describe('updateStats', () => {
     it('should update success count and best accuracy', () => {
-      const stats: IProgressStats = { successCount: 5, failCount: 2, bestAccuracy: 0.8 };
-      const result: IStudyResult = { accuracy: 0.95, isSuccess: true, timestamp };
+      const stats: IProgressStats = {
+        successCount: 5,
+        failCount: 2,
+        bestAccuracy: 0.8,
+      };
+      const result: IStudyResult = {
+        accuracy: 0.95,
+        isSuccess: true,
+        timestamp,
+      };
       const updated = SRSManager.updateStats(stats, result);
 
       expect(updated.successCount).toBe(6);
@@ -60,8 +84,16 @@ describe('SRSManager', () => {
     });
 
     it('should update fail count', () => {
-      const stats: IProgressStats = { successCount: 5, failCount: 2, bestAccuracy: 0.8 };
-      const result: IStudyResult = { accuracy: 0.1, isSuccess: false, timestamp };
+      const stats: IProgressStats = {
+        successCount: 5,
+        failCount: 2,
+        bestAccuracy: 0.8,
+      };
+      const result: IStudyResult = {
+        accuracy: 0.1,
+        isSuccess: false,
+        timestamp,
+      };
       const updated = SRSManager.updateStats(stats, result);
 
       expect(updated.successCount).toBe(5);
@@ -71,9 +103,10 @@ describe('SRSManager', () => {
   });
 
   describe('calculateMastery', () => {
-    it('should clamp mastery level between 1 and 5', () => {
+    it('should clamp mastery level between 0 and 5', () => {
       expect(SRSManager.calculateMastery(5, 1)).toBe(5);
-      expect(SRSManager.calculateMastery(1, -1)).toBe(1);
+      expect(SRSManager.calculateMastery(1, -1)).toBe(0);
+      expect(SRSManager.calculateMastery(0, -1)).toBe(0);
       expect(SRSManager.calculateMastery(3, 1)).toBe(4);
       expect(SRSManager.calculateMastery(3, -1)).toBe(2);
     });
