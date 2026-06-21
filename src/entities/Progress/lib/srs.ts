@@ -58,7 +58,8 @@ export class SRSManager {
       }
 
       // Update ease factor
-      easeFactor = easeFactor + (0.1 - (5 - grade) * (0.08 + (5 - grade) * 0.02));
+      easeFactor =
+        easeFactor + (0.1 - (5 - grade) * (0.08 + (5 - grade) * 0.02));
       if (easeFactor < 1.3) easeFactor = 1.3;
 
       masteryChange = 1;
@@ -103,6 +104,6 @@ export class SRSManager {
    */
   static calculateMastery(currentLevel: number, change: number): number {
     const nextLevel = currentLevel + change;
-    return Math.max(1, Math.min(5, nextLevel));
+    return Math.max(0, Math.min(5, nextLevel));
   }
 }

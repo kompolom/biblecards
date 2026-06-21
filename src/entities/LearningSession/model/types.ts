@@ -9,7 +9,11 @@ export interface ISessionConfig {
 
 export interface ISessionStep {
   excerptId: string;
-  testType: 'scramble' | 'text-to-variants';
+  testType:
+    | 'scramble'
+    | 'text-to-variants'
+    | 'flip-card-text'
+    | 'flip-card-source';
 }
 
 export interface ISessionResult {

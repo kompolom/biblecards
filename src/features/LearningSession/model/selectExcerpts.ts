@@ -1,8 +1,43 @@
 import { Excerpt } from 'entities/Verse';
 import { IProgress } from 'entities/Progress';
 import { SessionStrategy, ISessionStep } from 'entities/LearningSession';
-import { shuffle } from 'shared/random';
+import { shuffle, getRandomArrayItem } from 'shared/random';
 
+const MASTERY_TEST_MAP: Record<number, ISessionStep['testType'][]> = {
+  0: ['flip-card-source'],
+  1: ['flip-card-text'],
+  2: ['text-to-variants'],
+  4: ['scramble'],
+};
+
+/**
+ * Determines the appropriate test type based on the user's mastery level.
+ * Uses a threshold-based map to find available test options for the given level.
+ *
+ * @param mastery - The current mastery level of the excerpt (0 to 5).
+ * @returns A randomly selected test type available for the matched mastery threshold.
+ */
+const getTestTypeByMastery = (mastery: number): ISessionStep['testType'] => {
+  const thresholds = Object.keys(MASTERY_TEST_MAP)
+    .map(Number)
+    .sort((a, b) => b - a);
+
+  const matchedThreshold = thresholds.find((t) => mastery >= t) ?? 0;
+  const options = MASTERY_TEST_MAP[matchedThreshold];
+
+  return getRandomArrayItem(options);
+};
+
+/**
+ * Selects a set of excerpts and assigns appropriate test types for a learning session.
+ * Supports different selection strategies like 'random' or 'weakest'.
+ *
+ * @param allExcerpts - List of all available Bible excerpts.
+ * @param allProgress - Current user progress for each excerpt.
+ * @param strategy - The selection strategy ('random' or 'weakest').
+ * @param count - Maximum number of excerpts to include in the session.
+ * @returns An array of session steps, each containing an excerpt ID and its assigned test type.
+ */
 export const selectExcerpts = (
   allExcerpts: Excerpt[],
   allProgress: IProgress[],
@@ -51,7 +86,7 @@ export const selectExcerpts = (
 
     return {
       excerptId: excerpt.id,
-      testType: mastery >= 3 ? 'scramble' : 'text-to-variants',
+      testType: getTestTypeByMastery(mastery),
     };
   });
 };

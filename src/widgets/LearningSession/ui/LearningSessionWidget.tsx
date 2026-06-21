@@ -3,6 +3,7 @@ import { Box, Typography, LinearProgress, Button } from '@mui/material';
 import { ISessionConfig } from 'entities/LearningSession';
 import { useLearningSession } from 'features/LearningSession';
 import { ScrambleTest } from 'features/Scramble';
+import { FlipCardTest } from 'features/FlipCardTest';
 import { TextToSourceTest } from 'features/Test';
 import { ITestResult, SimpleTestFeedback } from 'entities/Test';
 import { Loader } from 'shared/ui/Loader';
@@ -84,6 +85,18 @@ export const LearningSessionWidget = ({
         <>
           {currentStep.testType === 'scramble' ? (
             <ScrambleTest
+              excerpt={currentExcerpt}
+              onComplete={onTestComplete}
+            />
+          ) : currentStep.testType === 'flip-card-source' ? (
+            <FlipCardTest
+              mode="text-to-source"
+              excerpt={currentExcerpt}
+              onComplete={onTestComplete}
+            />
+          ) : currentStep.testType === 'flip-card-text' ? (
+            <FlipCardTest
+              mode="source-to-text"
               excerpt={currentExcerpt}
               onComplete={onTestComplete}
             />
