@@ -12,8 +12,8 @@
 
   /* Отступ между элементами */
   --gutter: 16px;
-  --container--width: 800px;
-  --container--offset: 24px;
+  --container--dimension--width: 800px;
+  --container--dimension--offset: 24px;
 }
 
 html,
