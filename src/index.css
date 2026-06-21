@@ -13,7 +13,7 @@
   /* Отступ между элементами */
   --gutter: 16px;
   --container--dimension--width: 800px;
-  --container--dimension--offset: 24px;
+  --container--dimension--offset: var(--gutter);
 }
 
 *,
