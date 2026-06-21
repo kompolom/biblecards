@@ -11,6 +11,7 @@ import { RoutesContextProvider } from 'shared/routes';
 import { LoaderSplash } from 'shared/ui/LoaderSplash';
 import { useVerseRepository } from './model/useVerseRepository';
 import { Provider } from 'react-redux';
+import { ThemeProvider, createTheme } from '@mui/material';
 import { store } from './store';
 import { BookTranslator, BookTranslatorContext } from 'entities/Verse';
 import { ProgressRepositoryProvider } from 'entities/Progress';
@@ -41,74 +42,108 @@ export const App = () => {
     (book: number) => books_ru[book - 1],
     [],
   );
+
+  const theme = createTheme({
+    palette: {
+      primary: { main: '#3f51b5' },
+      text: { primary: '#34495e' },
+    },
+    typography: { fontFamily: 'Inter, sans-serif' },
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          root: { borderRadius: 8, textTransform: 'none', fontWeight: 600 },
+          containedPrimary: {
+            backgroundColor: 'var(--color-theme)',
+            color: 'var(--color-text-inverse)',
+            '&:hover': {
+              backgroundColor: 'var(--color-theme)',
+              filter: 'brightness(0.9)',
+            },
+          },
+        },
+      },
+      MuiAppBar: {
+        styleOverrides: {
+          root: {
+            backgroundColor: 'var(--color-theme)',
+            color: 'var(--color-text-inverse)',
+          },
+        },
+      },
+    },
+  });
+
   return (
     <Provider store={store}>
-      <BookTranslatorContext value={ru}>
-        <div className="App">
-          <VerseStorageContextProvider value={db}>
-            <ProgressRepositoryProvider value={progressDb}>
-              <AlertManagerProvider>
-                <RoutesContextProvider value={routes}>
-                  <Router>
-                    <Header />
-                    <Routes>
-                      <Route
-                        index
-                        path="/"
-                        element={
-                          <Suspense fallback={<LoaderSplash />}>
-                            <HomePage />
-                          </Suspense>
-                        }
-                      />
-                      <Route
-                        path="/progress"
-                        element={
-                          <Suspense fallback={<LoaderSplash />}>
-                            <ProgressPage />
-                          </Suspense>
-                        }
-                      />
-                      <Route
-                        path="/game"
-                        element={
-                          <Suspense fallback={<LoaderSplash />}>
-                            <GamePage />
-                          </Suspense>
-                        }
-                      />
-                      <Route
-                        path="/list"
-                        element={
-                          <Suspense fallback={<LoaderSplash />}>
-                            <VersesListPage />
-                          </Suspense>
-                        }
-                      />
-                      <Route
-                        path="/add"
-                        element={
-                          <Suspense fallback={<LoaderSplash />}>
-                            <PageVerseAdd />
-                          </Suspense>
-                        }
-                      />
-                      <Route
-                        path="/edit/:id"
-                        element={
-                          <Suspense fallback={<LoaderSplash />}>
-                            <PageVerseEdit />
-                          </Suspense>
-                        }
-                      />
-                    </Routes>
-                  </Router>
-                </RoutesContextProvider>
-              </AlertManagerProvider>
-            </ProgressRepositoryProvider>
-          </VerseStorageContextProvider>
-        </div>
-      </BookTranslatorContext>
+      <ThemeProvider theme={theme}>
+        <BookTranslatorContext value={ru}>
+          <div className="App">
+            <VerseStorageContextProvider value={db}>
+              <ProgressRepositoryProvider value={progressDb}>
+                <AlertManagerProvider>
+                  <RoutesContextProvider value={routes}>
+                    <Router>
+                      <Header />
+                      <Routes>
+                        <Route
+                          index
+                          path="/"
+                          element={
+                            <Suspense fallback={<LoaderSplash />}>
+                              <HomePage />
+                            </Suspense>
+                          }
+                        />
+                        <Route
+                          path="/progress"
+                          element={
+                            <Suspense fallback={<LoaderSplash />}>
+                              <ProgressPage />
+                            </Suspense>
+                          }
+                        />
+                        <Route
+                          path="/game"
+                          element={
+                            <Suspense fallback={<LoaderSplash />}>
+                              <GamePage />
+                            </Suspense>
+                          }
+                        />
+                        <Route
+                          path="/list"
+                          element={
+                            <Suspense fallback={<LoaderSplash />}>
+                              <VersesListPage />
+                            </Suspense>
+                          }
+                        />
+                        <Route
+                          path="/add"
+                          element={
+                            <Suspense fallback={<LoaderSplash />}>
+                              <PageVerseAdd />
+                            </Suspense>
+                          }
+                        />
+                        <Route
+                          path="/edit/:id"
+                          element={
+                            <Suspense fallback={<LoaderSplash />}>
+                              <PageVerseEdit />
+                            </Suspense>
+                          }
+                        />
+                      </Routes>
+                    </Router>
+                  </RoutesContextProvider>
+                </AlertManagerProvider>
+              </ProgressRepositoryProvider>
+            </VerseStorageContextProvider>
+          </div>
+        </BookTranslatorContext>
+      </ThemeProvider>
     </Provider>
   );
 };

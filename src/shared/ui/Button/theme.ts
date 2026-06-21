@@ -4,11 +4,11 @@ export const themeLight = new CSSStyleSheet();
 themeLight.insertRule(`
 :host {
   ${ButtonTokens.Background}: #fff;
-  ${ButtonTokens.BorderColor}: rgb(226 232 240);
-  ${ButtonTokens.BorderColorDisabled}: rgb(226 232 240);
-  ${ButtonTokens.TextColor}: rgb(15 23 42);
-  ${ButtonTokens.TextColorDisabled}: rgb(226 232 240);
-  ${ButtonTokens.Radius}: 5px;
+  ${ButtonTokens.BorderColor}: #e2e8f0;
+  ${ButtonTokens.BorderColorDisabled}: #e2e8f0;
+  ${ButtonTokens.TextColor}: var(--color-text);
+  ${ButtonTokens.TextColorDisabled}: #e2e8f0;
+  ${ButtonTokens.Radius}: 8px;
 }
 `);
 

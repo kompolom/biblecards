@@ -31,11 +31,22 @@ export const Header = (props: HeaderProps) => {
                 sx={{
                   backgroundColor:
                     currentRoute.path === route.path
-                      ? 'rgba(255, 255, 255, 0.12)'
+                      ? 'rgba(255, 255, 255, 0.2)'
                       : 'transparent',
+                  padding: '12px',
+                  '&:hover': {
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  },
                 }}
               >
-                {Icon && <Icon sx={{ fontSize: 20 }} />}
+                {Icon && (
+                  <Icon
+                    sx={{
+                      fontSize: 28,
+                      opacity: currentRoute.path === route.path ? 1 : 0.7,
+                    }}
+                  />
+                )}
               </IconButton>
             </Tooltip>
           );
