@@ -1,31 +1,45 @@
-import React, { MouseEventHandler, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useCurrentRoute, useRoutes } from 'shared/routes';
 import { AppHeader } from 'shared/ui/AppHeader';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
+import { IconButton, Tooltip } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 export interface HeaderProps {}
 export const Header = (props: HeaderProps) => {
-    const navigate = useNavigate();
-    const routes = useRoutes();
-    const currentRoute = useCurrentRoute();
-    const onRouteClick: MouseEventHandler = useCallback((e) => {
-      e.preventDefault();
-      navigate(e.currentTarget.getAttribute('href'));
-    }, [navigate]);
+  const navigate = useNavigate();
+  const routes = useRoutes();
+  const currentRoute = useCurrentRoute();
 
-    return <AppHeader title={currentRoute.title}>
-          <List>
-            {routes.filter(route => route.showInMenu).map((route) => (
-              <ListItem disablePadding key={route.path}>
-                <ListItemButton onClick={onRouteClick} href={route.path}>
-                  <ListItemText primary={route.title} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
+  const handleRouteClick = useCallback(
+    (path: string) => {
+      navigate(path);
+    },
+    [navigate],
+  );
+
+  return (
+    <AppHeader title={currentRoute.title}>
+      {routes
+        .filter((route) => route.showInMenu)
+        .map((route) => {
+          const Icon = route.icon;
+          return (
+            <Tooltip key={route.path} title={route.title}>
+              <IconButton
+                color="inherit"
+                onClick={() => handleRouteClick(route.path)}
+                sx={{
+                  backgroundColor:
+                    currentRoute.path === route.path
+                      ? 'rgba(255, 255, 255, 0.12)'
+                      : 'transparent',
+                }}
+              >
+                {Icon && <Icon sx={{ fontSize: 20 }} />}
+              </IconButton>
+            </Tooltip>
+          );
+        })}
     </AppHeader>
-}
+  );
+};
