@@ -9,38 +9,26 @@ import {
   Stack,
   Divider
 } from '@mui/material';
-import { useProgressRepository, IProgress, MasteryBadge } from 'entities/Progress';
-import { useSelector } from 'react-redux';
-import { versesListSelector } from 'entities/Verse';
-import { VerseCard } from 'entities/Verse/ui/VerseCard';
+import { MasteryBadge } from 'entities/Progress';
+import { VerseCard } from 'entities/Verse';
 import { Link } from 'react-router-dom';
 import { PlayArrow as PlayIcon } from '@mui/icons-material';
+import { useLoadDailyReviewList, ReviewListItem } from '../model/useDailyReviewList';
 
 export const DailyReviewList = () => {
-  const [dueProgress, setDueProgress] = useState<IProgress[]>([]);
-  const [loading, setLoading] = useState(true);
-  const repository = useProgressRepository();
-  const allVerses = useSelector(versesListSelector);
+  const [loading, setLoading] = useState(false);
+  const loadDailyReviewList = useLoadDailyReviewList();
+  const [dueVerses, setDueProgress] = useState<ReviewListItem[]>([]);
 
   useEffect(() => {
-    if (!repository) return;
+    if (loading || dueVerses.length) return;
+    console.info('Load DailyReviewList');
+    setLoading(true);
+    loadDailyReviewList().then(verses => {
+      setDueProgress(verses);
+    }).finally(() => { setLoading(false); });
+  }, [loading, loadDailyReviewList, dueVerses.length]);
 
-    repository.getDueReviews()
-      .then(progress => {
-        setDueProgress(progress);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, [repository]);
-
-  const dueVerses = useMemo(() => {
-    return dueProgress
-      .map(p => {
-        const verse = allVerses.find(v => v.id === p.excerptId);
-        return verse ? { verse, progress: p } : null;
-      })
-      .filter((v): v is { verse: any, progress: IProgress } => v !== null);
-  }, [dueProgress, allVerses]);
 
   if (loading) {
     return (

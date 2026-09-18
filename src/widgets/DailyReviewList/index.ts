@@ -1,1 +1,1 @@
-export { DailyReviewList } from './DailyReviewList';
+export { DailyReviewList } from './ui/DailyReviewList';
