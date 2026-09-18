@@ -1,10 +1,8 @@
-import React, { useCallback } from 'react';
-import { useVerseStorageContext } from 'features/Verse';
-import { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useFormatSource, Excerpt, useVerseRepository } from 'entities/Verse';
 import { Loader } from 'shared/ui/Loader';
 import { TextToSource, TextToSourceVariants } from 'features/Test';
 import { useAlertManager } from 'shared/ui/AlertManager';
-import { useFormatSource, Excerpt } from 'entities/Verse';
 import { useStudyProgress } from 'features/study-progress';
 import { ITestResult, TestFeedback } from 'entities/Test';
 import { getRandomArrayItem } from 'shared/random';
@@ -19,7 +17,7 @@ export const SingleTextToVariantsWidget = ({
   onComplete,
 }: SingleTextToVariantsWidgetProps) => {
   const am = useAlertManager();
-  const storage = useVerseStorageContext();
+  const storage = useVerseRepository();
   const formatSource = useFormatSource();
   const { registerStudyAttempt } = useStudyProgress();
 

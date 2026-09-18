@@ -1,7 +1,6 @@
 import React from 'react';
 import { ScrambleTest } from 'features/Scramble';
-import { useVerseStorageContext } from 'features/Verse';
-import { Excerpt } from 'entities/Verse';
+import { Excerpt, useVerseRepository } from 'entities/Verse';
 import { getRandomArrayItem } from 'shared/random';
 import { Loader } from 'shared/ui/Loader';
 import { useStudyProgress } from 'features/study-progress';
@@ -16,7 +15,7 @@ export const ScrambleWidget = ({
   excerpt: initialExcerpt,
   onComplete,
 }: ScrambleWidgetProps) => {
-  const repository = useVerseStorageContext();
+  const repository = useVerseRepository();
   const { registerStudyAttempt } = useStudyProgress();
   const [excerpt, setExcerpt] = React.useState<Excerpt | null>(
     initialExcerpt || null,

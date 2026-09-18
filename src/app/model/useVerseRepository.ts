@@ -1,6 +1,6 @@
 import { useInitDb } from './useInitDb';
 import { useEffect, useState } from 'react';
-import { IVerseRepository } from 'features/Verse';
+import { IVerseRepository } from 'entities/Verse';
 import { VerseRepository } from '../repositories/Verse.repository';
 import { isBrowser } from 'shared/utils';
 

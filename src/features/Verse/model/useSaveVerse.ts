@@ -2,12 +2,11 @@ import { useCallback } from "react";
 import { AnyAction } from "redux";
 import { useDispatch } from 'react-redux';
 import { ThunkDispatch } from "@reduxjs/toolkit";
-import { Excerpt, VersesStateShape } from "entities/Verse";
-import { useVerseStorageContext } from "./verseStorageContext";
+import { Excerpt, VersesStateShape, useVerseRepository } from "entities/Verse";
 import { saveVerseThunk } from "./save.thunk";
 
 export function useSaveVerse() {
-    const db = useVerseStorageContext();
+    const db = useVerseRepository();
     const dispatch: ThunkDispatch<VersesStateShape, unknown, AnyAction> = useDispatch();
     return useCallback((verse: Excerpt) =>
         dispatch(saveVerseThunk({ verse, db }))

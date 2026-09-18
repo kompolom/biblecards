@@ -7,3 +7,5 @@ export * from './formatExcerptSource';
 export * from './source';
 export * from './useFormatSource';
 export * from './useBookTranlator';
+export * from './IVerseRepository';
+export * from './verseRepositoryContext';

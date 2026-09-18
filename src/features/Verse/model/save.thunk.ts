@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Excerpt, versesSlice } from "entities/Verse";
-import { IVerseRepository } from "../api";
+import { Excerpt, versesSlice, IVerseRepository } from "entities/Verse";
 
 type SaveVerseArgs = {
     verse: Excerpt,

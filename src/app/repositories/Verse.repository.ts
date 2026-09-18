@@ -1,5 +1,4 @@
-import { IVerseRepository } from 'features/Verse';
-import { Excerpt, ExcerptSource } from 'entities/Verse';
+import { IVerseRepository, Excerpt, ExcerptSource } from 'entities/Verse';
 import { BiblecardsDB, VerseDTO } from '../database/Bibicards';
 
 export class VerseRepository implements IVerseRepository {

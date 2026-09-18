@@ -4,15 +4,14 @@ import {
   ISessionState,
   ISessionResult,
 } from 'entities/LearningSession';
-import { useVerseStorageContext } from 'features/Verse';
+import { Excerpt, useVerseRepository } from 'entities/Verse';
 import { useProgressRepository } from 'entities/Progress';
 import { useStudyProgress } from 'features/study-progress';
 import { ITestResult } from 'entities/Test';
-import { Excerpt } from 'entities/Verse';
 import { selectExcerpts } from './selectExcerpts';
 
 export function useLearningSession(config: ISessionConfig) {
-  const verseStorage = useVerseStorageContext();
+  const verseStorage = useVerseRepository();
   const progressRepository = useProgressRepository();
   const { registerStudyAttempt } = useStudyProgress();
 

@@ -5,7 +5,7 @@ import '../App.css';
 import { Header } from 'widgets/Header';
 import { AlertManagerProvider } from 'shared/ui/AlertManager';
 import { Typography } from '@mui/material';
-import { VerseStorageContextProvider } from 'features/Verse';
+import { BookTranslator, BookTranslatorContext, VerseRepositoryProvider } from 'entities/Verse';
 import { routes } from './model';
 import { RoutesContextProvider } from 'shared/routes';
 import { LoaderSplash } from 'shared/ui/LoaderSplash';
@@ -13,7 +13,6 @@ import { useVerseRepository } from './model/useVerseRepository';
 import { Provider } from 'react-redux';
 import { ThemeProvider, createTheme } from '@mui/material';
 import { store } from './store';
-import { BookTranslator, BookTranslatorContext } from 'entities/Verse';
 import { ProgressRepositoryProvider } from 'entities/Progress';
 import { useProgressRepository } from './model/useProgressRepository';
 import books_ru from './translations/books.ru.json';
@@ -79,7 +78,7 @@ export const App = () => {
       <ThemeProvider theme={theme}>
         <BookTranslatorContext value={ru}>
           <div className="App">
-            <VerseStorageContextProvider value={db}>
+            <VerseRepositoryProvider value={db}>
               <ProgressRepositoryProvider value={progressDb}>
                 <AlertManagerProvider>
                   <RoutesContextProvider value={routes}>
@@ -140,7 +139,7 @@ export const App = () => {
                   </RoutesContextProvider>
                 </AlertManagerProvider>
               </ProgressRepositoryProvider>
-            </VerseStorageContextProvider>
+            </VerseRepositoryProvider>
           </div>
         </BookTranslatorContext>
       </ThemeProvider>

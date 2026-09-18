@@ -9,9 +9,8 @@ import {
   Divider,
 } from '@mui/material';
 import { ISessionResult } from 'entities/LearningSession';
-import { useVerseStorageContext } from 'features/Verse';
 import { useProgressRepository, MasteryBadge } from 'entities/Progress';
-import { Excerpt, useFormatSource } from 'entities/Verse';
+import { Excerpt, useFormatSource, useVerseRepository } from 'entities/Verse';
 import { Loader } from 'shared/ui/Loader';
 
 interface SessionSummaryProps {
@@ -20,7 +19,7 @@ interface SessionSummaryProps {
 }
 
 export const SessionSummary = ({ results, onClose }: SessionSummaryProps) => {
-  const verseStorage = useVerseStorageContext();
+  const verseStorage = useVerseRepository();
   const progressRepository = useProgressRepository();
   const formatSource = useFormatSource();
   const [data, setData] = useState<{ excerpt: Excerpt; mastery: number }[]>([]);

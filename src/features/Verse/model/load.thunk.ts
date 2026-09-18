@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { versesSlice } from "entities/Verse";
-import { IVerseRepository } from "../api";
+import { versesSlice, IVerseRepository } from "entities/Verse";
 
 export type LoadVersesQuery = {
     skip?: number
