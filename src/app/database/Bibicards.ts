@@ -71,10 +71,11 @@ export class BiblecardsDB extends IndexedDBClient {
     });
   }
 
-  async getDueProgress(date: string): Promise<ProgressDTO[]> {
+  async getDueProgress(date: string, count = 1000): Promise<ProgressDTO[]> {
     return super.read<ProgressDTO>(BiblecardsDB.PROGRESS_STORE, {
+      index: 'nextReviewDate',
       query: IDBKeyRange.upperBound(date),
-      count: 1000,
+      count,
     });
   }
 

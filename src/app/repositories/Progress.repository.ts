@@ -27,7 +27,7 @@ export class IndexedDBProgressRepository implements IProgressRepository {
   }
 
   async getDueReviews(date: Date = new Date()): Promise<IProgress[]> {
-    const dtos = await this.#db.getDueProgress(date.toISOString());
+    const dtos = await this.#db.getDueProgress(date.toISOString(), 10);
     return dtos.map(dto => this.#mapDtoToProgress(dto));
   }
 

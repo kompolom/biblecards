@@ -1,5 +1,5 @@
 export type Query = IDBValidKey|IDBKeyRange;
-export type ReadRequest = { count?: number, offset?: number, query?: Query, direction?: IDBCursorDirection }
+export type ReadRequest = { count?: number, offset?: number, query?: Query, direction?: IDBCursorDirection, index?: string }
 
 export class IndexedDBClient {
     static async init<T extends IndexedDBClient>(name: string, version: number, Cls?: new (a: string, b: number) => T) {
@@ -80,10 +80,11 @@ export class IndexedDBClient {
         });
     }
 
-    async read<DataType>(storeName: string, { count = 1, offset = 0, query, direction }: ReadRequest): Promise<DataType[]> {
+    async read<DataType>(storeName: string, { count = 1, offset = 0, query, direction, index }: ReadRequest): Promise<DataType[]> {
         return new Promise((resolve, reject) => {
             const store = this.#db.transaction(storeName).objectStore(storeName);
-            const req = store.openCursor(query, direction);
+            const source = index ? store.index(index) : store;
+            const req = source.openCursor(query, direction);
             const acc = [], end = count + offset;
             let counter = offset;
             req.onerror = reject;
